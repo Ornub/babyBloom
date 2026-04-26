@@ -173,6 +173,8 @@ a{color:var(--r)}
 .tabs::-webkit-scrollbar{display:none}
 .tab{flex-shrink:0;padding:8px 16px;border-radius:18px;border:2px solid var(--bd);background:var(--tab-bg);color:var(--tab-idle);font-weight:700;font-size:.75rem;cursor:pointer;transition:.2s;white-space:nowrap;font-family:'Outfit',sans-serif}
 .tab.on{background:var(--r);border-color:var(--r);color:#fff}
+/* Sub-tab row inside a panel — extra top margin for breathing room */
+.panel>.tabs{margin-top:6px;padding-top:14px;border-top:1.5px solid var(--bd)}
 .panel{display:none}.panel.on{display:block;animation:pageIn .25s ease}
 
 /* ══════════════════════════════════════════════════════
@@ -1264,7 +1266,6 @@ body.bad-day .hide-bd{display:none!important}
     <button class="tab" onclick="subTab(this,'mi','mi-calm')">🧘 Calm</button>
     <button class="tab" onclick="subTab(this,'mi','mi-stories')">📖 Stories</button>
     <button class="tab" onclick="subTab(this,'mi','mi-mandala')">🎨 Mandala</button>
-    <button class="tab" onclick="subTab(this,'mi','mi-reads')">📚 Read</button>
   </div>
 
   <!-- MUSIC -->
@@ -1313,6 +1314,16 @@ body.bad-day .hide-bd{display:none!important}
     <div class="card"><div class="card-h"><div class="ico">🌟</div><div><h4>Bhagavad Gita — Chapter 2</h4><small>Wisdom & dharma</small></div></div><div class="card-b"><p>Krishna's teachings on duty, soul, and fearlessness.</p><a href="https://www.sacred-texts.com/hin/gita/index.htm" target="_blank" class="slink">📖 Read</a><a href="https://www.youtube.com/results?search_query=Bhagavad+Gita+chapter+2+recitation" target="_blank" class="slink alt">▶ Listen</a></div></div>
     <div class="card"><div class="card-h"><div class="ico">🌊</div><div><h4>Dhruva & the Pole Star</h4><small>Devotion & determination</small></div></div><div class="card-b"><p>Little Dhruva's unshakeable faith earned him eternal place in the sky.</p><a href="https://www.youtube.com/results?search_query=Dhruva+story+Vishnu+Hindi" target="_blank" class="slink alt">▶ Watch</a></div></div>
     <div class="card"><div class="card-h"><div class="ico">🦚</div><div><h4>Savitri & Satyavan</h4><small>Love triumphs over death</small></div></div><div class="card-b"><p>Savitri's love won her husband back from Yama with wisdom.</p><a href="https://www.sacred-texts.com/hin/maha/maha03.htm" target="_blank" class="slink">📖 Read</a></div></div>
+
+    <div style="margin-top:18px;padding-top:14px;border-top:1.5px solid var(--bd)">
+      <h4 class="serif" style="margin-bottom:12px">📚 Suggested Books & Watching</h4>
+      <div class="card"><div class="card-b"><span class="pill pg">📗 Book</span><h4 style="margin-top:7px">What to Expect When You're Expecting</h4><p style="font-size:.82rem;color:var(--ts)">Week-by-week pregnancy guide — the gold standard.</p><a href="https://www.whattoexpect.com" target="_blank" class="slink">→ Read Online</a></div></div>
+      <div class="card"><div class="card-b"><span class="pill pg">📗 Book</span><h4 style="margin-top:7px">Garbha Sanskar — Dr. Balaji Tambe</h4><p style="font-size:.82rem;color:var(--ts)">Ancient Indian prenatal education — stories, mantras, music.</p><a href="https://www.amazon.in/s?k=Garbha+Sanskar+Balaji+Tambe" target="_blank" class="slink">→ Amazon</a></div></div>
+      <div class="card"><div class="card-b"><span class="pill pr">🎬 Video</span><h4 style="margin-top:7px">Pregnancy Week by Week (Animated)</h4><p style="font-size:.82rem;color:var(--ts)">Beautiful visual guide to baby's development each week.</p><a href="https://www.youtube.com/results?search_query=pregnancy+week+by+week+animation" target="_blank" class="slink">→ YouTube</a></div></div>
+      <div class="card"><div class="card-b"><span class="pill pr">🎬 Video</span><h4 style="margin-top:7px">Mahabharat — BR Chopra (1988)</h4><p style="font-size:.82rem;color:var(--ts)">The epic — ideal for Garbha Sanskar storytelling.</p><a href="https://www.youtube.com/results?search_query=Mahabharat+BR+Chopra+full+episodes" target="_blank" class="slink">→ YouTube</a></div></div>
+      <div class="card"><div class="card-b"><span class="pill ps">🎙️ Audio</span><h4 style="margin-top:7px">Garbha Sanskar Shloka Recitation</h4><p style="font-size:.82rem;color:var(--ts)">Sanskrit shlokas for prenatal education.</p><a href="https://www.youtube.com/results?search_query=garbha+sanskar+shloka" target="_blank" class="slink">→ Listen</a></div></div>
+      <div class="card"><div class="card-b"><span class="pill plv">📱 App</span><h4 style="margin-top:7px">Ovia Pregnancy Tracker</h4><p style="font-size:.82rem;color:var(--ts)">Complementary pregnancy tracker app.</p><a href="https://www.oviahealth.com/" target="_blank" class="slink">→ Download</a></div></div>
+    </div>
   </div>
 
   <!-- MANDALA -->
@@ -1333,16 +1344,6 @@ body.bad-day .hide-bd{display:none!important}
       </div>
       <p style="text-align:center;margin-top:12px;font-size:.8rem;color:var(--ts)">Search "pregnancy mandala coloring level 1–9" on Pinterest</p>
     </div>
-  </div>
-
-  <!-- READ/WATCH -->
-  <div id="mi-reads" class="panel">
-    <div class="card"><div class="card-b"><span class="pill pg">📗 Book</span><h4 style="margin-top:7px">What to Expect When You're Expecting</h4><p>Week-by-week pregnancy guide.</p><a href="https://www.whattoexpect.com" target="_blank" class="slink">→ Read</a></div></div>
-    <div class="card"><div class="card-b"><span class="pill pg">📗 Book</span><h4 style="margin-top:7px">Garbha Sanskar — Dr. Balaji Tambe</h4><p>Ancient Indian prenatal education.</p><a href="https://www.amazon.in/s?k=Garbha+Sanskar+Balaji+Tambe" target="_blank" class="slink">→ Amazon</a></div></div>
-    <div class="card"><div class="card-b"><span class="pill pr">🎬 Video</span><h4 style="margin-top:7px">Pregnancy Week by Week (Animated)</h4><a href="https://www.youtube.com/results?search_query=pregnancy+week+by+week+animation" target="_blank" class="slink">→ YouTube</a></div></div>
-    <div class="card"><div class="card-b"><span class="pill pr">🎬 Video</span><h4 style="margin-top:7px">Mahabharat — BR Chopra (1988)</h4><a href="https://www.youtube.com/results?search_query=Mahabharat+BR+Chopra+full+episodes" target="_blank" class="slink">→ YouTube</a></div></div>
-    <div class="card"><div class="card-b"><span class="pill ps">🎙️ Audio</span><h4 style="margin-top:7px">Garbha Sanskar Shloka Recitation</h4><a href="https://www.youtube.com/results?search_query=garbha+sanskar+shloka" target="_blank" class="slink">→ Listen</a></div></div>
-    <div class="card"><div class="card-b"><span class="pill plv">📱 App</span><h4 style="margin-top:7px">Ovia Pregnancy Tracker</h4><a href="https://www.oviahealth.com/" target="_blank" class="slink">→ Download</a></div></div>
   </div>
 
 </div>
