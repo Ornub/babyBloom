@@ -232,12 +232,7 @@ a{color:var(--r)}
 /* ══════════════════════════════════════════════════════
    ARNAB CARD
 ══════════════════════════════════════════════════════ */
-.arnab{background:var(--arnab-bg);border-radius:16px;padding:18px;border:1px solid var(--bd);margin-bottom:16px}
-.arnab h4{font-family:'DM Serif Display',serif;font-size:1.05rem;margin-bottom:10px}
-.arnab h4::before{content:'👨 '}
-.arnab ul{list-style:none}
-.arnab ul li{padding:8px 12px;background:var(--card);border-radius:10px;margin-bottom:6px;font-size:.85rem;display:flex;align-items:center;gap:8px;border:1px solid var(--bd)}
-.arnab ul li::before{content:'💙'}
+
 
 /* ══════════════════════════════════════════════════════
    QUICK EAT FLOAT + MODAL
@@ -632,6 +627,23 @@ body.bad-day .hide-bd{display:none!important}
     <div class="qe-opt"><div class="emo">🍉</div><div><h5>Watermelon (Cold)</h5><p>92% water — cooling for summer heat</p></div></div>
     <div class="qe-opt"><div class="emo">🥛</div><div><h5>Cold Doi (Curd)</h5><p>Probiotic, calcium-rich, soothing</p></div></div>
     <div class="qe-opt"><div class="emo">🍪</div><div><h5>Plain Crackers</h5><p>Keep bedside — eat before sitting up</p></div></div>
+
+    <!-- Bengali Summer Specials -->
+    <p style="font-family:'DM Serif Display',serif;font-size:1rem;margin:16px 0 10px">🥭 Bengali Summer Specials</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:16px">
+      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🥭 Aam</strong><p style="font-size:.78rem;margin:3px 0">Aam ras with doi</p><span class="pill psk">Cooling</span></div>
+      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🍉 Tarmuj</strong><p style="font-size:.78rem;margin:3px 0">92% water!</p><span class="pill psk">Hydrating</span></div>
+      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🥥 Daab</strong><p style="font-size:.78rem;margin:3px 0">Electrolytes</p><span class="pill ps">Anti-nausea</span></div>
+      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🥛 Mishti Doi</strong><p style="font-size:.78rem;margin:3px 0">Probiotic</p><span class="pill psk">Cooling</span></div>
+    </div>
+
+    <!-- Anti-Nausea Toolkit -->
+    <p style="font-family:'DM Serif Display',serif;font-size:1rem;margin-bottom:10px">🍋 Anti-Nausea Toolkit</p>
+    <div class="qe-opt"><div class="emo">🫚</div><div><h5>Ginger Power</h5><p>Ginger tea, candies, or smell fresh ginger</p></div></div>
+    <div class="qe-opt"><div class="emo">🍋</div><div><h5>Lemon Water</h5><p>Warm water + lemon first thing. Smell a cut lemon!</p></div></div>
+    <div class="qe-opt"><div class="emo">⏰</div><div><h5>Eat Every 2 Hours</h5><p><strong>Empty stomach = worse nausea.</strong> Crackers by bed!</p></div></div>
+    <div class="qe-opt"><div class="emo">❄️</div><div><h5>Cold Foods</h5><p>Less smell. Watermelon, cold doi, cold coconut water.</p></div></div>
+
     <button onclick="closeQE()" class="btn br" style="width:100%;margin-top:14px">Close</button>
   </div>
 </div>
@@ -647,6 +659,63 @@ body.bad-day .hide-bd{display:none!important}
     <div id="loveMsgDisplay" class="love-msg-short">Loading your letter...</div>
     <button class="btn br" onclick="refreshLoveMsg()" style="width:100%;margin-bottom:10px">🔄 Another Message</button>
     <button onclick="closeLove()" class="btn bo" style="width:100%">Close 💕</button>
+  </div>
+</div>
+
+
+<!-- ═══ CALMING OVERLAY — Overwhelmed Mode ═══ -->
+<div class="qe-overlay" id="badDayModal" onclick="if(event.target===this)closeBadDay()" style="z-index:3000">
+  <div class="qe-sheet" style="background:linear-gradient(160deg,var(--lvl) 0%,var(--card2) 60%);max-height:92vh;padding:28px 22px 32px">
+
+    <!-- Header -->
+    <div style="text-align:center;margin-bottom:22px">
+      <div style="font-size:2.4rem;margin-bottom:8px" id="bdMoodEmoji">🌸</div>
+      <h3 style="font-size:1.3rem;margin-bottom:5px">You're doing amazingly, Bipasha</h3>
+      <p style="font-size:.85rem;color:var(--ts)">One breath at a time. That's all that's needed right now.</p>
+    </div>
+
+    <!-- Breathing mini -->
+    <div style="background:rgba(176,160,200,.12);border-radius:18px;padding:18px;text-align:center;margin-bottom:18px;border:1px solid var(--lv)">
+      <p class="lbl" style="margin-bottom:12px">Quick Breathing — 4 · 4 · 6</p>
+      <div id="bdBreathRing" onclick="startBdBreath()" style="width:80px;height:80px;border-radius:50%;border:3px solid var(--lv);background:linear-gradient(135deg,var(--lvl),var(--rl));margin:0 auto 10px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 1.5s ease,box-shadow .3s;box-shadow:0 0 0 0 var(--lv)">
+        <span id="bdBreathTxt" style="font-size:.78rem;font-weight:700;color:var(--t);text-align:center;line-height:1.3">Tap<br>to begin</span>
+      </div>
+      <p id="bdBreathPhase" style="font-size:.88rem;color:var(--lv);font-weight:600;min-height:20px"></p>
+      <p style="font-size:.72rem;color:var(--ts);margin-top:4px">Breathe in 4s · Hold 4s · Out 6s</p>
+    </div>
+
+    <!-- 3 gentle actions -->
+    <p class="lbl" style="margin-bottom:10px">Three gentle things right now</p>
+    <div style="display:flex;flex-direction:column;gap:8px;margin-bottom:18px">
+      <div id="bd1" onclick="checkBdAction(this,'bd1')" style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:var(--card);border-radius:13px;border:1.5px solid var(--bd);cursor:pointer;transition:.2s">
+        <span style="font-size:1.4rem">💧</span>
+        <div style="flex:1"><p style="font-size:.86rem;font-weight:700;color:var(--t)">Sip water slowly</p><p style="font-size:.74rem;color:var(--ts)">Just a few sips — hydration calms the body</p></div>
+        <span class="bd-chk" style="font-size:1.1rem;color:var(--s)"></span>
+      </div>
+      <div id="bd2" onclick="checkBdAction(this,'bd2')" style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:var(--card);border-radius:13px;border:1.5px solid var(--bd);cursor:pointer;transition:.2s">
+        <span style="font-size:1.4rem">🛏️</span>
+        <div style="flex:1"><p style="font-size:.86rem;font-weight:700;color:var(--t)">Lie on your left side</p><p style="font-size:.74rem;color:var(--ts)">10 minutes — improves blood flow to baby</p></div>
+        <span class="bd-chk" style="font-size:1.1rem;color:var(--s)"></span>
+      </div>
+      <div id="bd3" onclick="checkBdAction(this,'bd3')" style="display:flex;align-items:center;gap:12px;padding:13px 15px;background:var(--card);border-radius:13px;border:1.5px solid var(--bd);cursor:pointer;transition:.2s">
+        <span style="font-size:1.4rem">💛</span>
+        <div style="flex:1"><p style="font-size:.86rem;font-weight:700;color:var(--t)">Tell Arnab how you feel</p><p style="font-size:.74rem;color:var(--ts)">A text or a hug — you don't have to carry this alone</p></div>
+        <span class="bd-chk" style="font-size:1.1rem;color:var(--s)"></span>
+      </div>
+    </div>
+
+    <!-- Love note from Arnab -->
+    <div style="background:linear-gradient(135deg,var(--rl),var(--lvl));border-radius:14px;padding:15px 18px;margin-bottom:18px;border:1px solid var(--lv)">
+      <p style="font-size:.68rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--ts);margin-bottom:7px">💛 From Arnab</p>
+      <p class="cursive" id="bdLoveNote" style="font-size:1.05rem;color:var(--tm);line-height:1.7">"You are the bravest, most beautiful person I know. I am right here."</p>
+    </div>
+
+    <!-- Emergency note -->
+    <div style="background:rgba(212,130,106,.08);border-radius:12px;padding:12px 15px;margin-bottom:20px;border-left:3px solid var(--r)">
+      <p style="font-size:.76rem;color:var(--tm)">If this feels like more than a tough moment — persistent anxiety, very low mood, or physical symptoms — please call <strong>Dr. Ankita Mandal: 8902135575</strong>. She is here for you. 💙</p>
+    </div>
+
+    <button onclick="closeBadDay()" class="btn br" style="width:100%;font-size:.95rem;padding:14px">I'm feeling a little better 💕</button>
   </div>
 </div>
 
@@ -694,26 +763,56 @@ body.bad-day .hide-bd{display:none!important}
 
   <div class="al" id="symptomAlert"></div>
 
-  <!-- Symptom Tracker -->
+  <!-- Merged Feeling Check-in -->
   <div class="card">
-    <div class="card-h"><div class="ico">📊</div><div><h4>How are you feeling?</h4><small>Daily check-in → smart insights</small></div></div>
+    <div class="card-h"><div class="ico">💭</div><div><h4>How are you feeling?</h4><small>Submit daily → insights appear in Mother Health Report 💕</small></div></div>
     <div class="card-b">
       <!-- View toggle -->
-      <div class="med-view-toggle" style="margin-bottom:12px">
+      <div class="med-view-toggle" style="margin-bottom:14px">
         <button class="sym-view-btn med-view-btn on" onclick="switchSymView(this,'symListWrap')">📋 Today</button>
         <button class="sym-view-btn med-view-btn" onclick="switchSymView(this,'symCalWrap')">📅 Trends</button>
       </div>
       <!-- Today form -->
       <div id="symListWrap" class="med-list-wrap on">
-        <div class="sym-grid">
+        <!-- Mood emoji row — evenly spread -->
+        <p class="lbl" style="margin-bottom:10px">Mood right now</p>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px" id="moodBtns">
+          <button onclick="selectMoodEmoji(this,'Happy 😊','Wonderful! Your joy flows to baby 💕')" style="flex:1;font-size:1.9rem;padding:10px 4px;border-radius:14px;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s;margin:0 3px">😊</button>
+          <button onclick="selectMoodEmoji(this,'Calm 😌','Beautiful peaceful energy 🌸')" style="flex:1;font-size:1.9rem;padding:10px 4px;border-radius:14px;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s;margin:0 3px">😌</button>
+          <button onclick="selectMoodEmoji(this,'Tired 😴','Rest is productive — you\'re growing a human 💕')" style="flex:1;font-size:1.9rem;padding:10px 4px;border-radius:14px;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s;margin:0 3px">😴</button>
+          <button onclick="selectMoodEmoji(this,'Anxious 😰','Totally normal. Try breathing in Mind tab 🌬️')" style="flex:1;font-size:1.9rem;padding:10px 4px;border-radius:14px;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s;margin:0 3px">😰</button>
+          <button onclick="selectMoodEmoji(this,'Loved 🥰','You ARE loved — so much 💛')" style="flex:1;font-size:1.9rem;padding:10px 4px;border-radius:14px;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s;margin:0 3px">🥰</button>
+        </div>
+        <!-- hidden mood value -->
+        <input type="hidden" id="mood" value="Happy 😊">
+        <p class="cursive" style="font-size:1.0rem;color:var(--rd);min-height:20px;margin-bottom:6px;text-align:center" id="moodMsg"></p>
+        <div id="moodLog" style="display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;justify-content:center"></div>
+
+        <!-- Symptom grid: 2-col for dropdowns & sliders, sleep full-width -->
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
           <div class="sym-item"><label>Nausea</label><select id="nausea"><option>None</option><option>Mild</option><option>Moderate</option><option>Severe</option></select></div>
           <div class="sym-item"><label>Appetite</label><select id="appetite"><option>Good</option><option>Reduced</option><option>Very low</option></select></div>
-          <div class="sym-item"><label>Mood</label><select id="mood"><option>Happy 😊</option><option>Calm 😌</option><option>Tired 😴</option><option>Anxious 😰</option></select></div>
           <div class="sym-item"><label>Energy (1–10)</label><input type="range" id="energy" min="1" max="10" value="5"></div>
           <div class="sym-item"><label>Water (glasses)</label><input type="range" id="waterIn" min="0" max="15" value="8"></div>
-          <div class="sym-item"><label>Sleep</label><select id="sleep"><option>Good</option><option>Fair</option><option>Poor</option></select></div>
         </div>
-        <button class="btn br" onclick="analyzeSymptoms()" style="width:100%">📈 Analyze & Get Insights</button>
+        <!-- Sleep — full width row -->
+        <div class="sym-item" style="margin-bottom:14px">
+          <label>😴 Sleep last night</label>
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            <select id="sleep" style="width:100%;padding:6px;border:1px solid var(--bd);border-radius:8px;font-size:.82rem;font-family:'Outfit',sans-serif;background:var(--card);color:var(--t)">
+              <option value="<5">&lt;5 hrs</option>
+              <option value="6">6 hrs</option>
+              <option value="7">7 hrs</option>
+              <option value="8" selected>8 hrs</option>
+              <option value="9">9 hrs</option>
+              <option value="10">10 hrs</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Submit toast -->
+        <div id="submitToast" style="display:none;margin-bottom:10px;padding:10px 14px;background:var(--sl);border-radius:10px;font-size:.84rem;color:var(--sd);text-align:center">✅ Saved! Check <strong>Mother Health Report</strong> for your insights 💕</div>
+        <button class="btn br" onclick="analyzeSymptoms()" style="width:100%">✅ Submit</button>
       </div>
       <!-- Calendar view -->
       <div id="symCalWrap" class="med-cal-wrap">
@@ -734,44 +833,13 @@ body.bad-day .hide-bd{display:none!important}
         </div>
         <div class="insight" style="margin-top:8px">
           <h5>Reading the trend</h5>
-          <p>😊 Mood emoji shown per day. Bar = overall wellness score. Tap any day for full details. Log daily via "Today" tab for best trends.</p>
+          <p>😊 Mood emoji shown per day. Bar = overall wellness score. Tap any day for full details. Submit daily for best trends.</p>
         </div>
       </div>
     </div>
   </div>
-  <div id="insightBox"></div>
-
-  <!-- Arnab Tasks -->
-  <div class="arnab">
-    <h4>What Arnab Should Do Now</h4>
-    <ul id="arnabTasks">
-      <li>Keep her water bottle full all day</li>
-      <li>Prepare light meals — khichdi, watermelon</li>
-      <li>Foot massage before bed tonight</li>
-    </ul>
-  </div>
-
-  <!-- Bengali Summer Foods -->
-  <div class="card hide-bd">
-    <div class="card-h"><div class="ico">🥭</div><div><h4>Bengali Summer Specials</h4><small>Cooling · Anti-nausea · Seasonal</small></div></div>
-    <div class="card-b" style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
-      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🥭 Aam</strong><p style="font-size:.78rem;margin:3px 0">Aam ras with doi</p><span class="pill psk">Cooling</span></div>
-      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🍉 Tarmuj</strong><p style="font-size:.78rem;margin:3px 0">92% water!</p><span class="pill psk">Hydrating</span></div>
-      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🥥 Daab</strong><p style="font-size:.78rem;margin:3px 0">Electrolytes</p><span class="pill ps">Anti-nausea</span></div>
-      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🥛 Mishti Doi</strong><p style="font-size:.78rem;margin:3px 0">Probiotic</p><span class="pill psk">Cooling</span></div>
-    </div>
-  </div>
-
-  <!-- Anti-nausea toolkit -->
-  <div class="card hide-bd">
-    <div class="card-h"><div class="ico">🍋</div><div><h4>Anti-Nausea Toolkit</h4><small>Immediate relief</small></div></div>
-    <div class="card-b">
-      <div class="ntip"><div class="ico">🫚</div><div><h5>Ginger Power</h5><p>Ginger tea, candies, or smell fresh ginger</p></div></div>
-      <div class="ntip"><div class="ico">🍋</div><div><h5>Lemon Water</h5><p>Warm water + lemon first thing. Smell a cut lemon!</p></div></div>
-      <div class="ntip"><div class="ico">⏰</div><div><h5>Eat Every 2 Hours</h5><p><strong>Empty stomach = worse nausea.</strong> Crackers by bed!</p></div></div>
-      <div class="ntip"><div class="ico">❄️</div><div><h5>Cold Foods</h5><p>Less smell. Watermelon, cold doi, cold coconut water.</p></div></div>
-    </div>
-  </div>
+  <!-- insightBox hidden — insights now live in Mother Health Report -->
+  <div id="insightBox" style="display:none"></div>
 
   <!-- Streaks -->
   <div class="streaks hide-bd">
@@ -786,9 +854,13 @@ body.bad-day .hide-bd{display:none!important}
     <p id="winText"></p>
   </div>
 
-  <!-- Bad Day Mode -->
-  <div style="text-align:center;margin-top:8px">
-    <button class="btn bo" onclick="toggleBadDay()" id="badDayBtn">😞 Feeling Overwhelmed? Simple Mode</button>
+  <!-- Overwhelmed Mode Trigger -->
+  <div style="margin-top:12px;padding:14px 18px;background:linear-gradient(135deg,var(--lvl),var(--bg3));border-radius:16px;border:1px solid var(--bd);display:flex;align-items:center;justify-content:space-between;cursor:pointer" onclick="openBadDay()">
+    <div>
+      <p style="font-size:.88rem;font-weight:700;color:var(--tm);margin-bottom:2px">Having a tough moment? 💙</p>
+      <p style="font-size:.76rem;color:var(--ts)">Tap for a calming space — just for you</p>
+    </div>
+    <span style="font-size:1.6rem">🌸</span>
   </div>
 
 </div>
@@ -829,19 +901,20 @@ body.bad-day .hide-bd{display:none!important}
     <!-- Mother Health Report Tabs -->
     <div class="mh-card">
       <h4>📊 Mother Health Report</h4>
-      <p class="mh-sub">Your wellness trends — last 7 days</p>
-      <div class="mh-tabs">
+      <p class="mh-sub">Your wellness trends — last 7 days · from "How are you feeling?" 💕</p>
+      <div class="mh-tabs" style="flex-wrap:wrap;gap:5px">
         <div class="mh-tab on" onclick="mhTab(this,'mh-sleep')">😴 Sleep</div>
         <div class="mh-tab" onclick="mhTab(this,'mh-vomit')">🤢 Vomiting</div>
-        <div class="mh-tab" onclick="mhTab(this,'mh-water')">💧 Hydration</div>
+        <div class="mh-tab" onclick="mhTab(this,'mh-water')">💧 Water</div>
+        <div class="mh-tab" onclick="mhTab(this,'mh-nausea')">🌿 Nausea</div>
+        <div class="mh-tab" onclick="mhTab(this,'mh-energy')">⚡ Energy</div>
+        <div class="mh-tab" onclick="mhTab(this,'mh-mood')">😊 Mood</div>
       </div>
 
       <!-- Sleep Chart -->
       <div id="mh-sleep" class="mh-panel on">
-        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Sleep quality trend (Good=3, Fair=2, Poor=1)</p>
-        <div class="chart-row" id="sleepChart">
-          <!-- bars rendered by JS -->
-        </div>
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Sleep quality trend — from your daily check-in (Good=3, Fair=2, Poor=1)</p>
+        <div class="chart-row" id="sleepChart"></div>
         <div id="sleepLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
         <div class="mh-summary" id="sleepSummary">Log your sleep quality in the Today section daily for trend data.</div>
       </div>
@@ -849,21 +922,41 @@ body.bad-day .hide-bd{display:none!important}
       <!-- Vomit Chart -->
       <div id="mh-vomit" class="mh-panel">
         <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Vomiting episodes per day (lower = better 🎉)</p>
-        <div class="chart-row" id="vomitChart">
-          <!-- bars rendered by JS -->
-        </div>
+        <div class="chart-row" id="vomitChart"></div>
         <div id="vomitLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
         <div class="mh-summary" id="vomitSummary">Track vomiting episodes daily to see your improvement trend.</div>
       </div>
 
       <!-- Water Chart -->
       <div id="mh-water" class="mh-panel">
-        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Daily water intake (ml) — goal: 2500ml</p>
-        <div class="chart-row" id="waterChartMH">
-          <!-- bars rendered by JS -->
-        </div>
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Daily water glasses logged in check-in — goal: 8+ glasses</p>
+        <div class="chart-row" id="waterChartMH"></div>
         <div id="waterLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
         <div class="mh-summary" id="waterSummary">Keep logging your water intake to see hydration trends.</div>
+      </div>
+
+      <!-- Nausea Chart -->
+      <div id="mh-nausea" class="mh-panel">
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Nausea level per day — from your daily check-in (None=0, Mild=1, Moderate=2, Severe=3)</p>
+        <div class="chart-row" id="nauseaChart"></div>
+        <div id="nauseaLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
+        <div class="mh-summary" id="nauseaSummary">Log your nausea level daily to track your trend.</div>
+      </div>
+
+      <!-- Energy Chart -->
+      <div id="mh-energy" class="mh-panel">
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Energy level per day (1–10 scale) — from your daily check-in</p>
+        <div class="chart-row" id="energyChart"></div>
+        <div id="energyLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
+        <div class="mh-summary" id="energySummary">Log your energy level daily in the Today tab to build your trend.</div>
+      </div>
+
+      <!-- Mood Chart -->
+      <div id="mh-mood" class="mh-panel">
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Daily mood — from your check-in (Happy=4, Calm=3, Tired=2, Anxious=1)</p>
+        <div class="chart-row" id="moodChart"></div>
+        <div id="moodLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
+        <div class="mh-summary" id="moodSummary">Log your mood daily in the Today tab to track emotional wellness.</div>
       </div>
     </div>
 
@@ -876,11 +969,14 @@ body.bad-day .hide-bd{display:none!important}
       </div>
     </div>
 
+    <!-- Insights from Today's check-in -->
+    <div id="motherInsightBox" style="margin-bottom:14px"></div>
+
     <!-- Mother's Wellness Grid -->
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
       <div style="background:linear-gradient(135deg,var(--skl),var(--bg3));border-radius:14px;padding:14px;text-align:center;border:1px solid var(--bd)">
         <div style="font-size:1.8rem;margin-bottom:5px">😴</div>
-        <div class="lbl" style="margin-bottom:3px">Sleep Quality</div>
+        <div class="lbl" style="margin-bottom:3px">Sleep Last Night</div>
         <div id="sleepTodayVal" style="font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--rd)">—</div>
       </div>
       <div style="background:linear-gradient(135deg,var(--rl),var(--bg3));border-radius:14px;padding:14px;text-align:center;border:1px solid var(--bd)">
@@ -989,7 +1085,6 @@ body.bad-day .hide-bd{display:none!important}
     <button class="tab" onclick="subTab(this,'c','c-weeks')">📅 Weeks</button>
     <button class="tab" onclick="subTab(this,'c','c-doc')">🏥 Doctor</button>
     <button class="tab" onclick="subTab(this,'c','c-faq')">❓ FAQ</button>
-    <button class="tab" onclick="subTab(this,'c','c-well')">🌿 Wellness</button>
   </div>
 
   <!-- DIET -->
@@ -1092,6 +1187,13 @@ body.bad-day .hide-bd{display:none!important}
       <h5>Call Doctor Immediately If</h5>
       <p>Severe abdominal pain · Heavy bleeding · Fever >100.4°F · Severe headache + vision changes · Baby stops moving (wk 28+) · Vomiting 10+/day · Fainting</p>
     </div>
+
+    <!-- Wellness — merged into Doctor -->
+    <div style="margin-top:6px">
+      <div class="card"><div class="card-h"><div class="ico">🩺</div><div><h4>Scan Timeline</h4></div></div><div class="card-b"><ul class="clist"><li><strong>Wk 6–8:</strong> Dating scan (heartbeat confirmation)</li><li><strong>Wk 11–13:</strong> NT scan (nuchal translucency)</li><li><strong>Wk 18–20:</strong> Anomaly scan (detailed anatomy)</li><li><strong>Wk 28–32:</strong> Growth scan</li><li><strong>Wk 36+:</strong> Position & readiness scan</li></ul></div></div>
+      <div class="card"><div class="card-h"><div class="ico">💊</div><div><h4>Essential Supplements</h4></div></div><div class="card-b"><ul class="clist"><li>Folic Acid 400mcg — neural tube</li><li>Iron — increased blood volume</li><li>Calcium — baby's bones</li><li>Omega-3 DHA — brain development</li><li>Vitamin D — bones & immunity</li></ul></div></div>
+      <div class="card"><div class="card-h"><div class="ico">😴</div><div><h4>Sleep Guide</h4></div></div><div class="card-b"><ul class="clist"><li>Left side sleeping after wk 20</li><li>Pillow between knees</li><li>Avoid screens 1hr before bed</li><li>Warm turmeric milk / herbal tea</li><li>Arnab's foot massage routine!</li></ul></div></div>
+    </div>
   </div>
 
   <!-- FAQ -->
@@ -1104,35 +1206,17 @@ body.bad-day .hide-bd{display:none!important}
     <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">Is exercise safe during pregnancy?</div><div class="faq-a">Yes! Walking, prenatal yoga, swimming are ideal. Avoid contact sports, hot yoga, heavy lifting. Stop immediately if dizzy, in pain, or bleeding.</div></div>
     <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">Why am I so tired all the time?</div><div class="faq-a">Your body is building a placenta + increasing blood volume by 50% + surging with progesterone. Rest is productive. Eat iron-rich foods and nap when possible.</div></div>
     <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">How to reduce foot swelling?</div><div class="faq-a">Elevate feet when sitting · Sleep on left side · Reduce salt · Drink MORE water · Comfortable shoes · Ask Arnab for foot massage nightly! Call doctor if sudden severe swelling with headache (preeclampsia warning).</div></div>
-
-    <!-- Emergency Contacts at Bottom of FAQ -->
     <div class="emg-strip-faq" style="margin-top:20px">
       <div class="emg-title">🚨 Emergency Contacts — Save Now</div>
       <div class="emg-note">Bhagirathi Neotia Women & Child Care, Newtown · Available 24/7</div>
       <div class="emg-contacts">
-        <div class="emg-c">
-          <div class="clabel">Dr. Ankita Mandal (MBBS Gold, MD Gold)</div>
-          <div class="cnum doc">8902135575</div>
-          <div class="csub">Your OB/GYN — call anytime</div>
-        </div>
-        <div class="emg-c">
-          <div class="clabel">Hospital Emergency</div>
-          <div class="cnum hosp">9199090350</div>
-          <div class="csub">Bhagirathi Neotia, Newtown</div>
-        </div>
+        <div class="emg-c"><div class="clabel">Dr. Ankita Mandal (MBBS Gold, MD Gold)</div><div class="cnum doc">8902135575</div><div class="csub">Your OB/GYN — call anytime</div></div>
+        <div class="emg-c"><div class="clabel">Hospital Emergency</div><div class="cnum hosp">9199090350</div><div class="csub">Bhagirathi Neotia, Newtown</div></div>
       </div>
       <div style="margin-top:10px;padding:8px 12px;background:rgba(212,130,106,.1);border-radius:8px;font-size:.74rem;color:#e0a080;border-left:3px solid var(--r)">
         🚑 Call immediately if: Heavy bleeding · Severe abdominal pain · Fever &gt;100.4°F · Baby stops moving (wk 28+) · Vomiting 10+/day · Severe headache + vision changes
       </div>
     </div>
-
-  </div>
-
-  <!-- WELLNESS -->
-  <div id="c-well" class="panel">
-    <div class="card"><div class="card-h"><div class="ico">🩺</div><div><h4>Scan Timeline</h4></div></div><div class="card-b"><ul class="clist"><li><strong>Wk 6–8:</strong> Dating scan (heartbeat confirmation)</li><li><strong>Wk 11–13:</strong> NT scan (nuchal translucency)</li><li><strong>Wk 18–20:</strong> Anomaly scan (detailed anatomy)</li><li><strong>Wk 28–32:</strong> Growth scan</li><li><strong>Wk 36+:</strong> Position & readiness scan</li></ul></div></div>
-    <div class="card"><div class="card-h"><div class="ico">💊</div><div><h4>Essential Supplements</h4></div></div><div class="card-b"><ul class="clist"><li>Folic Acid 400mcg — neural tube</li><li>Iron — increased blood volume</li><li>Calcium — baby's bones</li><li>Omega-3 DHA — brain development</li><li>Vitamin D — bones & immunity</li></ul></div></div>
-    <div class="card"><div class="card-h"><div class="ico">😴</div><div><h4>Sleep Guide</h4></div></div><div class="card-b"><ul class="clist"><li>Left side sleeping after wk 20</li><li>Pillow between knees</li><li>Avoid screens 1hr before bed</li><li>Warm turmeric milk / herbal tea</li><li>Arnab's foot massage routine!</li></ul></div></div>
   </div>
 
 </div>
@@ -1164,14 +1248,8 @@ body.bad-day .hide-bd{display:none!important}
         <div class="mcatb" onclick="selMusic(this,'baby')"><span class="emo">👶</span><span class="txt">Baby</span></div>
       </div>
 
-      <div style="margin-top:10px;margin-bottom:4px">
-        <a href="https://music.youtube.com/playlist?list=PLFgquLnL59akCiCgS7v30NnxbFpBsBi6k" target="_blank" class="yt-music-btn">
-          🎵 Pregnancy Relaxation Music — Open YouTube Music Playlist
-        </a>
-        <p style="text-align:center;font-size:.72rem;color:var(--ts);margin-top:5px">Curated playlist: Soothing music for mama & baby 💕</p>
-      </div>
       <div class="mplayer">
-        <div class="track" id="trackName">Rabindra Sangeet — "Ekla Chalo Re"</div>
+        <div class="track" id="trackName">Coke Studio Bangla — "Hawa"</div>
         <button class="play-btn" onclick="playTrack()">▶ Play for Baby</button>
       </div>
     </div>
@@ -1250,7 +1328,6 @@ body.bad-day .hide-bd{display:none!important}
     <button class="tab" onclick="subTab(this,'mm','mm-rtn')">✅ Routine</button>
     <button class="tab" onclick="subTab(this,'mm','mm-shp')">🛍️ Shopping</button>
     <button class="tab" onclick="subTab(this,'mm','mm-ltr')">💛 Letter</button>
-    <button class="tab" onclick="subTab(this,'mm','mm-moo')">😊 Mood</button>
     <button class="tab" onclick="subTab(this,'mm','mm-us')">💑 Arnab & I</button>
   </div>
 
@@ -1389,21 +1466,6 @@ body.bad-day .hide-bd{display:none!important}
     </div></div>
   </div>
 
-<div id="mm-moo" class="panel">
-    <div class="card" style="text-align:center"><div class="card-b">
-      <h4 class="serif" style="margin-bottom:13px">How are you feeling right now?</h4>
-      <div style="display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:12px" id="moodBtns">
-        <button onclick="setMood(this,'😊','Happy','Wonderful! Your joy flows to baby 💕')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😊</button>
-        <button onclick="setMood(this,'😌','Calm','Beautiful peaceful energy 🌸')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😌</button>
-        <button onclick="setMood(this,'😴','Tired','Rest is productive — you\'re growing a human 💕')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😴</button>
-        <button onclick="setMood(this,'😰','Anxious','Totally normal. Try breathing in Mind tab 🌬️')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😰</button>
-        <button onclick="setMood(this,'🥰','Loved','You ARE loved — so much 💛')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">🥰</button>
-      </div>
-      <p class="cursive" style="font-size:1.15rem;color:var(--rd);min-height:28px" id="moodMsg"></p>
-      <div id="moodLog" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:5px;justify-content:center"></div>
-    </div></div>
-  </div>
-
 <div id="mm-us" class="panel">
     <div class="us-card">
       <div class="us-title">💑 Arnab & Bipasha's Corner</div>
@@ -1474,7 +1536,7 @@ function save(){try{localStorage.setItem('bp8',JSON.stringify(S))}catch(e){}}
 function renderAll(){renderShop();renderJ();renderL();renderNames();updateStreaks();loadVomit();loadRoutine();initMood()}
 
 // ═══ NAV ═══
-function gotoPage(el,id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.bnav-btn').forEach(n=>n.classList.remove('active'));const pg=document.getElementById('pg-'+id);if(pg)pg.classList.add('active');el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+function gotoPage(el,id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.bnav-btn').forEach(n=>n.classList.remove('active'));const pg=document.getElementById('pg-'+id);if(pg)pg.classList.add('active');el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='baby')renderMotherCharts();}
 
 // ═══ SUB TABS ═══
 function subTab(btn,prefix,id){const wrap=btn.closest('.wrap');if(wrap)wrap.querySelectorAll('[id^="'+prefix+'-"].panel').forEach(p=>p.classList.remove('on'));else document.querySelectorAll('[id^="'+prefix+'-"].panel').forEach(p=>p.classList.remove('on'));const target=document.getElementById(id);if(target)target.classList.add('on');const tbsParent=btn.parentElement;tbsParent.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on')}
@@ -1576,52 +1638,118 @@ function addVomit(){S.vomit++;localStorage.setItem('bpV',S.vomit);document.getEl
 function resetVomit(){S.vomit=0;localStorage.setItem('bpV',0);document.getElementById('vomitCount').textContent=0;updateVomitStatus()}
 function updateVomitStatus(){const el=document.getElementById('vomitStatus');if(!el)return;if(S.vomit<=3){el.className='vstatus vok';el.innerHTML='✅ Normal range — keep sipping water'}else if(S.vomit<=7){el.className='vstatus vwarn';el.innerHTML='⚠️ Monitor closely — try anti-nausea tips'}else{el.className='vstatus vdanger';el.innerHTML='🚨 CALL Dr. Ankita Mandal: <strong>8902135575</strong> — risk of dehydration!'}}
 
+// ═══ MOOD EMOJI SELECTOR ═══
+function selectMoodEmoji(btn,moodVal,msg){
+  document.querySelectorAll('#moodBtns button').forEach(b=>{b.style.borderColor='transparent';b.style.background='var(--bg2)';b.style.transform='scale(1)';});
+  btn.style.borderColor='var(--r)';btn.style.background='var(--rl)';btn.style.transform='scale(1.08)';
+  document.getElementById('mood').value=moodVal;
+  const m=document.getElementById('moodMsg');if(m)m.textContent=msg;
+  // log to mood log
+  const label=moodVal.split(' ')[0];const emoji=moodVal.split(' ')[1]||'';
+  let log=JSON.parse(localStorage.getItem('bpMoodLog')||'[]');
+  log.unshift({emoji,label,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});
+  if(log.length>8)log=log.slice(0,8);
+  localStorage.setItem('bpMoodLog',JSON.stringify(log));
+  renderMoodLog(log);
+}
+
 // ═══ SYMPTOMS ═══
-function analyzeSymptoms(){S.symptoms={nausea:document.getElementById('nausea').value,appetite:document.getElementById('appetite').value,mood:document.getElementById('mood').value,energy:document.getElementById('energy').value,water:document.getElementById('waterIn').value,sleep:document.getElementById('sleep').value};save();const al=document.getElementById('symptomAlert');const ib=document.getElementById('insightBox');
-if(S.symptoms.nausea==='Severe'&&parseInt(S.symptoms.water)<6){al.innerHTML='<strong>⚠️ Dehydration Risk:</strong> Severe nausea + low water is concerning. Sip daab water slowly, eat watermelon, rest. Call Dr. Ankita (8902135575) if vomiting >8x today.';al.className='al actnow show'}else if(S.symptoms.nausea==='Moderate'||S.symptoms.nausea==='Severe'){al.innerHTML='<strong>💙 Nausea support:</strong> Ginger tea, cold foods, eat every 2 hours. Crackers by bedside!';al.className='al important show'}else{al.className='al'}
-let ins='';
-if(parseInt(S.symptoms.water)>=8){ins+=`<div class="insight"><h5>Great hydration today!</h5><p>${S.symptoms.water} glasses — reduces nausea, supports baby\'s amniotic fluid, keeps skin glowing.</p></div>`;S.streaks.water++}else{ins+=`<div class="insight"><h5>Hydration check 💧</h5><p>Try daab water, watermelon, lemon water to reach 8+ glasses.</p></div>`}
-if(S.symptoms.mood.includes('Anxious')){ins+=`<div class="insight"><h5>Feeling anxious?</h5><p>Totally normal in pregnancy. Try the breathing exercise in Mind tab, call a loved one, or ask Arnab for a hug. 🤗</p></div>`}
-if(S.symptoms.sleep==='Poor'){ins+=`<div class="insight"><h5>Better sleep tonight 🌙</h5><p>Left side, pillow between knees, warm turmeric milk, no screens 1hr before bed, Arnab's foot massage!</p></div>`}
-if(parseInt(S.symptoms.energy)<=3){ins+=`<div class="insight"><h5>Low energy 💤</h5><p>You\'re growing a human — rest IS productive. Short nap, protein snack (almonds/paneer), delegate to Arnab.</p></div>`}
-ib.innerHTML=ins;updateArnab();updateStreaks();save();
-if(S.symptoms.nausea==='None'&&parseInt(S.symptoms.water)>=8){showWin('Amazing! No nausea + great hydration today 🎉');confetti()}saveSleepLog(S.symptoms.sleep);localStorage.setItem('bpV_'+new Date().toDateString(),S.vomit);
-// Save full daily symptom snapshot
-saveSymptomHistory();}
+function analyzeSymptoms(){
+  S.symptoms={
+    nausea:document.getElementById('nausea').value,
+    appetite:document.getElementById('appetite').value,
+    mood:document.getElementById('mood').value,
+    energy:document.getElementById('energy').value,
+    water:document.getElementById('waterIn').value,
+    sleep:document.getElementById('sleep').value
+  };
+  save();
+  const al=document.getElementById('symptomAlert');
+  if(S.symptoms.nausea==='Severe'&&parseInt(S.symptoms.water)<6){al.innerHTML='<strong>⚠️ Dehydration Risk:</strong> Severe nausea + low water is concerning. Sip daab water slowly, eat watermelon, rest. Call Dr. Ankita (8902135575) if vomiting >8x today.';al.className='al actnow show';}
+  else if(S.symptoms.nausea==='Moderate'||S.symptoms.nausea==='Severe'){al.innerHTML='<strong>💙 Nausea support:</strong> Ginger tea, cold foods, eat every 2 hours. Crackers by bedside!';al.className='al important show';}
+  else{al.className='al';}
+
+  // Build insights for Mother Health Report
+  const sleepHrs=S.symptoms.sleep;
+  const sleepNum=sleepHrs==='<5'?4:parseInt(sleepHrs)||8;
+  let ins='<div style="margin-bottom:10px"><p class="lbl" style="margin-bottom:8px">Today\'s Insights</p>';
+
+  if(parseInt(S.symptoms.water)>=8){
+    ins+=`<div class="insight"><h5>Great hydration today! 💧</h5><p>${S.symptoms.water} glasses — reduces nausea, supports baby's amniotic fluid, keeps skin glowing.</p></div>`;
+    S.streaks.water++;
+  } else {
+    ins+=`<div class="insight"><h5>Hydration check 💧</h5><p>Try daab water, watermelon, lemon water to reach 8+ glasses.</p></div>`;
+  }
+  if(S.symptoms.mood.includes('Anxious')){
+    ins+=`<div class="insight"><h5>Feeling anxious? 🤗</h5><p>Totally normal in pregnancy. Try the breathing exercise in Mind tab, call a loved one, or ask Arnab for a hug.</p></div>`;
+  }
+  if(sleepNum<6){
+    ins+=`<div class="insight"><h5>Sleep needs attention 🌙</h5><p>Less than 6 hours is tiring. Left side, pillow between knees, warm turmeric milk, no screens 1 hr before bed.</p></div>`;
+  } else if(sleepNum>=8){
+    ins+=`<div class="insight"><h5>Great sleep! 🌸</h5><p>${sleepHrs} hours of rest — wonderful for you and baby's development.</p></div>`;
+  }
+  if(parseInt(S.symptoms.energy)<=3){
+    ins+=`<div class="insight"><h5>Low energy 💤</h5><p>You're growing a human — rest IS productive. Short nap, protein snack (almonds/paneer), delegate to Arnab.</p></div>`;
+  }
+  ins+='</div>';
+
+  // Push insights to Mother Health Report, NOT Today tab
+  const mib=document.getElementById('motherInsightBox');
+  if(mib)mib.innerHTML=ins;
+  const ib=document.getElementById('insightBox');
+  if(ib)ib.innerHTML='';
+
+  // Update sleep quality display widget
+  const stv=document.getElementById('sleepTodayVal');
+  if(stv)stv.textContent=sleepHrs==='<5'?'<5 hrs':sleepHrs+' hrs';
+
+  updateStreaks();save();
+  if(S.symptoms.nausea==='None'&&parseInt(S.symptoms.water)>=8){showWin('Amazing! No nausea + great hydration today 🎉');confetti();}
+  saveSleepLog(sleepHrs);
+  localStorage.setItem('bpV_'+new Date().toDateString(),S.vomit);
+  saveSymptomHistory();
+
+  // Show brief submit toast in Today tab
+  const toast=document.getElementById('submitToast');
+  if(toast){toast.style.display='block';setTimeout(()=>{toast.style.display='none';},3500);}
+}
 
 
 // ═══ SYMPTOM HISTORY + CALENDAR ═══
 function saveSymptomHistory(){
   const today=new Date().toISOString().slice(0,10);
   const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
+  const sleepRaw=S.symptoms.sleep||'8';
+  const sleepNum=sleepRaw==='<5'?4:parseInt(sleepRaw)||8;
   hist[today]={
     nausea:S.symptoms.nausea||'None',
     appetite:S.symptoms.appetite||'Good',
     mood:(S.symptoms.mood||'Happy 😊').split(' ')[0],
     energy:parseInt(S.symptoms.energy||5),
     water:parseInt(S.symptoms.water||8),
-    sleep:S.symptoms.sleep||'Good',
+    sleep:sleepRaw,
+    sleepNum:sleepNum,
     vomit:S.vomit||0,
     ts:new Date().toISOString()
   };
   localStorage.setItem('bpSymHist',JSON.stringify(hist));
-  // re-render if calendar is visible
-  if(document.getElementById('symCalWrap') && document.getElementById('symCalWrap').classList.contains('on')){
-    renderSymCal();
-  }
+  if(document.getElementById('symCalWrap')&&document.getElementById('symCalWrap').classList.contains('on')){renderSymCal();}
+  renderMotherCharts();
 }
 
 function getSymDay(dateStr){
   const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
   const today=new Date().toISOString().slice(0,10);
   if(dateStr===today && S.symptoms && Object.keys(S.symptoms).length){
+    const sleepRaw=S.symptoms.sleep||'8';
     return {
       nausea:S.symptoms.nausea||'None',
       appetite:S.symptoms.appetite||'Good',
       mood:(S.symptoms.mood||'Happy 😊').split(' ')[0],
       energy:parseInt(S.symptoms.energy||5),
       water:parseInt(S.symptoms.water||8),
-      sleep:S.symptoms.sleep||'Good',
+      sleep:sleepRaw,
+      sleepNum:sleepRaw==='<5'?4:parseInt(sleepRaw)||8,
       vomit:S.vomit||0
     };
   }
@@ -1715,10 +1843,6 @@ function switchSymView(btn,id){
 }
 
 
-function updateArnab(){const list=document.getElementById('arnabTasks');let tasks=[];
-if(S.symptoms.nausea==='Severe'||S.symptoms.nausea==='Moderate'){tasks.push('No strong cooking smells — keep windows open');tasks.push('Prepare ONLY light food: khichdi, watermelon, daab water');tasks.push('Keep ginger tea ready at all times')}else if(parseInt(S.symptoms.water)<6){tasks.push('Fill her water bottle — check every hour');tasks.push('Buy fresh daab coconut water today')}else{tasks.push('Prepare her favourite meal tonight')}
-tasks.push('10-minute foot massage before bed');tasks.push('Ask "How are you feeling?" — and truly listen 💙');tasks.push('Read Mahabharata story to baby (she\'s past week 18?)');
-list.innerHTML=tasks.map(t=>`<li>${t}</li>`).join('')}
 
 // ═══ SINGLE ACTION ═══
 function updateSingleAction(){const h=new Date().getHours();const at=document.getElementById('actionText');const ar=document.getElementById('actionReason');
@@ -1732,9 +1856,42 @@ else if(h<21){at.textContent='Light dinner 🌙';ar.textContent='Khichdi with gh
 else{at.textContent='Warm turmeric milk + rest 🥛';ar.textContent='Wind down — baby needs you well rested'}}
 
 // ═══ MUSIC ═══
-const tracks={healing:['Rabindra Sangeet — "Ekla Chalo Re"','Coke Studio Bangla — "Bulbuli"','Lalon Geeti — "Khacchar Bhitor Ochin Pakhi"','Rabindra Sangeet — "Purano Sei Diner Kotha"'],love:['Rabindra Sangeet — "Ami Tomay Bhalobashi"','Coke Studio Bangla — "Deora"','Bengali Modern — "Tumi Robe Nirobe"','Kishore Kumar — Bengali songs'],calm:['Raga Yaman — Sitar (Instrumental)','Nature Sounds + Bansuri Flute','Om Chanting (Soft, 108 times)','Raga Bhairavi — Classical'],baby:['Mozart — Baby Lullaby Collection','Carnatic Light Ragas','Gayatri Mantra (Soft Female Voice)','Baby Brain Stimulation — Classical']};
-function selMusic(el,cat){document.querySelectorAll('.mcatb').forEach(c=>c.classList.remove('active'));el.classList.add('active');const t=tracks[cat];document.getElementById('trackName').textContent=t[Math.floor(Math.random()*t.length)]}
-function playTrack(){alert('🎵 Now Playing:\n'+document.getElementById('trackName').textContent+'\n\nSearch on YouTube Music or Spotify\nfor the best quality. 💕')}
+const tracks={
+  healing:[
+    {name:'Coke Studio Bangla — "Hawa"',          url:'https://www.youtube.com/watch?v=O4f4MwKrjBw'},
+    {name:'Coke Studio Bangla — "Bulbuli"',        url:'https://www.youtube.com/results?search_query=Coke+Studio+Bangla+Bulbuli'},
+    {name:'Lalon Geeti — "Khacchar Bhitor Ochin Pakhi"', url:'https://www.youtube.com/results?search_query=Khacchar+Bhitor+Ochin+Pakhi+Lalon'},
+    {name:'Rabindra Sangeet — "Purano Sei Diner Kotha"', url:'https://www.youtube.com/results?search_query=Purano+Sei+Diner+Kotha+Rabindra+Sangeet'}
+  ],
+  love:[
+    {name:'Coke Studio Bangla — "Deora"',          url:'https://www.youtube.com/results?search_query=Coke+Studio+Bangla+Deora'},
+    {name:'Rabindra Sangeet — "Ami Tomay Bhalobashi"', url:'https://www.youtube.com/results?search_query=Ami+Tomay+Bhalobashi+Rabindra+Sangeet'},
+    {name:'Bengali Modern — "Tumi Robe Nirobe"',   url:'https://www.youtube.com/results?search_query=Tumi+Robe+Nirobe+Bengali'},
+    {name:'Kishore Kumar — Bengali songs',          url:'https://www.youtube.com/results?search_query=Kishore+Kumar+Bengali+songs'}
+  ],
+  calm:[
+    {name:'Raga Yaman — Sitar (Instrumental)',      url:'https://www.youtube.com/results?search_query=Raga+Yaman+Sitar+Instrumental'},
+    {name:'Nature Sounds + Bansuri Flute',          url:'https://www.youtube.com/results?search_query=Nature+Sounds+Bansuri+Flute+relaxing'},
+    {name:'Om Chanting (Soft, 108 times)',           url:'https://www.youtube.com/results?search_query=Om+Chanting+108+times+soft'},
+    {name:'Raga Bhairavi — Classical',              url:'https://www.youtube.com/results?search_query=Raga+Bhairavi+Classical+Vocal'}
+  ],
+  baby:[
+    {name:'Mozart — Baby Lullaby Collection',       url:'https://www.youtube.com/results?search_query=Mozart+Baby+Lullaby+Collection'},
+    {name:'Carnatic Light Ragas',                   url:'https://www.youtube.com/results?search_query=Carnatic+Light+Ragas+baby'},
+    {name:'Gayatri Mantra (Soft Female Voice)',     url:'https://www.youtube.com/results?search_query=Gayatri+Mantra+soft+female+voice'},
+    {name:'Baby Brain Stimulation — Classical',    url:'https://www.youtube.com/results?search_query=Baby+Brain+Stimulation+Classical+Music'}
+  ]
+};
+let currentTrackUrl='https://www.youtube.com/watch?v=O4f4MwKrjBw';
+function selMusic(el,cat){
+  document.querySelectorAll('.mcatb').forEach(c=>c.classList.remove('active'));
+  el.classList.add('active');
+  const list=tracks[cat];
+  const t=list[Math.floor(Math.random()*list.length)];
+  document.getElementById('trackName').textContent=t.name;
+  currentTrackUrl=t.url;
+}
+function playTrack(){window.open(currentTrackUrl,'_blank');}
 
 // ═══ BREATHING ═══
 let bInt=null,bPh=0;
@@ -1744,7 +1901,6 @@ function runBP(){const p=bPhases[bPh%bPhases.length];const c=document.getElement
 function stopBreath(){if(bInt)clearInterval(bInt);bInt=null;const c=document.getElementById('breathCircle');if(c)c.className='breath-ring';const t=document.getElementById('breathText');const ph=document.getElementById('breathPhase');if(t)t.textContent='Tap to Begin';if(ph)ph.textContent='';const sb=document.getElementById('stopBreathBtn');if(sb)sb.style.display='none'}
 
 // ═══ MOOD ═══
-function setMood(btn,emoji,label,msg){document.querySelectorAll('#moodBtns button').forEach(b=>b.style.borderColor='transparent');btn.style.borderColor='var(--r)';const m=document.getElementById('moodMsg');if(m)m.textContent=msg;let log=JSON.parse(localStorage.getItem('bpMoodLog')||'[]');log.unshift({emoji,label,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});if(log.length>8)log=log.slice(0,8);localStorage.setItem('bpMoodLog',JSON.stringify(log));renderMoodLog(log)}
 function renderMoodLog(log){const el=document.getElementById('moodLog');if(!el||!log.length)return;el.innerHTML=log.slice(0,5).map(e=>`<span style="background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:4px 10px;font-size:.76rem;color:var(--tm)">${e.emoji} ${e.label} <span style="color:var(--ts);font-size:.66rem">${e.time}</span></span>`).join('')}
 function initMood(){const log=JSON.parse(localStorage.getItem('bpMoodLog')||'[]');if(log.length)renderMoodLog(log)}
 
@@ -1783,7 +1939,84 @@ function updateStreaks(){document.getElementById('waterStreak').textContent=S.st
 function showWin(text){const el=document.getElementById('winBanner');const t=document.getElementById('winText');if(el&&t){t.textContent=text;el.style.display='block'}}
 
 // ═══ BAD DAY ═══
-function toggleBadDay(){document.body.classList.toggle('bad-day');const btn=document.getElementById('badDayBtn');btn.textContent=document.body.classList.contains('bad-day')?'😊 Exit Simple Mode':'😞 Feeling Overwhelmed? Simple Mode'}
+// ═══ OVERWHELMED / BAD DAY MODE ═══
+const bdNotes=[
+  '"You are the bravest, most beautiful person I know. I am right here."',
+  '"Every wave of nausea you have pushed through — I see that strength every single day."',
+  '"You don\'t have to be okay right now. I love you exactly as you are, right now."',
+  '"The most important thing in my world is you and our baby. Nothing else matters."',
+  '"Tough moments pass. What doesn\'t pass is how incredibly proud I am of you."',
+  '"Just breathe, my love. I\'ve got everything else. You just have to be here."',
+  '"You are not alone in this — not for a single second. I am yours."'
+];
+let bdBreathInt=null,bdPhaseIdx=0;
+const bdPhases=[
+  {txt:'Breathe in…',phase:'Inhale',dur:4,scale:'scale(1.35)',glow:'0 0 22px rgba(176,160,200,.6)'},
+  {txt:'Hold…',phase:'Hold',dur:4,scale:'scale(1.35)',glow:'0 0 22px rgba(212,130,106,.5)'},
+  {txt:'Breathe out…',phase:'Exhale',dur:6,scale:'scale(1)',glow:'0 0 0 transparent'}
+];
+
+function openBadDay(){
+  // reset actions
+  ['bd1','bd2','bd3'].forEach(id=>{
+    const el=document.getElementById(id);
+    if(el){el.style.background='var(--card)';el.style.borderColor='var(--bd)';el.querySelector('.bd-chk').textContent='';}
+  });
+  // random love note
+  const note=bdNotes[Math.floor(Math.random()*bdNotes.length)];
+  const nl=document.getElementById('bdLoveNote');if(nl)nl.textContent=note;
+  // reset breath
+  stopBdBreath();
+  document.getElementById('badDayModal').classList.add('show');
+}
+function closeBadDay(){
+  stopBdBreath();
+  document.getElementById('badDayModal').classList.remove('show');
+}
+function checkBdAction(el,id){
+  const done=el.querySelector('.bd-chk').textContent==='✅';
+  el.querySelector('.bd-chk').textContent=done?'':'✅';
+  el.style.background=done?'var(--card)':'var(--sl)';
+  el.style.borderColor=done?'var(--bd)':'var(--s)';
+  // if all 3 checked, show encouragement
+  const checked=['bd1','bd2','bd3'].filter(i=>{const e=document.getElementById(i);return e&&e.querySelector('.bd-chk').textContent==='✅';});
+  if(checked.length===3){setTimeout(()=>{confetti();},200);}
+}
+function startBdBreath(){
+  if(bdBreathInt){stopBdBreath();return;}
+  bdPhaseIdx=0;runBdPhase();
+}
+function runBdPhase(){
+  if(bdPhaseIdx>=bdPhases.length*4){stopBdBreath();return;}
+  const p=bdPhases[bdPhaseIdx%bdPhases.length];
+  const ring=document.getElementById('bdBreathRing');
+  const txt=document.getElementById('bdBreathTxt');
+  const phase=document.getElementById('bdBreathPhase');
+  if(ring){ring.style.transform=p.scale;ring.style.boxShadow=p.glow;}
+  if(txt)txt.textContent=p.dur+'s';
+  if(phase)phase.textContent=p.phase;
+  let count=p.dur;
+  if(txt)txt.textContent=count;
+  bdBreathInt=setInterval(()=>{
+    count--;
+    if(txt)txt.textContent=count>0?count:'';
+    if(count<=0){
+      clearInterval(bdBreathInt);bdBreathInt=null;
+      bdPhaseIdx++;
+      setTimeout(runBdPhase,300);
+    }
+  },1000);
+}
+function stopBdBreath(){
+  if(bdBreathInt){clearInterval(bdBreathInt);bdBreathInt=null;}
+  const ring=document.getElementById('bdBreathRing');
+  const txt=document.getElementById('bdBreathTxt');
+  const phase=document.getElementById('bdBreathPhase');
+  if(ring){ring.style.transform='scale(1)';ring.style.boxShadow='0 0 0 0 var(--lv)';}
+  if(txt)txt.innerHTML='Tap<br>to begin';
+  if(phase)phase.textContent='';
+  bdPhaseIdx=0;
+}
 
 // ═══ QUICK EAT ═══
 function openQE(){document.getElementById('qeModal').classList.add('show')}
@@ -2154,16 +2387,116 @@ updateWeek(week);const lmpInp=document.getElementById('lmpInput');if(lmpInp)lmpI
 const wh=getWeekHealth(week);const hCard=document.getElementById('weekHealthCard');const hSub=document.getElementById('weekHealthSub');const hSum=document.getElementById('weekHealthSummary');if(hSub)hSub.textContent='Week '+week+' — '+wh.status;if(hSum)hSum.textContent=wh.summary;// update today widgets
 const vtd=document.getElementById('vomitTodayMH');if(vtd)vtd.textContent=S.vomit||0}
 function mhTab(btn,id){document.querySelectorAll('.mh-tab').forEach(t=>t.classList.remove('on'));document.querySelectorAll('.mh-panel').forEach(p=>p.classList.remove('on'));btn.classList.add('on');const p=document.getElementById(id);if(p)p.classList.add('on')}
-function motherTab(btn,id){const wrap=btn.closest('.page');if(wrap){wrap.querySelectorAll('[id^="mt-"].panel').forEach(p=>p.classList.remove('on'));const tgt=document.getElementById(id);if(tgt)tgt.classList.add('on')}const tbsP=btn.parentElement;tbsP.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on')}
-function renderMotherCharts(){// Get last 7 days of data
-const days=[];const sleepVals=[];const vomitVals=[];const waterVals=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const dk_=d.toDateString().replace(/ /g,'');days.push(d.toLocaleDateString('en-IN',{weekday:'short'}));// sleep: stored from symptoms
-const sleepKey='bpSleepLog_'+d.toDateString();const sleepVal=localStorage.getItem(sleepKey);const sleepNum=sleepVal==='Good'?3:sleepVal==='Fair'?2:sleepVal==='Poor'?1:0;sleepVals.push(sleepNum);// vomit
-const vomitKey='w_'+d.toDateString().replace(/ /g,'');const vomitNum=parseInt(localStorage.getItem('bpV_'+d.toDateString())||localStorage.getItem('bpV')||0)||0;vomitVals.push(Math.min(parseInt(localStorage.getItem('bpV_'+d.toDateString())||0)||0,12));// water
-const waterKey='w_'+d.toDateString();const wVal=parseInt(localStorage.getItem(waterKey)||0)||0;waterVals.push(wVal)}renderBarChart('sleepChart','sleepLabels',sleepVals,days,'sleep-bar',3,'Good','Poor',true);renderBarChart('vomitChart','vomitLabels',vomitVals,days,'vomit-bar',12,'Bad','Better',false);renderBarChart('waterChartMH','waterLabels',waterVals,days,'sleep-bar',2500,'250ml','2500ml',true);// summaries
-const avgSleep=sleepVals.filter(v=>v>0);const sleepSumEl=document.getElementById('sleepSummary');if(sleepSumEl){if(avgSleep.length===0)sleepSumEl.textContent='Log your sleep quality in Today tab daily to build your trend.';else{const avg=avgSleep.reduce((a,b)=>a+b,0)/avgSleep.length;const q=avg>=2.5?'Great sleep pattern! Keep maintaining your bedtime routine 🌙':avg>=1.5?'Sleep is moderate — try turmeric milk and left-side position':'Sleep needs attention — speak to Dr. Ankita if consistently poor';sleepSumEl.textContent=q}}const lastVomit=vomitVals[vomitVals.length-1];const vomitSumEl=document.getElementById('vomitSummary');if(vomitSumEl){const msg=lastVomit===0?'No vomiting today — wonderful! 🎉':lastVomit<=3?'Mild nausea today — within normal range. Keep hydrated 💧':lastVomit<=7?'Moderate nausea today — try Zofer and ginger tea 🍋':'Heavy nausea — ensure Zofer is taken and call Dr. Ankita if >8 episodes 🚨';vomitSumEl.textContent=msg}}
+function motherTab(btn,id){const wrap=btn.closest('.page');if(wrap){wrap.querySelectorAll('[id^="mt-"].panel').forEach(p=>p.classList.remove('on'));const tgt=document.getElementById(id);if(tgt)tgt.classList.add('on')}const tbsP=btn.parentElement;tbsP.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');// refresh Mother Health Report when switching to Mother panel
+if(id==='mt-mother')renderMotherCharts();}
+function renderMotherCharts(){
+  // Primary source: bpSymHist (saved by analyzeSymptoms → saveSymptomHistory)
+  const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
+  const days=[];
+  const sleepVals=[];const vomitVals=[];const waterVals=[];
+  const nauseaVals=[];const energyVals=[];const moodVals=[];
+
+  for(let i=6;i>=0;i--){
+    const d=new Date();d.setDate(d.getDate()-i);
+    const isoKey=d.toISOString().slice(0,10);
+    const dateStr=d.toDateString();
+    days.push(d.toLocaleDateString('en-IN',{weekday:'short'}));
+
+    // Pull from bpSymHist first, then fallback to individual keys
+    const snap=hist[isoKey]||null;
+
+    // Sleep: use sleepNum (hours) from bpSymHist, fallback to bpSleepLog_ mapped to hours
+    let sleepHours=0;
+    if(snap&&snap.sleepNum!=null){sleepHours=snap.sleepNum;}
+    else if(snap&&snap.sleep){
+      // legacy Good/Fair/Poor fallback
+      sleepHours=snap.sleep==='<5'?4:parseInt(snap.sleep)||
+        (snap.sleep==='Good'?8:snap.sleep==='Fair'?6:snap.sleep==='Poor'?5:0);
+    } else {
+      const legacyVal=localStorage.getItem('bpSleepLog_'+dateStr);
+      sleepHours=legacyVal==='Good'?8:legacyVal==='Fair'?6:legacyVal==='Poor'?5:0;
+    }
+    sleepVals.push(sleepHours);
+
+    // Vomit: bpSymHist.vomit → bpV_ fallback
+    let vomitRaw=snap?parseInt(snap.vomit||0):parseInt(localStorage.getItem('bpV_'+dateStr)||0);
+    vomitVals.push(Math.min(vomitRaw||0,12));
+
+    // Water: bpSymHist.water (glasses) → w_ fallback (convert ml→glasses)
+    let waterGlasses=0;
+    if(snap&&snap.water!=null){waterGlasses=parseInt(snap.water)||0;}
+    else{const ml=parseInt(localStorage.getItem('w_'+dateStr)||0)||0;waterGlasses=Math.round(ml/250);}
+    waterVals.push(waterGlasses);
+
+    // Nausea: None=0,Mild=1,Moderate=2,Severe=3
+    const nauseaMap={'None':0,'Mild':1,'Moderate':2,'Severe':3};
+    nauseaVals.push(snap?((nauseaMap[snap.nausea])||0):0);
+
+    // Energy: 1–10
+    energyVals.push(snap?parseInt(snap.energy||0):0);
+
+    // Mood: Happy=4,Calm=3,Tired=2,Anxious=1
+    const moodMap={'Happy':4,'Calm':3,'Tired':2,'Anxious':1,'Loved':4};
+    const moodKey=snap&&snap.mood?snap.mood.split(' ')[0]:'';
+    moodVals.push(moodKey?((moodMap[moodKey])||2):0);
+  }
+
+  renderBarChart('sleepChart','sleepLabels',sleepVals,days,'sleep-bar',10,'Low','High',true);
+  renderBarChart('vomitChart','vomitLabels',vomitVals,days,'vomit-bar',12,'Low','High',false);
+  renderBarChart('waterChartMH','waterLabels',waterVals,days,'sleep-bar',15,'Low','High',true);
+  renderBarChart('nauseaChart','nauseaLabels',nauseaVals,days,'vomit-bar',3,'None','Severe',false);
+  renderBarChart('energyChart','energyLabels',energyVals,days,'sleep-bar',10,'Low','High',true);
+  renderBarChart('moodChart','moodLabels',moodVals,days,'sleep-bar',4,'Low','High',true);
+
+  // Update Sleep Last Night widget
+  const todayIso=new Date().toISOString().slice(0,10);
+  const todaySnap=JSON.parse(localStorage.getItem('bpSymHist')||'{}')[todayIso];
+  const stv=document.getElementById('sleepTodayVal');
+  if(stv){
+    if(todaySnap&&todaySnap.sleep){
+      stv.textContent=todaySnap.sleep==='<5'?'<5 hrs':todaySnap.sleep+' hrs';
+    } else if(S.symptoms&&S.symptoms.sleep){
+      stv.textContent=S.symptoms.sleep==='<5'?'<5 hrs':S.symptoms.sleep+' hrs';
+    } else {
+      stv.textContent='—';
+    }
+  }
+
+  // Summaries
+  const loggedSleep=sleepVals.filter(v=>v>0);
+  const sleepSumEl=document.getElementById('sleepSummary');
+  if(sleepSumEl){
+    if(loggedSleep.length===0)sleepSumEl.textContent='Submit your daily check-in to build your sleep trend.';
+    else{const avg=loggedSleep.reduce((a,b)=>a+b,0)/loggedSleep.length;
+      sleepSumEl.textContent=avg>=8?'Great sleep this week! 8+ hrs is ideal 🌙':avg>=6?'Sleep is moderate — aim for 8 hrs, try turmeric milk before bed 🥛':avg>=5?'Sleep needs attention — speak to Dr. Ankita if consistently under 6 hrs ⚠️':'Very low sleep hours — please discuss with Dr. Ankita 🚨';}
+  }
+  const lastVomit=vomitVals[vomitVals.length-1];
+  const vomitSumEl=document.getElementById('vomitSummary');
+  if(vomitSumEl){vomitSumEl.textContent=lastVomit===0?'No vomiting today — wonderful! 🎉':lastVomit<=3?'Mild nausea today — within normal range. Keep hydrated 💧':lastVomit<=7?'Moderate nausea today — try Zofer and ginger tea 🍋':'Heavy nausea — ensure Zofer is taken and call Dr. Ankita if >8 episodes 🚨';}
+
+  const lastNausea=nauseaVals[nauseaVals.length-1];
+  const nauseaSumEl=document.getElementById('nauseaSummary');
+  if(nauseaSumEl){nauseaSumEl.textContent=lastNausea===0?'No nausea today — wonderful day! 🎉':lastNausea===1?'Mild nausea — ginger tea and cold foods help 🍋':lastNausea===2?'Moderate nausea — eat every 2 hrs, stay hydrated 💧':'Severe nausea — take Zofer, call Dr. Ankita if needed 🚨';}
+
+  const energyLogged=energyVals.filter(v=>v>0);
+  const energySumEl=document.getElementById('energySummary');
+  if(energySumEl){
+    if(!energyLogged.length)energySumEl.textContent='Log your energy level daily in Today tab to track your trend.';
+    else{const avg=energyLogged.reduce((a,b)=>a+b,0)/energyLogged.length;
+      energySumEl.textContent=avg>=7?'Great energy levels this week! Keep up the light activity 🌟':avg>=4?'Moderate energy — short naps and protein snacks help ⚡':'Low energy this week — rest is productive! Delegate to Arnab 💙';}
+  }
+
+  const moodLogged=moodVals.filter(v=>v>0);
+  const moodSumEl=document.getElementById('moodSummary');
+  if(moodSumEl){
+    if(!moodLogged.length)moodSumEl.textContent='Log your mood daily in Today tab to track emotional wellness.';
+    else{const avg=moodLogged.reduce((a,b)=>a+b,0)/moodLogged.length;
+      moodSumEl.textContent=avg>=3.5?'Wonderful emotional wellness this week! 😊':avg>=2.5?'Good emotional balance — keep journalling and breathing exercises 🌸':'Some difficult days — talk to Arnab, try the mind section 💙';}
+  }
+}
 function renderBarChart(chartId,labelId,vals,days,barClass,maxVal,highLabel,lowLabel,higherBetter){const chart=document.getElementById(chartId);const labels=document.getElementById(labelId);if(!chart||!labels)return;const maxV=Math.max(...vals,1);chart.innerHTML=vals.map((v,i)=>{const h=v>0?Math.max(8,Math.round((v/maxV)*72)):4;const isToday=i===6;const color=barClass==='sleep-bar'?`background:linear-gradient(180deg,${isToday?'var(--sky)':'var(--skl)'},${isToday?'var(--skl)':'var(--bg3)'})`:isToday?'background:linear-gradient(180deg,var(--r),var(--rl))':'background:linear-gradient(180deg,var(--rl),var(--bg3))';return`<div class="chart-col"><div class="chart-val">${v||'—'}</div><div class="chart-bar ${barClass}" style="height:${h}px;${color}"></div></div>`}).join('');labels.innerHTML=days.map(d=>`<div class="chart-label" style="flex:1;text-align:center">${d}</div>`).join('')}
 
-// Save sleep quality for trend
+// Save sleep hours for trend
 function saveSleepLog(val){const today=new Date().toDateString();localStorage.setItem('bpSleepLog_'+today,val)}
 
 // ═══ SLEEP LOG HOOK (called from analyzeSymptoms) ═══
