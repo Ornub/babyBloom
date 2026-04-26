@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BabyBloom — Bipasha's Pregnancy Companion 💕</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<style>
+/* ══════════════════════════════════════════════════════
+   DESIGN TOKENS — LIGHT & DARK
+══════════════════════════════════════════════════════ */
+:root {
+  --r:#d4826a; --rl:#f5d4c8; --rd:#a85845; --rg:rgba(212,130,106,.28);
+  --s:#7fa885; --sl:#d0e8d4; --sd:#4a7a4a;
+  --sky:#6aadcc; --skl:#d0eaf5;
+  --g:#c9a96e; --gl:#f0e5c8;
+  --lv:#b0a0c8; --lvl:#e8e0f5;
+  /* light theme */
+  --bg:#faf7f2; --bg2:#f3ede4; --bg3:#ede4d8;
+  --card:rgba(255,255,255,.92); --card2:#fff;
+  --glass:rgba(255,255,255,.75);
+  --t:#2a1f14; --tm:#5c4838; --ts:#8c7060;
+  --bd:#e8dcd0; --bd2:#d8ccc0;
+  --sh:0 2px 16px rgba(140,90,50,.07);
+  --shl:0 8px 32px rgba(140,90,50,.13);
+  --hero-from:#fdf0ea; --hero-mid:#f5e6f0; --hero-to:#e8f0f5;
+  --bnav-bg:rgba(250,247,242,.96);
+  --tab-bg:#fff; --tab-idle:#5c4838;
+  --input-bg:#fff;
+  --emg-bg:linear-gradient(135deg,#ffe8e8,#fff0e8);
+  --insight-bg:linear-gradient(135deg,#d0e8d4,#e8f5ea);
+  --arnab-bg:linear-gradient(135deg,#e8f0f8,#f0f8f0);
+  --action-bg:linear-gradient(135deg,#f5d4c8,#e8e0f5);
+  --ultra-bg:#0d1117; --ultra-glow:rgba(120,200,255,.4);
+}
+[data-theme="dark"] {
+  --bg:#121018; --bg2:#1c1820; --bg3:#242030;
+  --card:rgba(28,24,32,.95); --card2:#1c1820;
+  --glass:rgba(28,24,32,.82);
+  --t:#f0e8e0; --tm:#c8b8a8; --ts:#907860;
+  --bd:#38302a; --bd2:#48403a;
+  --sh:0 2px 16px rgba(0,0,0,.3);
+  --shl:0 8px 32px rgba(0,0,0,.5);
+  --hero-from:#1a1018; --hero-mid:#18101c; --hero-to:#101820;
+  --bnav-bg:rgba(18,16,24,.96);
+  --tab-bg:#1c1820; --tab-idle:#c8b8a8;
+  --input-bg:#242030;
+  --emg-bg:linear-gradient(135deg,#2a1818,#2a2018);
+  --insight-bg:linear-gradient(135deg,#182818,#182820);
+  --arnab-bg:linear-gradient(135deg,#182028,#182820);
+  --action-bg:linear-gradient(135deg,#281820,#201828);
+  --ultra-bg:#050810; --ultra-glow:rgba(120,200,255,.55);
+  --rl:#5a2820; --rd:#e8a080; --rg:rgba(212,130,106,.2);
+  --sl:#184828; --sd:#90d898;
+  --gl:#4a3818; --lvl:#281e3a;
+  --skl:#0e2838;
+}
+
+/* ══════════════════════════════════════════════════════
+   RESET & BASE
+══════════════════════════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--t);line-height:1.65;overflow-x:hidden;padding-bottom:86px;transition:background .3s,color .3s}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--r);border-radius:8px}
+h1,h2,h3,.serif{font-family:'DM Serif Display',serif}
+.cursive{font-family:'Caveat',cursive}
+.lbl{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ts)}
+a{color:var(--r)}
+
+/* ══════════════════════════════════════════════════════
+   DARK MODE TOGGLE
+══════════════════════════════════════════════════════ */
+.theme-toggle{position:fixed;top:12px;right:14px;z-index:2000;width:44px;height:44px;border-radius:50%;border:2px solid var(--bd);background:var(--card);cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;box-shadow:var(--sh);transition:.3s}
+.theme-toggle:hover{transform:scale(1.1);border-color:var(--r)}
+
+/* ══════════════════════════════════════════════════════
+   HERO
+══════════════════════════════════════════════════════ */
+.hero{background:linear-gradient(135deg,var(--hero-from),var(--hero-mid) 40%,var(--hero-to));padding:52px 20px 26px;text-align:center;position:relative;overflow:hidden;transition:background .3s}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 50%,rgba(212,130,106,.08),transparent 60%),radial-gradient(circle at 80% 50%,rgba(176,160,200,.07),transparent 60%);pointer-events:none}
+.hero-chip{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--r),var(--rd));color:#fff;font-size:.65rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:14px;box-shadow:0 4px 14px var(--rg);animation:chipPulse 3s ease-in-out infinite}
+@keyframes chipPulse{0%,100%{box-shadow:0 4px 14px var(--rg)}50%{box-shadow:0 6px 22px rgba(212,130,106,.5)}}
+.hero h1{font-size:clamp(1.9rem,5.5vw,3rem);line-height:1.18;margin-bottom:8px}
+.hero h1 em{color:var(--r);font-style:italic}
+.hero-sub{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--ts);margin-bottom:4px}
+.hero-meta{font-size:.84rem;color:var(--ts)}
+.hero-meta strong{color:var(--r)}
+
+/* motivation bar */
+.motiv-bar{background:linear-gradient(90deg,var(--r),var(--rd));color:#fff;padding:10px 20px;text-align:center;font-family:'Caveat',cursive;font-size:1.05rem;position:relative;overflow:hidden}
+.motiv-bar::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(255,255,255,.15) 50%,transparent 100%);animation:shimmer 3s linear infinite}
+@keyframes shimmer{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+#motivText{transition:opacity .4s}
+
+/* ══════════════════════════════════════════════════════
+   BOTTOM NAV
+══════════════════════════════════════════════════════ */
+.bnav{position:fixed;bottom:0;left:0;right:0;z-index:1000;background:var(--bnav-bg);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);border-top:1px solid var(--bd);display:flex;justify-content:space-around;align-items:center;padding:6px 0 env(safe-area-inset-bottom,8px);box-shadow:0 -2px 20px rgba(0,0,0,.08);transition:background .3s}
+.bnav-btn{display:flex;flex-direction:column;align-items:center;gap:2px;padding:6px 14px;border:none;background:none;cursor:pointer;border-radius:14px;transition:.2s;color:var(--ts);min-width:58px}
+.bnav-btn.active{color:var(--rd);background:rgba(212,130,106,.1)}
+.bnav-btn .icon{font-size:1.35rem}
+.bnav-btn .txt{font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+
+/* ══════════════════════════════════════════════════════
+   PAGES
+══════════════════════════════════════════════════════ */
+.page{display:none}
+.page.active{display:block;animation:pageIn .32s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.wrap{max-width:700px;margin:0 auto;padding:20px 16px}
+
+/* ══════════════════════════════════════════════════════
+   SECTION HEADS
+══════════════════════════════════════════════════════ */
+.sec-head{margin-bottom:20px}
+.sec-head h2{font-size:1.55rem;margin-bottom:4px}
+.sec-head h2 em{color:var(--r);font-style:italic}
+.sec-head p{font-size:.84rem;color:var(--ts)}
+.divider{width:38px;height:3px;background:linear-gradient(90deg,var(--r),var(--g));border-radius:2px;margin:6px 0 10px}
+
+/* ══════════════════════════════════════════════════════
+   CARDS
+══════════════════════════════════════════════════════ */
+.card{background:var(--card);border-radius:18px;border:1px solid var(--bd);box-shadow:var(--sh);overflow:hidden;margin-bottom:16px;transition:transform .2s,background .3s,border-color .3s}
+.card:hover{transform:translateY(-2px);box-shadow:var(--shl)}
+.card-h{padding:15px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--bd)}
+.card-h .ico{font-size:1.6rem;flex-shrink:0}
+.card-h h4{font-family:'DM Serif Display',serif;font-size:1.02rem}
+.card-h small{display:block;font-size:.7rem;color:var(--ts);margin-top:1px}
+.card-b{padding:16px 18px}
+.card-b p{font-size:.86rem;color:var(--tm);margin-bottom:8px}
+
+/* compact list */
+.clist{list-style:none}
+.clist li{font-size:.85rem;color:var(--tm);padding:4px 0 4px 16px;position:relative}
+.clist li::before{content:'✦';position:absolute;left:0;top:6px;font-size:.42rem;color:var(--r)}
+
+/* ══════════════════════════════════════════════════════
+   PILLS
+══════════════════════════════════════════════════════ */
+.pill{display:inline-block;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:3px 9px;border-radius:9px}
+.ps{background:var(--sl);color:var(--sd)}
+.pr{background:var(--rl);color:var(--rd)}
+.pg{background:var(--gl);color:var(--g)}
+.psk{background:var(--skl);color:var(--sky)}
+.plv{background:var(--lvl);color:var(--lv)}
+
+/* ══════════════════════════════════════════════════════
+   BUTTONS
+══════════════════════════════════════════════════════ */
+.btn{padding:10px 22px;border-radius:22px;font-weight:700;font-size:.84rem;cursor:pointer;transition:.2s;border:none;font-family:'Outfit',sans-serif}
+.br{background:var(--r);color:#fff;box-shadow:0 3px 12px var(--rg)}.br:hover{background:var(--rd);transform:translateY(-2px)}
+.bs{background:var(--s);color:#fff}.bs:hover{background:var(--sd)}
+.bo{background:transparent;border:2px solid var(--bd);color:var(--tm)}.bo:hover{border-color:var(--r);color:var(--rd)}
+
+/* ══════════════════════════════════════════════════════
+   SUB-TABS
+══════════════════════════════════════════════════════ */
+.tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:18px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{flex-shrink:0;padding:8px 16px;border-radius:18px;border:2px solid var(--bd);background:var(--tab-bg);color:var(--tab-idle);font-weight:700;font-size:.75rem;cursor:pointer;transition:.2s;white-space:nowrap;font-family:'Outfit',sans-serif}
+.tab.on{background:var(--r);border-color:var(--r);color:#fff}
+.panel{display:none}.panel.on{display:block;animation:pageIn .25s ease}
+
+/* ══════════════════════════════════════════════════════
+   TRACKER MINI
+══════════════════════════════════════════════════════ */
+.tmini{background:var(--card);border-radius:16px;border:1px solid var(--bd);padding:14px 16px;display:flex;align-items:center;gap:12px;margin-bottom:12px;box-shadow:var(--sh);transition:.3s}
+.tmini .ico{font-size:1.9rem;flex-shrink:0}
+.tmini .inf{flex:1}
+.tmini .val{font-family:'DM Serif Display',serif;font-size:1.5rem;color:var(--rd);line-height:1}
+.tmini .sub{font-size:.74rem;color:var(--ts);margin-top:2px}
+.tmini .act{display:flex;gap:6px;flex-shrink:0}
+.mb{padding:8px 14px;border-radius:12px;border:none;font-weight:700;font-size:.76rem;cursor:pointer;transition:.2s;font-family:'Outfit',sans-serif}
+.mba{background:var(--r);color:#fff}.mba:hover{background:var(--rd)}
+.mbr{background:var(--bg3);color:var(--tm)}
+.pbar{height:6px;background:var(--bd);border-radius:3px;overflow:hidden;margin-top:5px}
+.pbar-f{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--r),var(--g));transition:width .6s ease}
+
+/* ══════════════════════════════════════════════════════
+   SYMPTOM GRID
+══════════════════════════════════════════════════════ */
+.sym-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+.sym-item{background:var(--bg2);border-radius:12px;padding:12px;border:1px solid var(--bd)}
+.sym-item label{display:block;font-size:.73rem;font-weight:700;margin-bottom:6px;color:var(--tm)}
+.sym-item select,.sym-item input[type=range]{width:100%;padding:6px;border:1px solid var(--bd);border-radius:8px;font-size:.82rem;font-family:'Outfit',sans-serif;background:var(--card);color:var(--t);transition:.3s}
+.sym-item input[type=range]{padding:0;height:5px;cursor:pointer;background:var(--bd);accent-color:var(--r)}
+
+/* ══════════════════════════════════════════════════════
+   VOMIT STATUS
+══════════════════════════════════════════════════════ */
+.vstatus{padding:11px 16px;border-radius:12px;text-align:center;font-size:.86rem;font-weight:600;margin-bottom:14px;transition:.3s}
+.vok{background:var(--sl);color:var(--sd)}
+.vwarn{background:var(--gl);color:#7a5a20}
+.vdanger{background:var(--rl);color:var(--rd);border:2px solid var(--r);animation:dangerPulse 1.5s ease-in-out infinite}
+@keyframes dangerPulse{0%,100%{opacity:1}50%{opacity:.7}}
+
+/* ══════════════════════════════════════════════════════
+   ALERTS
+══════════════════════════════════════════════════════ */
+.al{padding:13px 16px;border-radius:13px;font-size:.86rem;margin-bottom:14px;display:none}
+.al.show{display:block;animation:slideD .3s ease}
+.al.gentle{background:var(--sl);color:var(--sd);border-left:4px solid var(--s)}
+.al.important{background:var(--gl);color:#7a5a20;border-left:4px solid var(--g)}
+.al.actnow{background:var(--rl);color:var(--rd);border-left:4px solid var(--r)}
+@keyframes slideD{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+
+/* ══════════════════════════════════════════════════════
+   INSIGHTS
+══════════════════════════════════════════════════════ */
+.insight{background:var(--insight-bg);border-radius:13px;padding:14px 16px;margin-bottom:12px;border-left:4px solid var(--s)}
+.insight h5{font-size:.86rem;font-weight:700;margin-bottom:3px;color:var(--sd)}.insight h5::before{content:'💡 '}
+.insight p{font-size:.82rem;color:var(--tm)}
+
+/* ══════════════════════════════════════════════════════
+   STREAKS
+══════════════════════════════════════════════════════ */
+.streaks{display:flex;gap:10px;margin-bottom:16px}
+.streak{background:var(--card);border-radius:14px;padding:12px 14px;text-align:center;flex:1;border:1px solid var(--bd)}
+.streak .emo{font-size:1.5rem;display:block;margin-bottom:4px}
+.streak .num{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--rd)}
+.streak .lbl{font-size:.64rem;color:var(--ts);text-transform:uppercase;letter-spacing:.06em}
+
+/* ══════════════════════════════════════════════════════
+   ARNAB CARD
+══════════════════════════════════════════════════════ */
+.arnab{background:var(--arnab-bg);border-radius:16px;padding:18px;border:1px solid var(--bd);margin-bottom:16px}
+.arnab h4{font-family:'DM Serif Display',serif;font-size:1.05rem;margin-bottom:10px}
+.arnab h4::before{content:'👨 '}
+.arnab ul{list-style:none}
+.arnab ul li{padding:8px 12px;background:var(--card);border-radius:10px;margin-bottom:6px;font-size:.85rem;display:flex;align-items:center;gap:8px;border:1px solid var(--bd)}
+.arnab ul li::before{content:'💙'}
+
+/* ══════════════════════════════════════════════════════
+   QUICK EAT FLOAT + MODAL
+══════════════════════════════════════════════════════ */
+.qe-float{position:fixed;bottom:92px;right:14px;z-index:999;width:54px;height:54px;border-radius:50%;background:linear-gradient(135deg,var(--s),var(--sd));color:#fff;border:none;font-size:1.5rem;cursor:pointer;box-shadow:0 6px 18px rgba(127,168,133,.4);transition:.2s}
+.qe-float:hover{transform:scale(1.1);box-shadow:0 8px 24px rgba(127,168,133,.55)}
+.qe-overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:flex-end;justify-content:center;z-index:9999;padding:0 0 86px}
+.qe-overlay.show{display:flex}
+.qe-sheet{background:var(--card2);border-radius:24px 24px 0 0;padding:26px 20px 28px;max-width:480px;width:100%;max-height:80vh;overflow-y:auto;box-shadow:0 -8px 40px rgba(0,0,0,.2)}
+.qe-sheet h3{font-family:'DM Serif Display',serif;font-size:1.35rem;text-align:center;margin-bottom:4px}
+.qe-opt{background:var(--bg2);border:2px solid var(--bd);border-radius:14px;padding:13px;display:flex;align-items:center;gap:12px;margin-top:9px;transition:.2s;cursor:pointer}
+.qe-opt:hover{border-color:var(--s);background:var(--sl)}
+.qe-opt .emo{font-size:2rem;flex-shrink:0}
+.qe-opt h5{font-size:.92rem;font-weight:700;margin-bottom:2px}
+.qe-opt p{font-size:.78rem;color:var(--ts)}
+
+/* ══════════════════════════════════════════════════════
+   ANTI-NAUSEA TIPS
+══════════════════════════════════════════════════════ */
+.ntip{background:var(--card2);border-radius:12px;padding:13px;border-left:4px solid var(--g);display:flex;gap:10px;align-items:flex-start;margin-bottom:10px}
+.ntip .ico{font-size:1.5rem;flex-shrink:0}
+.ntip h5{font-size:.88rem;font-weight:700;margin-bottom:2px}
+.ntip p{font-size:.8rem;color:var(--tm)}
+
+/* ══════════════════════════════════════════════════════
+   EMERGENCY CARD
+══════════════════════════════════════════════════════ */
+.emg{background:var(--emg-bg);border:2px solid var(--r);border-radius:18px;padding:20px;position:relative}
+.emg h4{font-family:'DM Serif Display',serif;font-size:1.15rem;color:var(--rd);margin-bottom:14px}
+.emg-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--bd)}
+.emg-row:last-child{border:none}
+.emg-row .lbl{font-size:.74rem;font-weight:700;color:var(--ts)}
+.emg-row input{border:none;text-align:right;font-weight:700;font-size:.9rem;background:transparent;outline:none;color:var(--t);width:58%;font-family:'Outfit',sans-serif}
+
+/* ══════════════════════════════════════════════════════
+   MUSIC
+══════════════════════════════════════════════════════ */
+.mcat{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:14px}
+.mcatb{background:var(--tab-bg);border-radius:12px;padding:11px 6px;text-align:center;cursor:pointer;border:2px solid transparent;transition:.2s}
+.mcatb:hover,.mcatb.active{border-color:var(--lv);background:var(--lvl)}
+.mcatb .emo{font-size:1.7rem;display:block;margin-bottom:3px}
+.mcatb .txt{font-size:.68rem;font-weight:700;color:var(--tm)}
+.mplayer{background:var(--tab-bg);border-radius:13px;padding:16px;text-align:center}
+.mplayer .track{font-size:.92rem;font-weight:600;margin-bottom:10px;color:var(--t)}
+.play-btn{background:linear-gradient(135deg,var(--lv),#9080b8);color:#fff;border:none;padding:9px 28px;border-radius:18px;font-weight:700;cursor:pointer;transition:.2s;font-family:'Outfit',sans-serif}
+.play-btn:hover{transform:scale(1.04)}
+
+/* ══════════════════════════════════════════════════════
+   BREATHING
+══════════════════════════════════════════════════════ */
+.breath-ring{width:150px;height:150px;border-radius:50%;background:radial-gradient(circle,rgba(212,130,106,.25),rgba(176,160,200,.18));margin:0 auto 14px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform 4s ease-in-out;position:relative}
+.breath-ring::before{content:'';position:absolute;inset:-8px;border-radius:50%;border:2px solid rgba(212,130,106,.25);animation:breathRing 4s ease-in-out infinite}
+@keyframes breathRing{0%,100%{transform:scale(1);opacity:.4}50%{transform:scale(1.12);opacity:.9}}
+.breath-ring.expand{transform:scale(1.3)}
+.breath-ring.contract{transform:scale(.78)}
+.breath-ring.hold{transform:scale(1.3)}
+.breath-txt{font-family:'Caveat',cursive;font-size:1.25rem;color:var(--rd)}
+
+/* ══════════════════════════════════════════════════════
+   MANDALA
+══════════════════════════════════════════════════════ */
+.mandala-g{display:grid;grid-template-columns:repeat(auto-fill,minmax(95px,1fr));gap:9px}
+.mandala-c{background:var(--card2);border-radius:11px;overflow:hidden;border:1px solid var(--bd);text-align:center;padding-bottom:9px;transition:.2s;cursor:pointer}
+.mandala-c:hover{transform:translateY(-3px);box-shadow:var(--shl)}
+.mandala-sw{height:56px}
+.mandala-c .lv{font-size:.62rem;font-weight:700;color:var(--lv);margin-top:6px}
+.mandala-c .mo{font-size:.75rem;font-weight:600;color:var(--t)}
+
+/* ══════════════════════════════════════════════════════
+   JOURNAL
+══════════════════════════════════════════════════════ */
+.jinput{width:100%;min-height:96px;padding:13px;border:2px solid var(--bd);border-radius:13px;font-family:'Outfit',sans-serif;font-size:.87rem;resize:vertical;transition:.2s;background:var(--input-bg);color:var(--t)}
+.jinput:focus{outline:none;border-color:var(--r)}
+.jentry{background:var(--bg2);padding:13px;border-radius:11px;margin-top:9px;border-left:3px solid var(--g)}
+.jentry .jdate{font-size:.7rem;color:var(--ts);font-weight:600;margin-bottom:3px}
+.jentry .jtext{font-size:.84rem;color:var(--tm)}
+
+/* ══════════════════════════════════════════════════════
+   NAMES
+══════════════════════════════════════════════════════ */
+.name-wrap{display:flex;flex-wrap:wrap;gap:7px}
+.npill{background:var(--bg2);border:1px solid var(--bd);border-radius:18px;padding:6px 13px;font-size:.82rem;font-weight:600;transition:.2s;cursor:pointer;color:var(--tm)}
+.npill:hover{border-color:var(--r);transform:scale(1.04)}
+.npill.boy{background:var(--skl);color:var(--sky)}
+.npill.girl{background:var(--rl);color:var(--rd)}
+
+/* ══════════════════════════════════════════════════════
+   FAQ
+══════════════════════════════════════════════════════ */
+.faq{background:var(--card);border-radius:13px;padding:15px 17px;border:1px solid var(--bd);margin-bottom:9px;cursor:pointer;transition:.2s}
+.faq:hover{border-color:var(--r)}
+.faq-q{font-size:.9rem;font-weight:700;display:flex;justify-content:space-between;align-items:center;color:var(--t)}
+.faq-q::after{content:'+';font-size:1.3rem;color:var(--r);flex-shrink:0;margin-left:8px}
+.faq.open .faq-q::after{content:'−'}
+.faq-a{font-size:.83rem;color:var(--tm);margin-top:10px;display:none;line-height:1.6}
+.faq.open .faq-a{display:block}
+
+/* ══════════════════════════════════════════════════════
+   STORY LINKS
+══════════════════════════════════════════════════════ */
+.slink{display:inline-flex;align-items:center;gap:4px;color:var(--rd);font-size:.76rem;font-weight:700;text-decoration:none;padding:5px 12px;border-radius:16px;border:2px solid var(--rl);transition:.2s;margin:3px 3px 3px 0}
+.slink:hover{background:var(--r);color:#fff;border-color:var(--r)}
+.slink.alt{border-color:var(--gl);color:var(--g)}.slink.alt:hover{background:var(--g);color:#fff;border-color:var(--g)}
+
+/* ══════════════════════════════════════════════════════
+   WEEK CARDS
+══════════════════════════════════════════════════════ */
+.wk-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:14px}
+.wk-card{background:var(--card);border-radius:15px;border:1px solid var(--bd);box-shadow:var(--sh);overflow:hidden;transition:.2s}
+.wk-card:hover{transform:translateY(-2px)}
+.wk-head{padding:13px 16px;background:linear-gradient(135deg,var(--bg2),var(--bg3));border-bottom:1px solid var(--bd);display:flex;justify-content:space-between;align-items:center}
+.wk-n{font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--rd)}
+.wk-body{padding:14px 16px}
+.wk-lbl{font-size:.65rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--r);margin-bottom:3px;margin-top:8px}
+.wk-lbl:first-child{margin-top:0}
+
+/* ══════════════════════════════════════════════════════
+   DIET
+══════════════════════════════════════════════════════ */
+.dc{background:var(--card);border-radius:14px;padding:16px;border-left:4px solid var(--s);box-shadow:var(--sh);margin-bottom:11px}
+.dc h4{font-family:'DM Serif Display',serif;font-size:.98rem;margin-bottom:3px}
+.dc-time{font-size:.68rem;font-weight:700;text-transform:uppercase;color:var(--sd);margin-bottom:8px;letter-spacing:.08em}
+.dc-ul{list-style:none}
+.dc-ul li{font-size:.83rem;color:var(--tm);padding:3px 0;display:flex;gap:7px;align-items:flex-start}
+.dc-ul li::before{content:'🌿';font-size:.66rem;margin-top:3px;flex-shrink:0}
+
+/* ══════════════════════════════════════════════════════
+   EXERCISE
+══════════════════════════════════════════════════════ */
+.ec{background:var(--card);border-radius:14px;padding:16px;border-top:3px solid var(--sky);box-shadow:var(--sh);margin-bottom:11px}
+.ec h4{font-family:'DM Serif Display',serif;font-size:.98rem;margin-bottom:8px}
+.ec-ul{list-style:none}
+.ec-ul li{font-size:.83rem;color:var(--tm);padding:4px 0;border-bottom:1px dashed var(--bd);display:flex;justify-content:space-between}
+.ec-ul li:last-child{border:none}
+.ec-time{font-size:.7rem;font-weight:700;color:var(--ts);background:var(--bg2);padding:2px 7px;border-radius:7px}
+
+/* ══════════════════════════════════════════════════════
+   WIN BANNER
+══════════════════════════════════════════════════════ */
+.win-banner{background:linear-gradient(135deg,var(--gl),rgba(212,180,100,.2));border-radius:13px;padding:15px 18px;text-align:center;border:2px solid var(--g);display:none;margin-bottom:14px}
+.win-banner h4{font-family:'DM Serif Display',serif;font-size:1.05rem;margin-bottom:4px}
+.win-banner p{font-size:.85rem;color:var(--tm)}
+
+/* ══════════════════════════════════════════════════════
+   CONFETTI
+══════════════════════════════════════════════════════ */
+@keyframes confettiFall{to{transform:translateY(100vh) rotate(720deg);opacity:0}}
+.cfti{position:fixed;top:-20px;z-index:9999;pointer-events:none;animation:confettiFall 3s ease-out forwards}
+
+/* ══════════════════════════════════════════════════════
+   BAD DAY
+══════════════════════════════════════════════════════ */
+body.bad-day .hide-bd{display:none!important}
+
+/* ══════════════════════════════════════════════════════
+   ██████████ ULTRASOUND SECTION ██████████
+══════════════════════════════════════════════════════ */
+.ultra-section{background:var(--ultra-bg);border-radius:20px;padding:24px 20px;margin-bottom:20px;position:relative;overflow:hidden}
+.ultra-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(60,100,180,.08),transparent 70%),radial-gradient(ellipse at 70% 50%,rgba(40,140,120,.06),transparent 70%)}
+.ultra-section h4{font-family:'DM Serif Display',serif;color:#b8d8f8;font-size:1.1rem;margin-bottom:4px;text-align:center}
+.ultra-section p{font-size:.78rem;color:#607080;text-align:center;margin-bottom:18px}
+
+/* Scrollable month strip */
+.ultra-strip{display:flex;gap:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}
+.ultra-strip::-webkit-scrollbar{display:none}
+.ultra-month{flex-shrink:0;width:110px;background:rgba(15,25,40,.7);border:1px solid rgba(80,130,180,.2);border-radius:12px;overflow:hidden;cursor:pointer;transition:.3s}
+.ultra-month:hover,.ultra-month.active{border-color:rgba(120,200,255,.5);box-shadow:0 0 16px rgba(100,180,255,.2)}
+.ultra-svg-wrap{height:90px;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg,rgba(10,20,35,.8),rgba(5,15,25,.95))}
+.ultra-month-label{padding:7px;text-align:center}
+.ultra-month-label .mo{font-size:.65rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:#4a7898;margin-bottom:2px}
+.ultra-month-label .size{font-size:.78rem;color:#b8d8f8;font-weight:600}
+
+/* Big viewer */
+.ultra-viewer{background:linear-gradient(180deg,rgba(5,12,22,1),rgba(8,18,30,.98));border-radius:14px;padding:20px;margin-top:14px;position:relative;min-height:220px;display:flex;flex-direction:column;align-items:center;justify-content:center;border:1px solid rgba(80,130,180,.15);overflow:hidden}
+.ultra-viewer::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(60,120,200,.04),transparent 60%)}
+.ultra-viewer-svg{position:relative;z-index:1}
+.ultra-viewer-info{text-align:center;margin-top:12px;z-index:1;position:relative}
+.ultra-viewer-info h5{color:#c8e4f8;font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:4px}
+.ultra-viewer-info p{color:#5a8098;font-size:.8rem}
+/* scan lines effect */
+.ultra-viewer::after{content:'';position:absolute;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(60,120,180,.015) 2px,rgba(60,120,180,.015) 4px);pointer-events:none}
+
+/* ══════════════════════════════════════════════════════
+   EMERGENCY STRIP (footer-style)
+══════════════════════════════════════════════════════ */
+.emg-strip{background:#1a1a1a;border-radius:14px;padding:16px 20px;margin-bottom:16px;display:flex;flex-wrap:wrap;align-items:center;gap:16px;justify-content:space-between}
+.emg-strip .left .title{font-size:.86rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px}
+.emg-strip .left .sub{font-size:.76rem;color:#888;margin-top:2px}
+.emg-strip .contacts{display:flex;gap:20px;flex-wrap:wrap}
+.emg-strip .contact{text-align:right}
+.emg-strip .contact .clabel{font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#666;margin-bottom:2px}
+.emg-strip .contact .cnum{font-size:1.2rem;font-weight:800;letter-spacing:-.01em}
+.emg-strip .contact .cnum.doc{color:#e8a0c8}
+.emg-strip .contact .cnum.hosp{color:#80d8a0}
+
+/* ══════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════ */
+.footer{background:#111;padding:24px 20px;text-align:center;margin-top:24px}
+.footer p{color:#555;font-size:.75rem;line-height:1.8}
+.footer strong{color:#888}
+
+/* ══════════════════════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════════════════════ */
+
+/* ══════════════════════════════════════════════════════
+   LOVE LETTER FLOAT & MODAL
+══════════════════════════════════════════════════════ */
+.love-float{position:fixed;bottom:154px;right:14px;z-index:1500;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#c8a0d8,var(--r));border:none;font-size:1.3rem;cursor:pointer;box-shadow:0 4px 18px rgba(180,140,210,.45),0 2px 8px rgba(0,0,0,.15);display:flex;align-items:center;justify-content:center;transition:.3s}
+.love-float:hover{transform:scale(1.12) rotate(-5deg);box-shadow:0 6px 24px rgba(180,140,210,.65)}
+.love-overlay{position:fixed;inset:0;z-index:4000;background:rgba(0,0,0,.6);backdrop-filter:blur(7px);display:none;align-items:flex-end;justify-content:center;padding:0 0 0}
+.love-overlay.show{display:flex;animation:fadeInLov .3s ease}
+@keyframes fadeInLov{from{opacity:0}to{opacity:1}}
+.love-sheet{background:var(--card);border-radius:28px 28px 0 0;padding:28px 22px 40px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;animation:slideUpLov .35s ease;border-top:3px solid var(--lv);box-shadow:0 -8px 48px rgba(0,0,0,.22)}
+@keyframes slideUpLov{from{transform:translateY(70px);opacity:0}to{transform:none;opacity:1}}
+.love-sheet-head{text-align:center;margin-bottom:18px}
+.love-sheet-head h3{font-family:'DM Serif Display',serif;font-size:1.3rem;color:var(--rd);margin-bottom:4px}
+.love-sheet-head .love-sub{font-family:'Caveat',cursive;font-size:1rem;color:var(--ts)}
+.love-msg{font-size:.9rem;color:var(--tm);line-height:1.9;background:linear-gradient(135deg,var(--bg2),var(--bg3));padding:20px;border-radius:16px;border-left:4px solid var(--lv);margin-bottom:14px;white-space:pre-line}
+.love-msg-short{font-family:'DM Serif Display',serif;font-size:1.05rem;color:var(--tm);line-height:1.8;background:linear-gradient(135deg,var(--lvl),var(--bg3));padding:22px;border-radius:16px;border-left:4px solid var(--r);margin-bottom:14px;text-align:center;font-style:italic}
+.love-refresh-note{text-align:center;font-size:.73rem;color:var(--ts);margin-bottom:16px;font-style:italic}
+.love-sig{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--rd);text-align:right;margin-top:8px}
+
+/* ══════════════════════════════════════════════════════
+   MEDICINE CHECKLIST
+══════════════════════════════════════════════════════ */
+.med-grid{display:flex;flex-direction:column;gap:7px}
+.med-item{display:flex;align-items:center;gap:11px;padding:12px 14px;background:var(--bg2);border-radius:12px;border:1.5px solid var(--bd);transition:.2s;cursor:pointer;user-select:none}
+.med-item:hover{border-color:var(--lv);transform:translateX(2px)}
+.med-item.done{background:var(--sl);border-color:var(--sd)}
+.med-item.done .med-name{text-decoration:line-through;opacity:.6}
+.med-check{width:24px;height:24px;border-radius:7px;border:2px solid var(--bd);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.9rem;transition:.2s;background:var(--card)}
+.med-item.done .med-check{background:linear-gradient(135deg,var(--s),var(--sd));border-color:var(--sd);color:#fff}
+.med-info{flex:1}
+.med-time{font-size:.63rem;font-weight:800;text-transform:uppercase;letter-spacing:.1em;color:var(--r);margin-bottom:2px}
+.med-name{font-size:.88rem;font-weight:600;color:var(--t);transition:.2s}
+.med-dose{font-size:.73rem;color:var(--ts);margin-top:1px}
+.med-special{display:inline-block;font-size:.58rem;font-weight:800;text-transform:uppercase;letter-spacing:.08em;padding:2px 7px;border-radius:7px;margin-left:5px;vertical-align:middle}
+.med-weekly{background:var(--gl);color:var(--g)}
+.med-prn{background:var(--lvl);color:var(--lv)}
+.med-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px}
+.med-prog{font-size:.82rem;color:var(--ts)}
+
+/* ══════════════════════════════════════════════════════
+   MOTHER HEALTH SECTION
+══════════════════════════════════════════════════════ */
+.mh-section{margin-bottom:20px}
+.mh-card{background:var(--card);border-radius:18px;border:1px solid var(--bd);box-shadow:var(--sh);padding:18px;margin-bottom:14px}
+.mh-card h4{font-family:'DM Serif Display',serif;font-size:1.02rem;margin-bottom:3px}
+.mh-card .mh-sub{font-size:.74rem;color:var(--ts);margin-bottom:14px}
+.chart-row{display:flex;align-items:flex-end;gap:5px;height:80px;margin-bottom:6px}
+.chart-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px}
+.chart-bar{width:100%;border-radius:4px 4px 0 0;min-height:4px;transition:height .7s ease;position:relative}
+.chart-bar.sleep-bar{background:linear-gradient(180deg,var(--sky),var(--skl))}
+.chart-bar.vomit-bar{background:linear-gradient(180deg,var(--r),var(--rl))}
+.chart-val{font-size:.65rem;color:var(--ts);font-weight:600}
+.chart-day{font-size:.58rem;color:var(--ts);white-space:nowrap}
+.mh-tabs{display:flex;gap:6px;margin-bottom:14px}
+.mh-tab{flex:1;padding:7px;border-radius:12px;border:2px solid var(--bd);background:var(--bg2);color:var(--ts);font-size:.72rem;font-weight:700;cursor:pointer;text-align:center;transition:.2s}
+.mh-tab.on{background:var(--r);border-color:var(--r);color:#fff}
+.mh-panel{display:none}.mh-panel.on{display:block}
+.mh-summary{background:linear-gradient(135deg,var(--bg2),var(--bg3));border-radius:12px;padding:14px;border-left:3px solid var(--r);margin-top:12px;font-size:.84rem;color:var(--tm);line-height:1.7}
+.week-auto-badge{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--r),var(--rd));color:#fff;font-size:.74rem;font-weight:800;padding:5px 14px;border-radius:16px;margin-bottom:10px}
+.lmp-row{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap;padding:12px;background:var(--bg2);border-radius:12px;border:1px solid var(--bd)}
+.lmp-row label{font-size:.76rem;color:var(--ts);font-weight:700;flex-shrink:0}
+.lmp-row input[type=date]{padding:6px 10px;border:2px solid var(--bd);border-radius:9px;font-size:.82rem;background:var(--input-bg);color:var(--t);font-family:'Outfit',sans-serif;flex:1;min-width:130px}
+.lmp-row input[type=date]:focus{outline:none;border-color:var(--r)}
+.lmp-btn{padding:7px 14px;background:var(--r);color:#fff;border:none;border-radius:9px;font-size:.76rem;font-weight:700;cursor:pointer;font-family:'Outfit',sans-serif;white-space:nowrap}
+.mother-tabs{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;margin-bottom:16px}
+.mother-tabs::-webkit-scrollbar{display:none}
+
+/* ══════════════════════════════════════════════════════
+   MANDALA UPDATES
+══════════════════════════════════════════════════════ */
+.mandala-sw{height:80px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.mandala-c{cursor:pointer;transition:.2s}
+.mandala-c:hover{transform:translateY(-3px) scale(1.04);box-shadow:var(--shl)}
+
+/* ══════════════════════════════════════════════════════
+   YOUTUBE MUSIC BUTTON
+══════════════════════════════════════════════════════ */
+.yt-music-btn{width:100%;padding:14px 20px;background:linear-gradient(135deg,#ff0000,#cc0000);color:#fff;border:none;border-radius:16px;font-size:.95rem;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;margin-bottom:4px;font-family:'Outfit',sans-serif;box-shadow:0 4px 18px rgba(255,0,0,.3);transition:.2s;text-decoration:none}
+.yt-music-btn:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(255,0,0,.4);color:#fff}
+
+/* ══════════════════════════════════════════════════════
+   EMERGENCY STRIP IN FAQ
+══════════════════════════════════════════════════════ */
+.emg-strip-faq{background:linear-gradient(135deg,#1a1a1a,#1a1020);border-radius:16px;padding:18px 20px;margin-top:20px;border:2px solid rgba(212,130,106,.25)}
+.emg-strip-faq .emg-title{font-size:.86rem;font-weight:800;color:#fff;display:flex;align-items:center;gap:6px;margin-bottom:6px}
+.emg-strip-faq .emg-note{font-size:.74rem;color:#888;margin-bottom:14px}
+.emg-strip-faq .emg-contacts{display:flex;gap:16px;flex-wrap:wrap}
+.emg-strip-faq .emg-c{flex:1;min-width:130px;background:rgba(255,255,255,.05);border-radius:10px;padding:10px 12px;border:1px solid rgba(255,255,255,.08)}
+.emg-strip-faq .emg-c .clabel{font-size:.6rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:#666;margin-bottom:3px}
+.emg-strip-faq .emg-c .cnum{font-size:1.15rem;font-weight:800}
+.emg-strip-faq .emg-c .cnum.doc{color:#e8a0c8}
+.emg-strip-faq .emg-c .cnum.hosp{color:#80d8a0}
+.emg-strip-faq .emg-c .csub{font-size:.68rem;color:#666;margin-top:2px}
+
+/* ══════════════════════════════════════════════════════
+   ME & MY WIFE TAB
+══════════════════════════════════════════════════════ */
+.us-card{background:linear-gradient(135deg,var(--lvl),var(--bg3));border-radius:20px;border:1px solid var(--lv);padding:22px;text-align:center;margin-bottom:14px;position:relative;overflow:hidden}
+.us-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 70%,rgba(176,160,200,.1),transparent 60%),radial-gradient(circle at 70% 30%,rgba(212,130,106,.08),transparent 60%);pointer-events:none}
+.us-title{font-family:'Caveat',cursive;font-size:1.4rem;color:var(--r);margin-bottom:4px;position:relative}
+.us-sub{font-size:.75rem;color:var(--ts);margin-bottom:18px;position:relative}
+.us-msg-display{font-family:'DM Serif Display',serif;font-size:1.0rem;color:var(--tm);line-height:1.85;background:rgba(255,255,255,.5);padding:18px;border-radius:14px;border-left:4px solid var(--r);text-align:left;margin-bottom:14px;min-height:80px;transition:opacity .4s;white-space:pre-line;position:relative}
+[data-theme="dark"] .us-msg-display{background:rgba(30,20,40,.6)}
+.us-controls{display:flex;gap:8px;justify-content:center;position:relative}
+.us-btn-refresh{padding:9px 20px;background:linear-gradient(135deg,var(--lv),var(--r));color:#fff;border:none;border-radius:18px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s}
+.us-btn-refresh:hover{transform:scale(1.05)}
+.us-btn-love{padding:9px 20px;background:var(--bg3);color:var(--tm);border:2px solid var(--bd);border-radius:18px;font-weight:700;font-size:.8rem;cursor:pointer;font-family:'Outfit',sans-serif;transition:.2s}
+.us-btn-love:hover{border-color:var(--r);color:var(--rd)}
+.us-count{font-size:.72rem;color:var(--ts);margin-top:8px;position:relative}
+
+@media(max-width:480px){
+  .wrap{padding:16px 12px}
+  .sym-grid{grid-template-columns:1fr 1fr}
+  .wk-grid{grid-template-columns:1fr}
+  .mcat{grid-template-columns:repeat(4,1fr)}
+}
+
+/* ══════════════════════════════════════════════════════
+   MED CALENDAR
+══════════════════════════════════════════════════════ */
+.med-view-toggle{display:flex;gap:6px;margin-bottom:14px}
+.med-view-btn{flex:1;padding:8px;border-radius:12px;border:2px solid var(--bd);background:var(--bg2);color:var(--ts);font-size:.76rem;font-weight:700;cursor:pointer;text-align:center;transition:.2s;font-family:'Outfit',sans-serif}
+.med-view-btn.on{background:var(--r);border-color:var(--r);color:#fff}
+.med-cal-wrap{display:none}.med-cal-wrap.on{display:block}
+.med-list-wrap{display:none}.med-list-wrap.on{display:block}
+.cal-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.cal-nav h5{font-family:'DM Serif Display',serif;font-size:1rem;color:var(--t)}
+.cal-nav-btn{background:none;border:2px solid var(--bd);border-radius:10px;padding:5px 12px;cursor:pointer;font-size:1rem;color:var(--tm);transition:.2s;font-family:'Outfit',sans-serif}
+.cal-nav-btn:hover{border-color:var(--r);color:var(--rd)}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;margin-bottom:14px}
+.cal-dow{font-size:.6rem;font-weight:800;text-transform:uppercase;letter-spacing:.06em;color:var(--ts);text-align:center;padding:4px 0}
+.cal-day{border-radius:10px;padding:5px 3px;text-align:center;min-height:52px;position:relative;border:1.5px solid transparent;transition:.2s;cursor:pointer}
+.cal-day:hover{border-color:var(--bd)}
+.cal-day.today{border-color:var(--r)!important;background:rgba(212,130,106,.08)}
+.cal-day.other-month{opacity:.3}
+.cal-day .cal-dn{font-size:.72rem;font-weight:700;color:var(--tm);margin-bottom:3px}
+.cal-day.today .cal-dn{color:var(--rd);font-weight:800}
+.cal-dots{display:flex;flex-wrap:wrap;gap:2px;justify-content:center;min-height:14px}
+.cal-dot{width:6px;height:6px;border-radius:50%}
+.cal-dot.taken{background:var(--s)}
+.cal-dot.missed{background:var(--r);opacity:.5}
+.cal-dot.partial{background:var(--g)}
+.cal-summary-bar{height:5px;border-radius:3px;margin-top:3px;width:100%}
+.cal-day-detail{background:var(--card);border-radius:14px;padding:14px;border:1px solid var(--bd);margin-bottom:14px;display:none}
+.cal-day-detail.show{display:block;animation:slideD .2s ease}
+.cal-day-detail h5{font-family:'DM Serif Display',serif;font-size:.95rem;margin-bottom:10px;color:var(--rd)}
+.cal-med-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed var(--bd);font-size:.82rem}
+.cal-med-row:last-child{border:none}
+.cal-med-row .status{font-size:1rem;flex-shrink:0}
+.cal-med-row .mname{color:var(--t);font-weight:600;flex:1}
+.cal-med-row .mtime{font-size:.68rem;color:var(--ts)}
+.cal-legend{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:12px}
+.cal-legend-item{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--ts)}
+.cal-legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.med-streak-row{display:flex;gap:8px;margin-bottom:14px}
+.med-streak-card{flex:1;background:var(--card);border-radius:12px;padding:10px;text-align:center;border:1px solid var(--bd)}
+.med-streak-card .num{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--rd)}
+.med-streak-card .lbl{font-size:.62rem;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-top:1px}
+
+</style>
+</head>
+<body>
+
+<!-- ═══ THEME TOGGLE ═══ -->
+<button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
+
+<!-- ═══ HERO ═══ -->
+<div class="hero">
+  <div class="hero-chip">💕 BabyBloom — Pregnancy Companion</div>
+  <h1>Bipasha's <em>Journey</em></h1>
+  <p class="hero-sub">Your daily companion, crafted with love</p>
+  <p class="hero-meta">👩 <strong>Bipasha Mondal</strong> · 👨 <strong>Arnab Mondal</strong> · Bengaluru → Kolkata</p>
+</div>
+<div class="motiv-bar"><span id="motivText">Every day your baby grows stronger and more beautiful 💕</span></div>
+
+
+<!-- ═══ FLOATING QUICK EAT ═══ -->
+<button class="qe-float" onclick="openQE()" title="What can I eat now?">🍽️</button>
+<button class="love-float" id="loveFloat" onclick="openLove()" title="💌 From Arnab, with love">💌</button>
+<div class="qe-overlay" id="qeModal" onclick="if(event.target===this)closeQE()">
+  <div class="qe-sheet">
+    <h3>What Can I Eat <em>Right Now?</em></h3>
+    <p style="text-align:center;font-size:.83rem;color:var(--ts);margin-bottom:8px">Ultra-light, nausea-safe options</p>
+    <div class="qe-opt"><div class="emo">🍌</div><div><h5>Banana</h5><p>Easy energy, potassium, gentle on stomach</p></div></div>
+    <div class="qe-opt"><div class="emo">🥥</div><div><h5>Daab (Coconut Water)</h5><p>Natural electrolytes — best anti-nausea</p></div></div>
+    <div class="qe-opt"><div class="emo">🍚</div><div><h5>Plain Khichdi + Ghee</h5><p>Bengali comfort food, easy to digest</p></div></div>
+    <div class="qe-opt"><div class="emo">🍉</div><div><h5>Watermelon (Cold)</h5><p>92% water — cooling for summer heat</p></div></div>
+    <div class="qe-opt"><div class="emo">🥛</div><div><h5>Cold Doi (Curd)</h5><p>Probiotic, calcium-rich, soothing</p></div></div>
+    <div class="qe-opt"><div class="emo">🍪</div><div><h5>Plain Crackers</h5><p>Keep bedside — eat before sitting up</p></div></div>
+    <button onclick="closeQE()" class="btn br" style="width:100%;margin-top:14px">Close</button>
+  </div>
+</div>
+
+<!-- ═══ LOVE LETTER MODAL (Arnab's Corner) ═══ -->
+<div class="love-overlay" id="loveModal" onclick="if(event.target===this)closeLove()">
+  <div class="love-sheet">
+    <div class="love-sheet-head">
+      <h3>💌 From Arnab, With All My Love</h3>
+      <div class="love-sub">A letter straight from the heart — for Bipasha & our little miracle 🌟</div>
+    </div>
+    <div class="love-refresh-note">✨ Opens to a new message each time</div>
+    <div id="loveMsgDisplay" class="love-msg-short">Loading your letter...</div>
+    <button class="btn br" onclick="refreshLoveMsg()" style="width:100%;margin-bottom:10px">🔄 Another Message</button>
+    <button onclick="closeLove()" class="btn bo" style="width:100%">Close 💕</button>
+  </div>
+</div>
+
+
+<!-- ╔════════════════════════════════╗ -->
+<!-- ║  PAGE 1: TODAY                  ║ -->
+<!-- ╚════════════════════════════════╝ -->
+<div id="pg-today" class="page active">
+<div class="wrap">
+
+  <!-- Single Action -->
+  <div id="singleAction" style="background:var(--action-bg);border-radius:16px;padding:20px;text-align:center;margin-bottom:16px;border:1px solid var(--bd)">
+    <p class="lbl" style="margin-bottom:5px">Right Now</p>
+    <h3 class="serif" style="font-size:1.25rem;margin-bottom:5px" id="actionText">Drink coconut water 🥥</h3>
+    <p style="font-size:.83rem;color:var(--ts)" id="actionReason">Hydration is your #1 priority</p>
+  </div>
+
+  <!-- Water Tracker -->
+  <div class="tmini">
+    <div class="ico">💧</div>
+    <div class="inf">
+      <div class="val" id="waterDisplay">0</div>
+      <div class="sub">ml · Goal: 2500ml</div>
+      <div class="pbar"><div class="pbar-f" id="waterBar" style="width:0%"></div></div>
+    </div>
+    <div class="act">
+      <button class="mb mba" onclick="addWater()">+250ml</button>
+      <button class="mb mbr" onclick="resetWater()">↺</button>
+    </div>
+  </div>
+
+  <!-- Vomit Tracker -->
+  <div class="tmini">
+    <div class="ico">🤢</div>
+    <div class="inf">
+      <div class="val" id="vomitCount">0</div>
+      <div class="sub">vomiting episodes today</div>
+    </div>
+    <div class="act">
+      <button class="mb mba" onclick="addVomit()">+1</button>
+      <button class="mb mbr" onclick="resetVomit()">↺</button>
+    </div>
+  </div>
+  <div class="vstatus vok" id="vomitStatus">✅ Normal — stay hydrated</div>
+
+  <div class="al" id="symptomAlert"></div>
+
+  <!-- Symptom Tracker -->
+  <div class="card">
+    <div class="card-h"><div class="ico">📊</div><div><h4>How are you feeling?</h4><small>Daily check-in → smart insights</small></div></div>
+    <div class="card-b">
+      <div class="sym-grid">
+        <div class="sym-item"><label>Nausea</label><select id="nausea"><option>None</option><option>Mild</option><option>Moderate</option><option>Severe</option></select></div>
+        <div class="sym-item"><label>Appetite</label><select id="appetite"><option>Good</option><option>Reduced</option><option>Very low</option></select></div>
+        <div class="sym-item"><label>Mood</label><select id="mood"><option>Happy 😊</option><option>Calm 😌</option><option>Tired 😴</option><option>Anxious 😰</option></select></div>
+        <div class="sym-item"><label>Energy (1–10)</label><input type="range" id="energy" min="1" max="10" value="5"></div>
+        <div class="sym-item"><label>Water (glasses)</label><input type="range" id="waterIn" min="0" max="15" value="8"></div>
+        <div class="sym-item"><label>Sleep</label><select id="sleep"><option>Good</option><option>Fair</option><option>Poor</option></select></div>
+      </div>
+      <button class="btn br" onclick="analyzeSymptoms()" style="width:100%">📈 Analyze & Get Insights</button>
+    </div>
+  </div>
+  <div id="insightBox"></div>
+
+  <!-- Arnab Tasks -->
+  <div class="arnab">
+    <h4>What Arnab Should Do Now</h4>
+    <ul id="arnabTasks">
+      <li>Keep her water bottle full all day</li>
+      <li>Prepare light meals — khichdi, watermelon</li>
+      <li>Foot massage before bed tonight</li>
+    </ul>
+  </div>
+
+  <!-- Bengali Summer Foods -->
+  <div class="card hide-bd">
+    <div class="card-h"><div class="ico">🥭</div><div><h4>Bengali Summer Specials</h4><small>Cooling · Anti-nausea · Seasonal</small></div></div>
+    <div class="card-b" style="display:grid;grid-template-columns:1fr 1fr;gap:9px">
+      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🥭 Aam</strong><p style="font-size:.78rem;margin:3px 0">Aam ras with doi</p><span class="pill psk">Cooling</span></div>
+      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🍉 Tarmuj</strong><p style="font-size:.78rem;margin:3px 0">92% water!</p><span class="pill psk">Hydrating</span></div>
+      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🥥 Daab</strong><p style="font-size:.78rem;margin:3px 0">Electrolytes</p><span class="pill ps">Anti-nausea</span></div>
+      <div style="background:var(--bg2);border-radius:11px;padding:11px"><strong>🥛 Mishti Doi</strong><p style="font-size:.78rem;margin:3px 0">Probiotic</p><span class="pill psk">Cooling</span></div>
+    </div>
+  </div>
+
+  <!-- Anti-nausea toolkit -->
+  <div class="card hide-bd">
+    <div class="card-h"><div class="ico">🍋</div><div><h4>Anti-Nausea Toolkit</h4><small>Immediate relief</small></div></div>
+    <div class="card-b">
+      <div class="ntip"><div class="ico">🫚</div><div><h5>Ginger Power</h5><p>Ginger tea, candies, or smell fresh ginger</p></div></div>
+      <div class="ntip"><div class="ico">🍋</div><div><h5>Lemon Water</h5><p>Warm water + lemon first thing. Smell a cut lemon!</p></div></div>
+      <div class="ntip"><div class="ico">⏰</div><div><h5>Eat Every 2 Hours</h5><p><strong>Empty stomach = worse nausea.</strong> Crackers by bed!</p></div></div>
+      <div class="ntip"><div class="ico">❄️</div><div><h5>Cold Foods</h5><p>Less smell. Watermelon, cold doi, cold coconut water.</p></div></div>
+    </div>
+  </div>
+
+  <!-- Streaks -->
+  <div class="streaks hide-bd">
+    <div class="streak"><div class="emo">💧</div><div class="num" id="waterStreak">0</div><div class="lbl">Water Days</div></div>
+    <div class="streak"><div class="emo">📝</div><div class="num" id="journalStreak">0</div><div class="lbl">Journal</div></div>
+    <div class="streak"><div class="emo">🧘</div><div class="num" id="yogaStreak">0</div><div class="lbl">Yoga</div></div>
+  </div>
+
+  <!-- Win of day -->
+  <div class="win-banner" id="winBanner">
+    <h4>🎉 Win of the Day!</h4>
+    <p id="winText"></p>
+  </div>
+
+  <!-- Bad Day Mode -->
+  <div style="text-align:center;margin-top:8px">
+    <button class="btn bo" onclick="toggleBadDay()" id="badDayBtn">😞 Feeling Overwhelmed? Simple Mode</button>
+  </div>
+
+</div>
+</div>
+
+<!-- ╔════════════════════════════════╗ -->
+<!-- ║  PAGE 2: BABY                   ║ -->
+<!-- ╚════════════════════════════════╝ -->
+<div id="pg-baby" class="page">
+<div class="wrap">
+  <div class="sec-head"><h2>Mother & <em>Baby</em> 🤰</h2><div class="divider"></div></div>
+
+  <!-- ═══ MOTHER TABS ═══ -->
+  <div class="mother-tabs">
+    <button class="tab on" onclick="motherTab(this,'mt-mother')">🤰 Mother</button>
+    <button class="tab" onclick="motherTab(this,'mt-baby')">👶 Baby</button>
+  </div>
+
+  <!-- ═══ MOTHER PANEL ═══ -->
+  <div id="mt-mother" class="panel on">
+
+    <!-- LMP / Auto-Week Calculator -->
+    <div class="mh-card">
+      <h4>📅 Current Pregnancy Week</h4>
+      <p class="mh-sub">Auto-calculated from your Last Menstrual Period (LMP)</p>
+      <div class="lmp-row">
+        <label>LMP Date:</label>
+        <input type="date" id="lmpInput" value="2026-01-27" onchange="updateLmpDate()">
+        <button class="lmp-btn" onclick="updateLmpDate()">Update</button>
+      </div>
+      <div style="text-align:center">
+        <div class="week-auto-badge" id="currentWeekBadge">📍 Week 12 of 40</div>
+        <p style="font-size:.82rem;color:var(--ts);margin-top:6px" id="weekStatusText">You are in the First Trimester</p>
+        <p style="font-size:.78rem;color:var(--ts);margin-top:3px" id="eddText">Estimated Due Date: Calculating...</p>
+      </div>
+    </div>
+
+    <!-- Mother Health Report Tabs -->
+    <div class="mh-card">
+      <h4>📊 Mother Health Report</h4>
+      <p class="mh-sub">Your wellness trends — last 7 days</p>
+      <div class="mh-tabs">
+        <div class="mh-tab on" onclick="mhTab(this,'mh-sleep')">😴 Sleep</div>
+        <div class="mh-tab" onclick="mhTab(this,'mh-vomit')">🤢 Vomiting</div>
+        <div class="mh-tab" onclick="mhTab(this,'mh-water')">💧 Hydration</div>
+      </div>
+
+      <!-- Sleep Chart -->
+      <div id="mh-sleep" class="mh-panel on">
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Sleep quality trend (Good=3, Fair=2, Poor=1)</p>
+        <div class="chart-row" id="sleepChart">
+          <!-- bars rendered by JS -->
+        </div>
+        <div id="sleepLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
+        <div class="mh-summary" id="sleepSummary">Log your sleep quality in the Today section daily for trend data.</div>
+      </div>
+
+      <!-- Vomit Chart -->
+      <div id="mh-vomit" class="mh-panel">
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Vomiting episodes per day (lower = better 🎉)</p>
+        <div class="chart-row" id="vomitChart">
+          <!-- bars rendered by JS -->
+        </div>
+        <div id="vomitLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
+        <div class="mh-summary" id="vomitSummary">Track vomiting episodes daily to see your improvement trend.</div>
+      </div>
+
+      <!-- Water Chart -->
+      <div id="mh-water" class="mh-panel">
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Daily water intake (ml) — goal: 2500ml</p>
+        <div class="chart-row" id="waterChartMH">
+          <!-- bars rendered by JS -->
+        </div>
+        <div id="waterLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
+        <div class="mh-summary" id="waterSummary">Keep logging your water intake to see hydration trends.</div>
+      </div>
+    </div>
+
+    <!-- Current Week Health Status Summary -->
+    <div class="mh-card" id="weekHealthCard">
+      <h4>🩺 Current Week Health Status</h4>
+      <p class="mh-sub" id="weekHealthSub">Week-specific insights for you</p>
+      <div class="mh-summary" id="weekHealthSummary">
+        Calculating your week-specific health summary...
+      </div>
+    </div>
+
+    <!-- Mother's Wellness Grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">
+      <div style="background:linear-gradient(135deg,var(--skl),var(--bg3));border-radius:14px;padding:14px;text-align:center;border:1px solid var(--bd)">
+        <div style="font-size:1.8rem;margin-bottom:5px">😴</div>
+        <div class="lbl" style="margin-bottom:3px">Sleep Quality</div>
+        <div id="sleepTodayVal" style="font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--rd)">—</div>
+      </div>
+      <div style="background:linear-gradient(135deg,var(--rl),var(--bg3));border-radius:14px;padding:14px;text-align:center;border:1px solid var(--bd)">
+        <div style="font-size:1.8rem;margin-bottom:5px">🤢</div>
+        <div class="lbl" style="margin-bottom:3px">Vomiting Today</div>
+        <div id="vomitTodayMH" style="font-family:'DM Serif Display',serif;font-size:1.2rem;color:var(--rd)">0</div>
+      </div>
+    </div>
+
+  </div><!-- end mt-mother -->
+
+  <!-- ═══ BABY PANEL ═══ -->
+  <div id="mt-baby" class="panel">
+
+  <!-- Baby This Week Card -->
+  <div style="background:linear-gradient(135deg,var(--bg2),var(--bg3));border-radius:18px;padding:22px;text-align:center;margin-bottom:18px;border:1px solid var(--bd)">
+    <p class="lbl">Week <span id="babyWeek">12</span></p>
+    <div style="font-size:3.5rem;margin:10px 0;line-height:1" id="babyEmoji">🍋</div>
+    <h3 class="serif" style="font-size:1.3rem;margin-bottom:5px" id="babyLabel">Lemon — all here!</h3>
+    <p style="font-size:.85rem;color:var(--ts)" id="babyDesc">All organs now present. Fingers and toes forming!</p>
+    <input type="range" min="1" max="40" value="12" id="weekSlider" oninput="updateWeek(this.value)" style="width:100%;max-width:280px;margin-top:14px;cursor:pointer;accent-color:var(--r)">
+    <p style="font-size:.74rem;color:var(--ts);margin-top:4px">Slide to explore baby's growth</p>
+  </div>
+
+  <!-- ULTRASOUND VIEWER -->
+  <div class="ultra-section">
+    <h4>🔬 Ultrasound Journey</h4>
+    <p>Animated visualization — 9 months of growth</p>
+
+    <!-- Month Selector -->
+    <div class="ultra-strip" id="ultraStrip">
+      <!-- Generated by JS -->
+    </div>
+
+    <!-- Big Viewer -->
+    <div class="ultra-viewer" id="ultraViewer">
+      <div class="ultra-viewer-svg" id="ultraSvgContainer">
+        <!-- SVG injected here -->
+      </div>
+      <div class="ultra-viewer-info">
+        <h5 id="ultraTitle">Month 1</h5>
+        <p id="ultraDesc">Embryo forming — smaller than a grain of rice</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Kick Counter -->
+  <div class="tmini">
+    <div class="ico">👣</div>
+    <div class="inf">
+      <div class="val" id="kickDisplay">0</div>
+      <div class="sub" id="kickMsg">Waiting for baby's hello 💕</div>
+    </div>
+    <div class="act">
+      <button class="mb mba" onclick="addKick()">+ Kick</button>
+      <button class="mb mbr" onclick="resetKicks()">↺</button>
+    </div>
+  </div>
+
+  <!-- Milestones -->
+  <div class="card">
+    <div class="card-h"><div class="ico">🌟</div><div><h4>Key Milestones</h4></div></div>
+    <div class="card-b">
+      <ul class="clist">
+        <li><strong>Wk 5–6:</strong> 💓 Heartbeat begins</li>
+        <li><strong>Wk 10:</strong> 🖐️ Fingers & toes form</li>
+        <li><strong>Wk 14:</strong> 😊 Baby makes faces</li>
+        <li><strong>Wk 18:</strong> 🦶 First movements (quickening)</li>
+        <li><strong>Wk 22:</strong> 👂 Baby hears your voice!</li>
+        <li><strong>Wk 26:</strong> 👁️ Eyes open for first time</li>
+        <li><strong>Wk 30:</strong> 🧠 Brain development peaks</li>
+        <li><strong>Wk 37:</strong> ✅ Full term!</li>
+        <li><strong>Wk 40:</strong> 🎉 Hello World!</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Size comparison grid -->
+  <div class="card hide-bd">
+    <div class="card-h"><div class="ico">🍎</div><div><h4>Size Comparisons</h4></div></div>
+    <div class="card-b" style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;font-size:.76rem">
+      <div>🌾<br><strong>Wk 4</strong><br>Poppy</div><div>🫐<br><strong>Wk 6</strong><br>Berry</div><div>🍇<br><strong>Wk 8</strong><br>Raspberry</div><div>🍋<br><strong>Wk 12</strong><br>Lemon</div><div>🥑<br><strong>Wk 16</strong><br>Avocado</div><div>🍌<br><strong>Wk 20</strong><br>Banana</div><div>🌽<br><strong>Wk 24</strong><br>Corn</div><div>🍆<br><strong>Wk 28</strong><br>Eggplant</div><div>🥥<br><strong>Wk 32</strong><br>Coconut</div><div>🍈<br><strong>Wk 36</strong><br>Melon</div><div>🎃<br><strong>Wk 38</strong><br>Pumpkin</div><div>🍉<br><strong>Wk 40</strong><br>Watermelon!</div>
+    </div>
+  </div>
+
+  <!-- Papa's daily letter -->
+  <div style="background:linear-gradient(135deg,var(--bg2),var(--bg3));border-radius:16px;padding:20px;border:1px solid var(--gl);text-align:center;margin-top:4px">
+    <h4 class="cursive" style="font-size:1.35rem;color:var(--r);margin-bottom:8px">💛 From Papa Arnab</h4>
+    <p style="font-family:'DM Serif Display',serif;font-size:1.02rem;font-style:italic;color:var(--tm)" id="papaLetter">"We haven't met yet, but you're already our everything."</p>
+    <p style="font-size:.74rem;color:var(--ts);margin-top:8px">Changes every day ✨</p>
+  </div>
+
+  </div><!-- end mt-baby -->
+</div>
+</div>
+
+<!-- ╔════════════════════════════════╗ -->
+<!-- ║  PAGE 3: CARE                   ║ -->
+<!-- ╚════════════════════════════════╝ -->
+<div id="pg-care" class="page">
+<div class="wrap">
+  <div class="sec-head"><h2>Self <em>Care</em> 🧘</h2><div class="divider"></div></div>
+  <div class="tabs">
+    <button class="tab on" onclick="subTab(this,'c','c-diet')">🥗 Diet</button>
+    <button class="tab" onclick="subTab(this,'c','c-ex')">🏃 Exercise</button>
+    <button class="tab" onclick="subTab(this,'c','c-weeks')">📅 Weeks</button>
+    <button class="tab" onclick="subTab(this,'c','c-doc')">🏥 Doctor</button>
+    <button class="tab" onclick="subTab(this,'c','c-faq')">❓ FAQ</button>
+    <button class="tab" onclick="subTab(this,'c','c-well')">🌿 Wellness</button>
+  </div>
+
+  <!-- DIET -->
+  <div id="c-diet" class="panel on">
+    <div class="tabs">
+      <button class="tab on" onclick="subTab(this,'cd','cd-t1')">T1: Wk 1–13</button>
+      <button class="tab" onclick="subTab(this,'cd','cd-t2')">T2: Wk 14–27</button>
+      <button class="tab" onclick="subTab(this,'cd','cd-t3')">T3: Wk 28–40</button>
+    </div>
+    <div id="cd-t1" class="panel on">
+      <p style="font-size:.83rem;color:var(--ts);margin-bottom:12px">Focus: Folic acid, iron, anti-nausea. Small meals every 2–3 hours.</p>
+      <div class="dc"><h4>🌅 Early Morning</h4><div class="dc-time">6:30–7 AM</div><ul class="dc-ul"><li>Soaked almonds (5–6) + walnuts</li><li>Warm turmeric milk</li><li>Coconut water if nauseous</li></ul></div>
+      <div class="dc"><h4>🍳 Breakfast</h4><div class="dc-time">8–9 AM</div><ul class="dc-ul"><li>Oats porridge with banana & honey</li><li>Or moong dal chilla + chutney</li><li>Ginger-lemon tea if nauseous</li></ul></div>
+      <div class="dc"><h4>🥗 Mid-Morning</h4><div class="dc-time">10:30–11 AM</div><ul class="dc-ul"><li>Fresh fruit (banana, pomegranate)</li><li>Roasted makhana · Buttermilk</li></ul></div>
+      <div class="dc"><h4>🍛 Lunch</h4><div class="dc-time">1–2 PM</div><ul class="dc-ul"><li>Dal + rice / chapati (2)</li><li>Sabzi: spinach, beans, lauki</li><li>Curd / raita + salad</li></ul></div>
+      <div class="dc"><h4>☕ Evening</h4><div class="dc-time">4:30–5:30 PM</div><ul class="dc-ul"><li>Crackers + peanut butter</li><li>Dates (2–3) with milk</li></ul></div>
+      <div class="dc"><h4>🌙 Dinner</h4><div class="dc-time">7:30–8:30 PM</div><ul class="dc-ul"><li>Light khichdi with ghee</li><li>Or chapati + dal + sabzi</li><li>Warm turmeric milk before bed</li></ul></div>
+    </div>
+    <div id="cd-t2" class="panel">
+      <p style="font-size:.83rem;color:var(--ts);margin-bottom:12px">Focus: Calcium, omega-3, protein for bone & brain growth.</p>
+      <div class="dc"><h4>🌅 Early Morning</h4><div class="dc-time">6:30–7 AM</div><ul class="dc-ul"><li>Soaked almonds, figs, raisins</li><li>Warm honey lemon water</li></ul></div>
+      <div class="dc"><h4>🍳 Breakfast</h4><div class="dc-time">8–9 AM</div><ul class="dc-ul"><li>Boiled egg + whole wheat toast</li><li>Full-fat milk + seasonal fruit</li></ul></div>
+      <div class="dc"><h4>🍛 Lunch</h4><div class="dc-time">1–2 PM</div><ul class="dc-ul"><li>Rice + 2 dals (protein boost)</li><li>Palak paneer or light fish curry</li><li>Salad + curd + jaggery</li></ul></div>
+      <div class="dc"><h4>☕ Evening</h4><div class="dc-time">4:30–5 PM</div><ul class="dc-ul"><li>Sprouts chaat with lemon</li><li>Mixed nuts handful</li></ul></div>
+      <div class="dc"><h4>🌙 Dinner</h4><div class="dc-time">7:30 PM</div><ul class="dc-ul"><li>Chapati (2–3) + sabzi + dal</li><li>Warm milk before bed</li></ul></div>
+    </div>
+    <div id="cd-t3" class="panel">
+      <p style="font-size:.83rem;color:var(--ts);margin-bottom:12px">Focus: Iron, fibre, vitamin C. Smaller meals — baby presses on stomach.</p>
+      <div class="dc"><h4>🌅 Early Morning</h4><div class="dc-time">6:30–7 AM</div><ul class="dc-ul"><li>Dates (2–3) — helps labour prep</li><li>Warm ajwain water</li></ul></div>
+      <div class="dc"><h4>🍳 Breakfast</h4><div class="dc-time">7:30–8:30 AM</div><ul class="dc-ul"><li>Poha with peanuts & veggies</li><li>Orange/kiwi + saffron milk</li></ul></div>
+      <div class="dc"><h4>🍛 Lunch</h4><div class="dc-time">12:30–1:30 PM</div><ul class="dc-ul"><li>Smaller portions, more frequency</li><li>High-fibre: whole grains, rajma</li><li>Iron-rich: spinach, beetroot</li></ul></div>
+      <div class="dc"><h4>🌙 Dinner</h4><div class="dc-time">7–8 PM</div><ul class="dc-ul"><li>Khichdi with ghee OR veg soup + roti</li><li>Turmeric milk before bed</li></ul></div>
+    </div>
+  </div>
+
+  <!-- EXERCISE -->
+  <div id="c-ex" class="panel">
+    <div style="background:var(--sl);border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:.84rem;color:var(--sd)">⚠️ <strong>Consult your doctor before starting exercise.</strong> Stop if pain, dizziness, or bleeding.</div>
+    <div class="ec"><h4>🧘 Prenatal Yoga</h4><span class="pill ps">All Trimesters</span><ul class="ec-ul" style="margin-top:9px"><li>Cat-Cow stretches<span class="ec-time">10 min</span></li><li>Butterfly pose<span class="ec-time">5 min</span></li><li>Modified Child's pose<span class="ec-time">5 min</span></li><li>Legs-up-the-wall<span class="ec-time">10 min</span></li></ul></div>
+    <div class="ec"><h4>🚶 Walking</h4><span class="pill ps">All Trimesters</span><ul class="ec-ul" style="margin-top:9px"><li>Morning walk (flat surface)<span class="ec-time">20–30 min</span></li><li>Evening stroll with Arnab<span class="ec-time">15 min</span></li></ul></div>
+    <div class="ec"><h4>🌬️ Breathing & Pelvic Floor</h4><span class="pill ps">All Trimesters</span><ul class="ec-ul" style="margin-top:9px"><li>Kegel exercises<span class="ec-time">3×10</span></li><li>Deep belly breathing<span class="ec-time">10 min</span></li><li>Pelvic tilts<span class="ec-time">2×15</span></li></ul></div>
+    <div class="ec"><h4>💧 Swimming</h4><span class="pill psk">T2 & T3</span><ul class="ec-ul" style="margin-top:9px"><li>Gentle freestyle<span class="ec-time">20 min</span></li><li>Water aerobics<span class="ec-time">30 min</span></li></ul></div>
+    <div style="background:var(--gl);border-radius:12px;padding:12px 16px;margin-top:10px;font-size:.83rem;color:#7a5a20;border-left:3px solid var(--g)">🚫 <strong>Avoid:</strong> High-impact, contact sports, hot yoga, heavy lifting, flat on back after wk 20</div>
+  </div>
+
+  <!-- WEEKS -->
+  <div id="c-weeks" class="panel">
+    <div class="tabs">
+      <button class="tab on" onclick="subTab(this,'cw','cw-t1')">🌱 T1</button>
+      <button class="tab" onclick="subTab(this,'cw','cw-t2')">🌷 T2</button>
+      <button class="tab" onclick="subTab(this,'cw','cw-t3')">🌺 T3</button>
+    </div>
+    <div id="cw-t1" class="panel on">
+      <div class="wk-grid">
+        <div class="wk-card"><div class="wk-head"><div class="wk-n">Wk 1–4</div><div>🌱</div></div><div class="wk-body"><div class="wk-lbl">Baby</div><ul class="clist"><li>Fertilisation & implantation</li><li>Poppy seed by wk 4</li><li>Heart tube begins forming</li></ul><div class="wk-lbl">Mom</div><ul class="clist"><li>Missed period, mild cramping</li><li>Breast tenderness begins</li></ul><div class="wk-lbl">Do Now</div><ul class="clist"><li>Start folic acid 400mcg/day</li><li>Confirm with doctor</li></ul></div></div>
+        <div class="wk-card"><div class="wk-head"><div class="wk-n">Wk 5–8</div><div>🫁</div></div><div class="wk-body"><div class="wk-lbl">Baby</div><ul class="clist"><li>Heartbeat visible on scan wk 6!</li><li>Arm & leg buds appear</li></ul><div class="wk-lbl">Mom</div><ul class="clist"><li>Morning sickness peaks</li><li>Frequent urination</li></ul><div class="wk-lbl">Do Now</div><ul class="clist"><li>First prenatal appointment</li><li>Small, frequent meals</li></ul></div></div>
+        <div class="wk-card"><div class="wk-head"><div class="wk-n">Wk 9–13</div><div>🫶</div></div><div class="wk-body"><div class="wk-lbl">Baby</div><ul class="clist"><li>All organs present</li><li>Lemon-sized by wk 12</li></ul><div class="wk-lbl">Mom</div><ul class="clist"><li>Nausea often eases wk 13</li><li>Visible bump may appear</li></ul><div class="wk-lbl">Do Now</div><ul class="clist"><li>NT scan (nuchal translucency)</li><li>Blood tests & screening</li></ul></div></div>
+      </div>
+    </div>
+    <div id="cw-t2" class="panel">
+      <div class="wk-grid">
+        <div class="wk-card"><div class="wk-head"><div class="wk-n">Wk 14–18</div><div>🦋</div></div><div class="wk-body"><div class="wk-lbl">Baby</div><ul class="clist"><li>Facial expressions visible</li><li>Gender may be seen</li></ul><div class="wk-lbl">Mom</div><ul class="clist"><li>Energy returns — enjoy it!</li><li>Bump clearly visible now</li></ul><div class="wk-lbl">Do Now</div><ul class="clist"><li>Anomaly scan wk 18–20</li><li>Start prenatal yoga</li></ul></div></div>
+        <div class="wk-card"><div class="wk-head"><div class="wk-n">Wk 19–23</div><div>🎶</div></div><div class="wk-body"><div class="wk-lbl">Baby</div><ul class="clist"><li>First movements felt!</li><li>Can hear your voice</li></ul><div class="wk-lbl">Mom</div><ul class="clist"><li>Round ligament pain</li><li>Leg cramps at night</li></ul><div class="wk-lbl">Do Now</div><ul class="clist"><li>Talk & sing to baby</li><li>Read Mahabharata aloud</li></ul></div></div>
+        <div class="wk-card"><div class="wk-head"><div class="wk-n">Wk 24–27</div><div>🌟</div></div><div class="wk-body"><div class="wk-lbl">Baby</div><ul class="clist"><li>Eyes open & close</li><li>Brain growing rapidly</li></ul><div class="wk-lbl">Mom</div><ul class="clist"><li>Braxton Hicks may begin</li><li>Back pain increases</li></ul><div class="wk-lbl">Do Now</div><ul class="clist"><li>Gestational diabetes test</li><li>Begin nursery planning</li></ul></div></div>
+      </div>
+    </div>
+    <div id="cw-t3" class="panel">
+      <div class="wk-grid">
+        <div class="wk-card"><div class="wk-head"><div class="wk-n">Wk 28–32</div><div>🫂</div></div><div class="wk-body"><div class="wk-lbl">Baby</div><ul class="clist"><li>Responds to light</li><li>Gaining weight rapidly</li></ul><div class="wk-lbl">Do Now</div><ul class="clist"><li>Count kicks daily</li><li>Pack hospital bag</li></ul></div></div>
+        <div class="wk-card"><div class="wk-head"><div class="wk-n">Wk 33–37</div><div>🌙</div></div><div class="wk-body"><div class="wk-lbl">Baby</div><ul class="clist"><li>Head engaging downward</li><li>Full term at 37 weeks!</li></ul><div class="wk-lbl">Do Now</div><ul class="clist"><li>Birth plan with doctor</li><li>Install car seat</li></ul></div></div>
+        <div class="wk-card"><div class="wk-head"><div class="wk-n">Wk 38–40</div><div>👶</div></div><div class="wk-body"><div class="wk-lbl">Baby</div><ul class="clist"><li>Fully developed · ~3–3.5 kg</li><li>Any day now!</li></ul><div class="wk-lbl">Do Now</div><ul class="clist"><li>Know all labour signs</li><li>Rest, trust your body 💪</li></ul></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOCTOR -->
+  <div id="c-doc" class="panel">
+    <div class="emg">
+      <h4>🚨 Emergency Quick Card</h4>
+      <div class="emg-row"><span class="lbl">Blood Group</span><input id="emgBlood" placeholder="Enter" onchange="saveEmg()"></div>
+      <div class="emg-row"><span class="lbl">Doctor</span><input id="emgDoc" placeholder="Dr. Ankita Mandal" value="Dr. Ankita Mandal" onchange="saveEmg()"></div>
+      <div class="emg-row"><span class="lbl">Doctor Phone</span><input id="emgDocPh" type="tel" placeholder="8902135575" value="8902135575" onchange="saveEmg()"></div>
+      <div class="emg-row"><span class="lbl">Hospital</span><input id="emgHosp" placeholder="Bhagirathi Neotia, Newtown" value="Bhagirathi Neotia, Newtown" onchange="saveEmg()"></div>
+      <div class="emg-row"><span class="lbl">Emergency Contact</span><input id="emgFamily" type="tel" placeholder="Family number" onchange="saveEmg()"></div>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <div class="card-h"><div class="ico">📋</div><div><h4>Doctor Visit Prep</h4></div></div>
+      <div class="card-b">
+        <ul class="clist">
+          <li>Is my vomiting frequency normal?</li>
+          <li>Should I adjust supplements or diet?</li>
+          <li>Are vitamin levels (iron, folic acid) adequate?</li>
+          <li>When will I feel baby movements?</li>
+          <li>What warning signs to watch for?</li>
+        </ul>
+        <button class="btn br" onclick="genReport()" style="margin-top:14px">📄 Generate Report for Doctor</button>
+      </div>
+    </div>
+    <div class="insight" style="margin-top:4px">
+      <h5>Call Doctor Immediately If</h5>
+      <p>Severe abdominal pain · Heavy bleeding · Fever >100.4°F · Severe headache + vision changes · Baby stops moving (wk 28+) · Vomiting 10+/day · Fainting</p>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div id="c-faq" class="panel">
+    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">Is daily vomiting normal in first trimester?</div><div class="faq-a">Yes — 70–80% experience nausea (wk 6–14) from hCG hormone surges. Usually improves by wk 14. Call doctor if 8–10+/day or unable to keep fluids down.</div></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">How much water should I drink daily?</div><div class="faq-a">8–10 glasses (2–2.5L) minimum. More if hot weather or vomiting. Include coconut water, lemon water, watermelon for variety and electrolytes.</div></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">Can I sleep on my back?</div><div class="faq-a">T1: Any position fine. After week 20: left side is best — improves blood flow to baby and kidneys. Use a pillow between knees for comfort.</div></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">When will I feel baby kick?</div><div class="faq-a">First pregnancy: 18–22 weeks (feels like butterflies or bubbles). By week 28, kicks are regular and strong. Lie on left side after eating to feel movements better!</div></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">What foods to completely avoid?</div><div class="faq-a">Raw/undercooked meat or eggs · Unpasteurized dairy · Raw sprouts · Alcohol · High-mercury fish (shark, swordfish). Limit caffeine to under 200mg/day.</div></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">Is exercise safe during pregnancy?</div><div class="faq-a">Yes! Walking, prenatal yoga, swimming are ideal. Avoid contact sports, hot yoga, heavy lifting. Stop immediately if dizzy, in pain, or bleeding.</div></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">Why am I so tired all the time?</div><div class="faq-a">Your body is building a placenta + increasing blood volume by 50% + surging with progesterone. Rest is productive. Eat iron-rich foods and nap when possible.</div></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">How to reduce foot swelling?</div><div class="faq-a">Elevate feet when sitting · Sleep on left side · Reduce salt · Drink MORE water · Comfortable shoes · Ask Arnab for foot massage nightly! Call doctor if sudden severe swelling with headache (preeclampsia warning).</div></div>
+
+    <!-- Emergency Contacts at Bottom of FAQ -->
+    <div class="emg-strip-faq" style="margin-top:20px">
+      <div class="emg-title">🚨 Emergency Contacts — Save Now</div>
+      <div class="emg-note">Bhagirathi Neotia Women & Child Care, Newtown · Available 24/7</div>
+      <div class="emg-contacts">
+        <div class="emg-c">
+          <div class="clabel">Dr. Ankita Mandal (MBBS Gold, MD Gold)</div>
+          <div class="cnum doc">8902135575</div>
+          <div class="csub">Your OB/GYN — call anytime</div>
+        </div>
+        <div class="emg-c">
+          <div class="clabel">Hospital Emergency</div>
+          <div class="cnum hosp">9199090350</div>
+          <div class="csub">Bhagirathi Neotia, Newtown</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;padding:8px 12px;background:rgba(212,130,106,.1);border-radius:8px;font-size:.74rem;color:#e0a080;border-left:3px solid var(--r)">
+        🚑 Call immediately if: Heavy bleeding · Severe abdominal pain · Fever &gt;100.4°F · Baby stops moving (wk 28+) · Vomiting 10+/day · Severe headache + vision changes
+      </div>
+    </div>
+
+  </div>
+
+  <!-- WELLNESS -->
+  <div id="c-well" class="panel">
+    <div class="card"><div class="card-h"><div class="ico">🩺</div><div><h4>Scan Timeline</h4></div></div><div class="card-b"><ul class="clist"><li><strong>Wk 6–8:</strong> Dating scan (heartbeat confirmation)</li><li><strong>Wk 11–13:</strong> NT scan (nuchal translucency)</li><li><strong>Wk 18–20:</strong> Anomaly scan (detailed anatomy)</li><li><strong>Wk 28–32:</strong> Growth scan</li><li><strong>Wk 36+:</strong> Position & readiness scan</li></ul></div></div>
+    <div class="card"><div class="card-h"><div class="ico">💊</div><div><h4>Essential Supplements</h4></div></div><div class="card-b"><ul class="clist"><li>Folic Acid 400mcg — neural tube</li><li>Iron — increased blood volume</li><li>Calcium — baby's bones</li><li>Omega-3 DHA — brain development</li><li>Vitamin D — bones & immunity</li></ul></div></div>
+    <div class="card"><div class="card-h"><div class="ico">😴</div><div><h4>Sleep Guide</h4></div></div><div class="card-b"><ul class="clist"><li>Left side sleeping after wk 20</li><li>Pillow between knees</li><li>Avoid screens 1hr before bed</li><li>Warm turmeric milk / herbal tea</li><li>Arnab's foot massage routine!</li></ul></div></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ╔════════════════════════════════╗ -->
+<!-- ║  PAGE 4: MIND                   ║ -->
+<!-- ╚════════════════════════════════╝ -->
+<div id="pg-mind" class="page">
+<div class="wrap">
+  <div class="sec-head"><h2>Mind & <em>Soul</em> 🎵</h2><div class="divider"></div></div>
+  <div class="tabs">
+    <button class="tab on" onclick="subTab(this,'mi','mi-music')">🎵 Music</button>
+    <button class="tab" onclick="subTab(this,'mi','mi-calm')">🧘 Calm</button>
+    <button class="tab" onclick="subTab(this,'mi','mi-stories')">📖 Stories</button>
+    <button class="tab" onclick="subTab(this,'mi','mi-mandala')">🎨 Mandala</button>
+    <button class="tab" onclick="subTab(this,'mi','mi-reads')">📚 Read</button>
+  </div>
+
+  <!-- MUSIC -->
+  <div id="mi-music" class="panel on">
+    <div style="background:linear-gradient(135deg,var(--lvl),var(--skl));border-radius:18px;padding:20px;border:1px solid var(--lv)">
+      <h4 class="serif" style="text-align:center;font-size:1.15rem;margin-bottom:4px">🎶 Bipasha's Soul Playlist</h4>
+      <p style="text-align:center;font-size:.82rem;color:var(--ts);margin-bottom:14px">Bengali classics + Coke Studio Bangla vibes</p>
+      <div class="mcat">
+        <div class="mcatb active" onclick="selMusic(this,'healing')"><span class="emo">🌸</span><span class="txt">Healing</span></div>
+        <div class="mcatb" onclick="selMusic(this,'love')"><span class="emo">❤️</span><span class="txt">Love</span></div>
+        <div class="mcatb" onclick="selMusic(this,'calm')"><span class="emo">🌙</span><span class="txt">Night</span></div>
+        <div class="mcatb" onclick="selMusic(this,'baby')"><span class="emo">👶</span><span class="txt">Baby</span></div>
+      </div>
+
+      <div style="margin-top:10px;margin-bottom:4px">
+        <a href="https://music.youtube.com/playlist?list=PLFgquLnL59akCiCgS7v30NnxbFpBsBi6k" target="_blank" class="yt-music-btn">
+          🎵 Pregnancy Relaxation Music — Open YouTube Music Playlist
+        </a>
+        <p style="text-align:center;font-size:.72rem;color:var(--ts);margin-top:5px">Curated playlist: Soothing music for mama & baby 💕</p>
+      </div>
+      <div class="mplayer">
+        <div class="track" id="trackName">Rabindra Sangeet — "Ekla Chalo Re"</div>
+        <button class="play-btn" onclick="playTrack()">▶ Play for Baby</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- CALM -->
+  <div id="mi-calm" class="panel">
+    <div class="card" style="text-align:center">
+      <div class="card-b">
+        <h4 class="serif" style="margin-bottom:12px">Guided Breathing</h4>
+        <div class="breath-ring" id="breathCircle" onclick="startBreath()">
+          <span class="breath-txt" id="breathText">Tap to Begin</span>
+        </div>
+        <p id="breathPhase" style="font-size:1rem;color:var(--r);min-height:26px;margin-bottom:10px"></p>
+        <button class="btn bo" id="stopBreathBtn" onclick="stopBreath()" style="display:none">Stop</button>
+      </div>
+    </div>
+    <div style="background:linear-gradient(135deg,var(--bg2),var(--bg3));border-radius:16px;padding:20px;border:1px solid var(--gl);text-align:center;margin-top:4px">
+      <h4 class="cursive" style="font-size:1.3rem;color:var(--r);margin-bottom:8px">🙏 Daily Mantra</h4>
+      <p style="font-family:'DM Serif Display',serif;font-size:1.15rem;font-style:italic;color:var(--rd);margin-bottom:6px">"ॐ नमो भगवते वासुदेवाय"</p>
+      <p style="font-size:.82rem;color:var(--ts)">Recite 108 times — divine protection for mother & child</p>
+    </div>
+  </div>
+
+  <!-- STORIES -->
+  <div id="mi-stories" class="panel">
+    <div style="background:var(--bg2);border-radius:12px;padding:14px 16px;margin-bottom:14px;font-family:'DM Serif Display',serif;font-style:italic;font-size:.93rem;color:var(--tm);line-height:1.7;border-left:4px solid var(--g)">"As Abhimanyu learned the Chakravyuha from within the womb, your child absorbs your words, thoughts, and stories."</div>
+    <div class="card"><div class="card-h"><div class="ico">⚔️</div><div><h4>Abhimanyu & Chakravyuha</h4><small>Garbha Sanskar inspiration</small></div></div><div class="card-b"><p>Baby learned battle tactics in Subhadra's womb. Ultimate Garbha Sanskar story — courage and learning.</p><a href="https://www.sacred-texts.com/hin/maha/index.htm" target="_blank" class="slink">📖 Sacred Texts</a><a href="https://www.youtube.com/results?search_query=Abhimanyu+Chakravyuha" target="_blank" class="slink alt">▶ Watch</a></div></div>
+    <div class="card"><div class="card-h"><div class="ico">🎯</div><div><h4>Arjuna & the Bird's Eye</h4><small>Focus & excellence</small></div></div><div class="card-b"><p>Only Arjuna saw the eye. Instills single-minded concentration.</p><a href="https://www.youtube.com/results?search_query=Arjuna+bird+eye+Dronacharya" target="_blank" class="slink alt">▶ Watch</a></div></div>
+    <div class="card"><div class="card-h"><div class="ico">🌟</div><div><h4>Bhagavad Gita — Chapter 2</h4><small>Wisdom & dharma</small></div></div><div class="card-b"><p>Krishna's teachings on duty, soul, and fearlessness.</p><a href="https://www.sacred-texts.com/hin/gita/index.htm" target="_blank" class="slink">📖 Read</a><a href="https://www.youtube.com/results?search_query=Bhagavad+Gita+chapter+2+recitation" target="_blank" class="slink alt">▶ Listen</a></div></div>
+    <div class="card"><div class="card-h"><div class="ico">🌊</div><div><h4>Dhruva & the Pole Star</h4><small>Devotion & determination</small></div></div><div class="card-b"><p>Little Dhruva's unshakeable faith earned him eternal place in the sky.</p><a href="https://www.youtube.com/results?search_query=Dhruva+story+Vishnu+Hindi" target="_blank" class="slink alt">▶ Watch</a></div></div>
+    <div class="card"><div class="card-h"><div class="ico">🦚</div><div><h4>Savitri & Satyavan</h4><small>Love triumphs over death</small></div></div><div class="card-b"><p>Savitri's love won her husband back from Yama with wisdom.</p><a href="https://www.sacred-texts.com/hin/maha/maha03.htm" target="_blank" class="slink">📖 Read</a></div></div>
+  </div>
+
+  <!-- MANDALA -->
+  <div id="mi-mandala" class="panel">
+    <div style="background:var(--lvl);border-radius:18px;padding:20px;border:1px solid var(--lv)">
+      <h4 class="serif" style="text-align:center;font-size:1.1rem;margin-bottom:4px">🎨 9 Months · 9 Levels</h4>
+      <p style="text-align:center;font-size:.82rem;color:var(--ts);margin-bottom:16px">Meditative drawing — one level per month</p>
+      <div class="mandala-g">
+        <div class="mandala-c"><div class="mandala-sw"><svg viewBox="0 0 80 80" width="74" height="74"><circle cx="40" cy="40" r="34" fill="none" stroke="#c8a0d8" stroke-width="1.5" opacity=".7"/><circle cx="40" cy="40" r="25" fill="none" stroke="#e8b0e0" stroke-width="1.5" opacity=".7"/><circle cx="40" cy="40" r="17" fill="none" stroke="#f0c8e8" stroke-width="1.5" opacity=".8"/><circle cx="40" cy="40" r="10" fill="none" stroke="#d8a0d0" stroke-width="1.5" opacity=".8"/><circle cx="40" cy="40" r="4" fill="#c8a0d8" opacity=".6"/></svg></div><div class="lv">Level 1</div><div class="mo">M1 — Circles</div></div>
+        <div class="mandala-c"><div class="mandala-sw"><svg viewBox="0 0 80 80" width="74" height="74"><circle cx="40" cy="40" r="32" fill="none" stroke="#a0c8b0" stroke-width="1" opacity=".5"/><line x1="40" y1="8" x2="40" y2="72" stroke="#a0d8b8" stroke-width="1.2" opacity=".7"/><line x1="8" y1="40" x2="72" y2="40" stroke="#a0d8b8" stroke-width="1.2" opacity=".7"/><line x1="17" y1="17" x2="63" y2="63" stroke="#c0e0c8" stroke-width="1" opacity=".7"/><line x1="63" y1="17" x2="17" y2="63" stroke="#c0e0c8" stroke-width="1" opacity=".7"/><line x1="40" y1="8" x2="63" y2="40" stroke="#e0f0e8" stroke-width=".8" opacity=".5"/><line x1="63" y1="40" x2="40" y2="72" stroke="#e0f0e8" stroke-width=".8" opacity=".5"/><line x1="40" y1="72" x2="17" y2="40" stroke="#e0f0e8" stroke-width=".8" opacity=".5"/><line x1="17" y1="40" x2="40" y2="8" stroke="#e0f0e8" stroke-width=".8" opacity=".5"/><circle cx="40" cy="40" r="5" fill="#80c890" opacity=".7"/></svg></div><div class="lv">Level 2</div><div class="mo">M2 — Lines</div></div>
+        <div class="mandala-c"><div class="mandala-sw"><svg viewBox="0 0 80 80" width="74" height="74"><g transform="translate(40,40)"><ellipse rx="14" ry="7" fill="#f0c8a0" opacity=".65" transform="rotate(0) translate(0,-18)"/><ellipse rx="14" ry="7" fill="#f0c8a0" opacity=".65" transform="rotate(60) translate(0,-18)"/><ellipse rx="14" ry="7" fill="#f0c8a0" opacity=".65" transform="rotate(120) translate(0,-18)"/><ellipse rx="14" ry="7" fill="#f0c8a0" opacity=".65" transform="rotate(180) translate(0,-18)"/><ellipse rx="14" ry="7" fill="#f0c8a0" opacity=".65" transform="rotate(240) translate(0,-18)"/><ellipse rx="14" ry="7" fill="#f0c8a0" opacity=".65" transform="rotate(300) translate(0,-18)"/><circle r="8" fill="#f5dfc0" opacity=".8"/><circle r="3" fill="#e0a878" opacity=".9"/></g></svg></div><div class="lv">Level 3</div><div class="mo">M3 — Petals</div></div>
+        <div class="mandala-c"><div class="mandala-sw"><svg viewBox="0 0 80 80" width="74" height="74"><g transform="translate(40,40)"><polygon points="0,-30 26,15 -26,15" fill="none" stroke="#90c880" stroke-width="1.5" opacity=".7"/><polygon points="0,30 26,-15 -26,-15" fill="none" stroke="#90c880" stroke-width="1.5" opacity=".7"/><polygon points="0,-20 17,10 -17,10" fill="none" stroke="#b0d8a0" stroke-width="1" opacity=".65"/><polygon points="0,20 17,-10 -17,-10" fill="none" stroke="#b0d8a0" stroke-width="1" opacity=".65"/><circle r="6" fill="none" stroke="#80b870" stroke-width="1.5" opacity=".7"/><circle r="2.5" fill="#90c880" opacity=".8"/></g></svg></div><div class="lv">Level 4</div><div class="mo">M4 — Geometric</div></div>
+        <div class="mandala-c"><div class="mandala-sw"><svg viewBox="0 0 80 80" width="74" height="74"><g transform="translate(40,40)"><circle r="34" fill="none" stroke="#b0c0e0" stroke-width=".8" opacity=".4"/><g opacity=".7"><ellipse rx="10" ry="5" fill="#a0b8e0" transform="rotate(0) translate(0,-24)"/><ellipse rx="10" ry="5" fill="#a0b8e0" transform="rotate(45) translate(0,-24)"/><ellipse rx="10" ry="5" fill="#a0b8e0" transform="rotate(90) translate(0,-24)"/><ellipse rx="10" ry="5" fill="#a0b8e0" transform="rotate(135) translate(0,-24)"/><ellipse rx="10" ry="5" fill="#a0b8e0" transform="rotate(180) translate(0,-24)"/><ellipse rx="10" ry="5" fill="#a0b8e0" transform="rotate(225) translate(0,-24)"/><ellipse rx="10" ry="5" fill="#a0b8e0" transform="rotate(270) translate(0,-24)"/><ellipse rx="10" ry="5" fill="#a0b8e0" transform="rotate(315) translate(0,-24)"/></g><circle r="13" fill="none" stroke="#c0d0f0" stroke-width="1.2" opacity=".6"/><circle r="6" fill="#a0b8e0" opacity=".5"/><circle r="2.5" fill="#8090c8" opacity=".8"/></g></svg></div><div class="lv">Level 5</div><div class="mo">M5 — Layers</div></div>
+        <div class="mandala-c"><div class="mandala-sw"><svg viewBox="0 0 80 80" width="74" height="74"><g transform="translate(40,40)"><circle r="33" fill="none" stroke="#e0b8d0" stroke-width=".8" opacity=".4"/><g opacity=".75"><polygon points="0,-28 4,-4 28,0 4,4 0,28 -4,4 -28,0 -4,-4" fill="none" stroke="#d8a0c8" stroke-width="1.3"/></g><g opacity=".65"><polygon points="0,-20 3,-3 20,0 3,3 0,20 -3,3 -20,0 -3,-3" fill="none" stroke="#e8b8d8" stroke-width="1"/></g><line x1="-30" y1="0" x2="30" y2="0" stroke="#e0b0d0" stroke-width=".7" opacity=".4"/><line x1="0" y1="-30" x2="0" y2="30" stroke="#e0b0d0" stroke-width=".7" opacity=".4"/><circle r="9" fill="none" stroke="#d8a0c8" stroke-width="1.2" opacity=".6"/><circle r="4" fill="#d8a0c8" opacity=".6"/><circle r="1.8" fill="#c080b8" opacity=".9"/></g></svg></div><div class="lv">Level 6</div><div class="mo">M6 — Advanced</div></div>
+        <div class="mandala-c"><div class="mandala-sw"><svg viewBox="0 0 80 80" width="74" height="74"><g transform="translate(40,40)"><circle r="32" fill="none" stroke="#b8d8a0" stroke-width=".7" opacity=".35"/><g opacity=".6"><path d="M0,-30 Q8,-15 0,-8 Q-8,-15 0,-30" fill="#c8e8a8" transform="rotate(0)"/><path d="M0,-30 Q8,-15 0,-8 Q-8,-15 0,-30" fill="#c8e8a8" transform="rotate(51.4)"/><path d="M0,-30 Q8,-15 0,-8 Q-8,-15 0,-30" fill="#c8e8a8" transform="rotate(102.8)"/><path d="M0,-30 Q8,-15 0,-8 Q-8,-15 0,-30" fill="#c8e8a8" transform="rotate(154.2)"/><path d="M0,-30 Q8,-15 0,-8 Q-8,-15 0,-30" fill="#c8e8a8" transform="rotate(205.6)"/><path d="M0,-30 Q8,-15 0,-8 Q-8,-15 0,-30" fill="#c8e8a8" transform="rotate(257)"/><path d="M0,-30 Q8,-15 0,-8 Q-8,-15 0,-30" fill="#c8e8a8" transform="rotate(308.4)"/></g><circle r="10" fill="#d8f0c0" opacity=".5"/><circle r="4" fill="#a8d080" opacity=".7"/><circle r="1.5" fill="#78a850" opacity=".9"/></g></svg></div><div class="lv">Level 7</div><div class="mo">M7 — Intricate</div></div>
+        <div class="mandala-c"><div class="mandala-sw"><svg viewBox="0 0 80 80" width="74" height="74"><g transform="translate(40,40)"><circle r="33" fill="none" stroke="#80a8d8" stroke-width=".7" opacity=".3"/><g opacity=".65"><path d="M0,-33 L3,-10 L12,-28 L4,-8 L20,-20 L6,-5 L28,-8 L8,0 L28,8 L6,5 L20,20 L4,8 L12,28 L3,10 L0,33 L-3,10 L-12,28 L-4,8 L-20,20 L-6,5 L-28,8 L-8,0 L-28,-8 L-6,-5 L-20,-20 L-4,-8 L-12,-28 L-3,-10 Z" fill="none" stroke="#a0c0e8" stroke-width="1"/></g><circle r="13" fill="none" stroke="#b0c8e8" stroke-width="1" opacity=".5"/><circle r="6" fill="#90b0d8" opacity=".4"/><circle r="2.5" fill="#6090c8" opacity=".8"/></g></svg></div><div class="lv">Level 8</div><div class="mo">M8 — Master</div></div>
+        <div class="mandala-c"><div class="mandala-sw"><svg viewBox="0 0 80 80" width="74" height="74"><defs><radialGradient id="mg9" cx="50%" cy="50%"><stop offset="0%" stop-color="#ffd080" stop-opacity=".6"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><g transform="translate(40,40)"><circle r="33" fill="url(#mg9)"/><g opacity=".7"><ellipse rx="8" ry="4" fill="#f0c060" transform="rotate(0) translate(0,-26)"/><ellipse rx="8" ry="4" fill="#e8b058" transform="rotate(40) translate(0,-26)"/><ellipse rx="8" ry="4" fill="#f0c060" transform="rotate(80) translate(0,-26)"/><ellipse rx="8" ry="4" fill="#e8b058" transform="rotate(120) translate(0,-26)"/><ellipse rx="8" ry="4" fill="#f0c060" transform="rotate(160) translate(0,-26)"/><ellipse rx="8" ry="4" fill="#e8b058" transform="rotate(200) translate(0,-26)"/><ellipse rx="8" ry="4" fill="#f0c060" transform="rotate(240) translate(0,-26)"/><ellipse rx="8" ry="4" fill="#e8b058" transform="rotate(280) translate(0,-26)"/><ellipse rx="8" ry="4" fill="#f0c060" transform="rotate(320) translate(0,-26)"/></g><polygon points="0,-18 5,-5 18,0 5,5 0,18 -5,5 -18,0 -5,-5" fill="none" stroke="#e0a840" stroke-width="1.5" opacity=".7"/><circle r="8" fill="#f5d080" opacity=".6"/><circle r="3.5" fill="#e8b040" opacity=".9"/><circle r="1.5" fill="#c89020" opacity="1"/></g></svg></div><div class="lv">Level 9</div><div class="mo">M9 — Complete 🌟</div></div>
+      </div>
+      <p style="text-align:center;margin-top:12px;font-size:.8rem;color:var(--ts)">Search "pregnancy mandala coloring level 1–9" on Pinterest</p>
+    </div>
+  </div>
+
+  <!-- READ/WATCH -->
+  <div id="mi-reads" class="panel">
+    <div class="card"><div class="card-b"><span class="pill pg">📗 Book</span><h4 style="margin-top:7px">What to Expect When You're Expecting</h4><p>Week-by-week pregnancy guide.</p><a href="https://www.whattoexpect.com" target="_blank" class="slink">→ Read</a></div></div>
+    <div class="card"><div class="card-b"><span class="pill pg">📗 Book</span><h4 style="margin-top:7px">Garbha Sanskar — Dr. Balaji Tambe</h4><p>Ancient Indian prenatal education.</p><a href="https://www.amazon.in/s?k=Garbha+Sanskar+Balaji+Tambe" target="_blank" class="slink">→ Amazon</a></div></div>
+    <div class="card"><div class="card-b"><span class="pill pr">🎬 Video</span><h4 style="margin-top:7px">Pregnancy Week by Week (Animated)</h4><a href="https://www.youtube.com/results?search_query=pregnancy+week+by+week+animation" target="_blank" class="slink">→ YouTube</a></div></div>
+    <div class="card"><div class="card-b"><span class="pill pr">🎬 Video</span><h4 style="margin-top:7px">Mahabharat — BR Chopra (1988)</h4><a href="https://www.youtube.com/results?search_query=Mahabharat+BR+Chopra+full+episodes" target="_blank" class="slink">→ YouTube</a></div></div>
+    <div class="card"><div class="card-b"><span class="pill ps">🎙️ Audio</span><h4 style="margin-top:7px">Garbha Sanskar Shloka Recitation</h4><a href="https://www.youtube.com/results?search_query=garbha+sanskar+shloka" target="_blank" class="slink">→ Listen</a></div></div>
+    <div class="card"><div class="card-b"><span class="pill plv">📱 App</span><h4 style="margin-top:7px">Ovia Pregnancy Tracker</h4><a href="https://www.oviahealth.com/" target="_blank" class="slink">→ Download</a></div></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ╔════════════════════════════════╗ -->
+<!-- ║  PAGE 5: MEMORY                 ║ -->
+<!-- ╚════════════════════════════════╝ -->
+<div id="pg-memory" class="page">
+<div class="wrap">
+  <div class="sec-head"><h2>Memory <em>Capsule</em> 💌</h2><div class="divider"></div></div>
+  <div class="tabs">
+    <button class="tab on" onclick="subTab(this,'mm','mm-jrn')">📝 Journal</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-ltr')">💛 Letter</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-nam')">🪔 Names</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-shp')">🛍️ Shopping</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-moo')">😊 Mood</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-rtn')">✅ Routine</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-meds')">💊 Meds</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-us')">💑 Arnab & I</button>
+  </div>
+
+  <!-- JOURNAL -->
+  <div id="mm-jrn" class="panel on">
+    <div class="card"><div class="card-b">
+      <h4 class="serif">📝 Today's Entry</h4>
+      <p style="font-size:.82rem;color:var(--ts);margin-bottom:9px">How are you feeling? Special moments today?</p>
+      <textarea class="jinput" id="jText" placeholder="Dear journal..."></textarea>
+      <button class="btn br" onclick="saveJ()" style="margin-top:10px">💾 Save Memory</button>
+      <div id="jList" style="margin-top:12px"></div>
+    </div></div>
+  </div>
+
+  <!-- LETTER -->
+  <div id="mm-ltr" class="panel">
+    <div class="card"><div class="card-b">
+      <h4 class="serif">💛 Letter to Baby</h4>
+      <p style="font-size:.82rem;color:var(--ts);margin-bottom:9px">Write a letter your child will read someday.</p>
+      <textarea class="jinput" id="lText" placeholder="Dear little one, today I want to tell you..."></textarea>
+      <button class="btn br" onclick="saveL()" style="margin-top:10px">💌 Save Letter</button>
+      <div id="lList" style="margin-top:12px"></div>
+    </div></div>
+  </div>
+
+  <!-- NAMES -->
+  <div id="mm-nam" class="panel">
+    <div class="card"><div class="card-b">
+      <h4 class="serif" style="margin-bottom:11px">Baby Names — A & B</h4>
+      <p class="lbl" style="margin-bottom:7px">👦 Boy Names</p>
+      <div class="name-wrap" style="margin-bottom:14px">
+        <div class="npill boy">Badrinath</div><div class="npill boy">Abhishek</div><div class="npill boy">Adhyan</div><div class="npill boy">Adriksh</div><div class="npill boy">Aranyak</div><div class="npill boy">Abirc</div><div class="npill boy">Arona</div><div class="npill boy">Aarav</div><div class="npill boy">Advait</div><div class="npill boy">Achyut</div><div class="npill boy">Atharv</div><div class="npill boy">Balgopal</div><div class="npill boy">Bhuvan</div>
+      </div>
+      <p class="lbl" style="margin-bottom:7px">👧 Girl Names</p>
+      <div class="name-wrap" style="margin-bottom:14px">
+        <div class="npill girl">Adria</div><div class="npill girl">Adhrya</div><div class="npill girl">Adriyeni</div><div class="npill girl">Adyatrayi</div><div class="npill girl">Anumegha</div><div class="npill girl">Arisha</div><div class="npill girl">Adya</div><div class="npill girl">Ananya</div><div class="npill girl">Aradhya</div><div class="npill girl">Bhairavi</div><div class="npill girl">Bhoomi</div>
+      </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <input type="text" id="nameIn" placeholder="Add name..." style="flex:1;min-width:140px;padding:8px 13px;border:2px solid var(--bd);border-radius:11px;font-size:.86rem;background:var(--input-bg);color:var(--t);font-family:'Outfit',sans-serif" onkeypress="if(event.key==='Enter')addName('boy')">
+        <button class="btn br" onclick="addName('boy')" style="padding:8px 13px">+ Boy</button>
+        <button class="btn" onclick="addName('girl')" style="padding:8px 13px;background:var(--r);color:#fff;border:none;border-radius:11px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:700">+ Girl</button>
+      </div>
+      <div id="customNames" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px"></div>
+    </div></div>
+  </div>
+
+  <!-- SHOPPING -->
+  <div id="mm-shp" class="panel">
+    <div class="card"><div class="card-b">
+      <h4 class="serif">🛍️ Bipasha's Shopping List</h4>
+      <div style="display:flex;gap:7px;margin:11px 0;flex-wrap:wrap">
+        <input type="text" id="shopIn" placeholder="Add item..." style="flex:1;min-width:160px;padding:8px 13px;border:2px solid var(--bd);border-radius:11px;font-size:.86rem;background:var(--input-bg);color:var(--t);font-family:'Outfit',sans-serif" onkeypress="if(event.key==='Enter')addShop()">
+        <button class="btn br" onclick="addShop()">+ Add</button>
+      </div>
+      <div id="shopList"></div>
+    </div></div>
+  </div>
+
+  <!-- MOOD -->
+  <div id="mm-moo" class="panel">
+    <div class="card" style="text-align:center"><div class="card-b">
+      <h4 class="serif" style="margin-bottom:13px">How are you feeling right now?</h4>
+      <div style="display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:12px" id="moodBtns">
+        <button onclick="setMood(this,'😊','Happy','Wonderful! Your joy flows to baby 💕')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😊</button>
+        <button onclick="setMood(this,'😌','Calm','Beautiful peaceful energy 🌸')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😌</button>
+        <button onclick="setMood(this,'😴','Tired','Rest is productive — you\'re growing a human 💕')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😴</button>
+        <button onclick="setMood(this,'😰','Anxious','Totally normal. Try breathing in Mind tab 🌬️')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😰</button>
+        <button onclick="setMood(this,'🥰','Loved','You ARE loved — so much 💛')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">🥰</button>
+      </div>
+      <p class="cursive" style="font-size:1.15rem;color:var(--rd);min-height:28px" id="moodMsg"></p>
+      <div id="moodLog" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:5px;justify-content:center"></div>
+    </div></div>
+  </div>
+
+  <!-- MEDICINE SCHEDULE -->
+  <div id="mm-meds" class="panel">
+    <div class="card"><div class="card-b">
+      <div class="med-header">
+        <h4 class="serif">💊 Medicine Tracker</h4>
+        <span class="med-prog">Today: <strong id="medProgress" style="color:var(--rd)">0/8</strong></span>
+      </div>
+
+      <!-- Streak row -->
+      <div class="med-streak-row">
+        <div class="med-streak-card"><div class="num" id="medStreakCur">0</div><div class="lbl">🔥 Day Streak</div></div>
+        <div class="med-streak-card"><div class="num" id="medBestStreak">0</div><div class="lbl">🏆 Best Streak</div></div>
+        <div class="med-streak-card"><div class="num" id="medMonthPct">—</div><div class="lbl">📅 This Month</div></div>
+      </div>
+
+      <!-- View toggle -->
+      <div class="med-view-toggle">
+        <button class="med-view-btn on" onclick="medView(this,'med-list-wrap')">📋 Today</button>
+        <button class="med-view-btn" onclick="medView(this,'med-cal-wrap')">📅 Calendar</button>
+      </div>
+
+      <!-- LIST VIEW -->
+      <div class="med-list-wrap on">
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:12px">Tap to mark as taken. Resets daily at midnight. 🌸</p>
+        <div class="med-grid" id="medGridList">
+          <div class="med-item" id="med-pan40" onclick="toggleMed('med-pan40')">
+            <div class="med-check" id="chk-pan40">☐</div>
+            <div class="med-info"><div class="med-time">🌅 Morning</div><div class="med-name">Pan 40</div><div class="med-dose">1 tablet — before getting up</div></div>
+          </div>
+          <div class="med-item" id="med-zofer1" onclick="toggleMed('med-zofer1')">
+            <div class="med-check" id="chk-zofer1">☐</div>
+            <div class="med-info"><div class="med-time">🍳 Before Breakfast</div><div class="med-name">Zofer</div><div class="med-dose">1 tablet — 30 min before eating</div></div>
+          </div>
+          <div class="med-item" id="med-zofer2" onclick="toggleMed('med-zofer2')">
+            <div class="med-check" id="chk-zofer2">☐</div>
+            <div class="med-info"><div class="med-time">🍛 Before Lunch</div><div class="med-name">Zofer</div><div class="med-dose">1 tablet — anti-nausea</div></div>
+          </div>
+          <div class="med-item" id="med-folic" onclick="toggleMed('med-folic')">
+            <div class="med-check" id="chk-folic">☐</div>
+            <div class="med-info"><div class="med-time">🍛 After Lunch</div><div class="med-name">Folic Acid</div><div class="med-dose">1 tablet — neural protection</div></div>
+          </div>
+          <div class="med-item" id="med-zofer3" onclick="toggleMed('med-zofer3')">
+            <div class="med-check" id="chk-zofer3">☐</div>
+            <div class="med-info"><div class="med-time">🌙 Before Dinner</div><div class="med-name">Zofer</div><div class="med-dose">1 tablet — evening nausea control</div></div>
+          </div>
+          <div class="med-item" id="med-dulphalac" onclick="toggleMed('med-dulphalac')">
+            <div class="med-check" id="chk-dulphalac">☐</div>
+            <div class="med-info"><div class="med-time">😴 Before Bed</div><div class="med-name">Syrup Dulphalac</div><div class="med-dose">15ml — digestive comfort</div></div>
+          </div>
+          <div class="med-item" id="med-vitd3" onclick="toggleMed('med-vitd3')">
+            <div class="med-check" id="chk-vitd3">☐</div>
+            <div class="med-info"><div class="med-time">📅 Weekly — Saturday</div><div class="med-name">Vitamin D3 <span class="med-special med-weekly">Weekly</span></div><div class="med-dose">1 tablet — up to 12 weeks</div></div>
+          </div>
+          <div class="med-item" id="med-doxinate" onclick="toggleMed('med-doxinate')">
+            <div class="med-check" id="chk-doxinate">☐</div>
+            <div class="med-info"><div class="med-time">🌙 If Needed</div><div class="med-name">Doxinate <span class="med-special med-prn">As Needed</span></div><div class="med-dose">1 tablet at bedtime — severe nausea</div></div>
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:14px">
+          <button class="btn br" onclick="resetMeds()" style="flex:1;font-size:.8rem">↺ Reset Today</button>
+          <button class="btn bs" onclick="medReminder()" style="flex:1;font-size:.8rem">🔔 Tips</button>
+        </div>
+      </div>
+
+      <!-- CALENDAR VIEW -->
+      <div class="med-cal-wrap">
+        <div class="cal-legend">
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--s)"></div>All taken</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--g)"></div>Partial</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--r);opacity:.6"></div>Missed</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--bd)"></div>No data</div>
+        </div>
+        <div class="cal-nav">
+          <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
+          <h5 id="calMonthLabel">April 2026</h5>
+          <button class="cal-nav-btn" onclick="calNav(1)">›</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="cal-day-detail" id="calDayDetail">
+          <h5 id="calDetailTitle">April 26</h5>
+          <div id="calDetailBody"></div>
+        </div>
+        <div class="insight" style="margin-top:8px">
+          <h5>How to read</h5>
+          <p>Green = all 8 doses taken ✅ · Yellow = some taken · Red dot = missed · Tap any day to see details.</p>
+        </div>
+      </div>
+
+      <div class="insight" style="margin-top:12px" id="medInsight">
+        <h5>Medicine Tips</h5>
+        <p>Keep medicines at bedside. Never skip Pan 40 — it prevents acid reflux. Zofer 3x daily keeps nausea manageable. 💕</p>
+      </div>
+    </div></div>
+  </div>
+
+
+
+  <!-- ME & MY WIFE (Arnab's Corner) -->
+  <div id="mm-us" class="panel">
+    <div class="us-card">
+      <div class="us-title">💑 Arnab & Bipasha's Corner</div>
+      <div class="us-sub">10 messages of love — refreshes every time you visit ✨</div>
+      <div class="us-msg-display" id="usMsgDisplay">Loading love...</div>
+      <div class="us-controls">
+        <button class="us-btn-refresh" onclick="nextUsMsg()">🔄 Next Message</button>
+        <button class="us-btn-love" onclick="openLove()">💌 Full Letter</button>
+      </div>
+      <div class="us-count" id="usMsgCount">Message 1 of 10</div>
+    </div>
+    <div class="card"><div class="card-b">
+      <h4 class="serif" style="margin-bottom:8px">📅 Your Pregnancy Timeline Together</h4>
+      <ul class="clist">
+        <li>Bengaluru → Kolkata journey of love 💕</li>
+        <li>First scan together — heartbeat witnessed</li>
+        <li>Every morning sickness survived, hand in hand</li>
+        <li>Every craving fulfilled with love 🍫</li>
+        <li>Growing our family, growing our love</li>
+      </ul>
+    </div></div>
+  </div>
+
+
+  <!-- ROUTINE -->
+  <div id="mm-rtn" class="panel">
+    <div class="card"><div class="card-b">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h4 class="serif">Daily Routine</h4>
+        <span style="font-size:.85rem;color:var(--ts)">Progress: <strong id="routineProgress" style="color:var(--rd)">0/9</strong></span>
+      </div>
+      <div style="display:grid;gap:7px" id="routineItems">
+        <div onclick="toggleRoutine(this,'r1')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r1">☐</span> 🌅 Morning prayer / meditation</div>
+        <div onclick="toggleRoutine(this,'r2')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r2">☐</span> 💊 Prenatal vitamins</div>
+        <div onclick="toggleRoutine(this,'r3')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r3">☐</span> 🥣 Healthy breakfast</div>
+        <div onclick="toggleRoutine(this,'r4')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r4">☐</span> 🚶 Morning walk (15–20 min)</div>
+        <div onclick="toggleRoutine(this,'r5')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r5">☐</span> 💧 8+ glasses water</div>
+        <div onclick="toggleRoutine(this,'r6')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r6">☐</span> 🍎 Fruits & vegetables</div>
+        <div onclick="toggleRoutine(this,'r7')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r7">☐</span> 🧘 Prenatal yoga / stretches</div>
+        <div onclick="toggleRoutine(this,'r8')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r8">☐</span> 📖 Read / sing to baby</div>
+        <div onclick="toggleRoutine(this,'r9')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r9">☐</span> 🌙 Turmeric milk + early bed</div>
+      </div>
+    </div></div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<div class="footer">
+  <p><strong>Bipasha Mondal · Reg 75294 (WBMC) · Dr. Ankita Mandal MBBS(Gold) MD(Gold) · Bhagirathi Neotia, Newtown</strong></p>
+  <p>For patient education only. All clinical decisions must be made by the treating physician. BabyBloom v3 · 25 April 2026</p>
+</div>
+
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bnav">
+  <button class="bnav-btn active" onclick="gotoPage(this,'today')"><span class="icon">✨</span><span class="txt">Today</span></button>
+  <button class="bnav-btn" onclick="gotoPage(this,'baby')"><span class="icon">🤰</span><span class="txt">Mom & Baby</span></button>
+  <button class="bnav-btn" onclick="gotoPage(this,'care')"><span class="icon">🧘</span><span class="txt">Care</span></button>
+  <button class="bnav-btn" onclick="gotoPage(this,'mind')"><span class="icon">🎵</span><span class="txt">Mind</span></button>
+  <button class="bnav-btn" onclick="gotoPage(this,'memory')"><span class="icon">💌</span><span class="txt">Memory</span></button>
+</nav>
+
+<script>
+'use strict';
+// ═══ THEME ═══
+function toggleTheme(){const h=document.documentElement;const dark=h.getAttribute('data-theme')==='dark';h.setAttribute('data-theme',dark?'light':'dark');document.getElementById('themeBtn').textContent=dark?'🌙':'☀️';localStorage.setItem('bpTheme',dark?'light':'dark')}
+(function(){const t=localStorage.getItem('bpTheme')||'light';document.documentElement.setAttribute('data-theme',t);document.getElementById('themeBtn').textContent=t==='dark'?'☀️':'🌙'})();
+
+// ═══ STATE ═══
+let S={week:12,symptoms:{},streaks:{water:0,journal:0,yoga:0},journal:[],letters:[],shop:[{item:'Maternity Dress',done:false,id:1},{item:'Comfortable Nighty',done:false,id:2},{item:'Chocolates 🍫',done:false,id:3}],vomit:0,customNames:[]};
+function load(){try{const s=localStorage.getItem('bp8');if(s)S={...S,...JSON.parse(s)}}catch(e){}renderAll()}
+function save(){try{localStorage.setItem('bp8',JSON.stringify(S))}catch(e){}}
+function renderAll(){renderShop();renderJ();renderL();renderNames();updateStreaks();loadVomit();loadRoutine();initMood()}
+
+// ═══ NAV ═══
+function gotoPage(el,id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.bnav-btn').forEach(n=>n.classList.remove('active'));const pg=document.getElementById('pg-'+id);if(pg)pg.classList.add('active');el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'})}
+
+// ═══ SUB TABS ═══
+function subTab(btn,prefix,id){const wrap=btn.closest('.wrap');if(wrap)wrap.querySelectorAll('[id^="'+prefix+'-"].panel').forEach(p=>p.classList.remove('on'));else document.querySelectorAll('[id^="'+prefix+'-"].panel').forEach(p=>p.classList.remove('on'));const target=document.getElementById(id);if(target)target.classList.add('on');const tbsParent=btn.parentElement;tbsParent.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on')}
+
+// ═══ MOTIVATION ═══
+const motiv=["Every day your baby grows stronger and more beautiful 💕","You are already the most amazing mother in the world 🌸","Arnab is so proud of you — every single moment ❤️","Your strength today is your baby's foundation forever 🌟","Baby hears your voice and feels your love 🎵","You are doing something extraordinary ✨","Every kick is baby saying 'I love you, Mama' 👣","Rest, nourish, love — you're exactly where you need to be 🌿","Your body is a miracle 🙏","Bipasha, you are doing so beautifully 💕"];
+let mi=0;
+setInterval(()=>{const el=document.getElementById('motivText');if(!el)return;el.style.opacity='0';setTimeout(()=>{mi=(mi+1)%motiv.length;el.textContent=motiv[mi];el.style.opacity='1'},380)},5500);
+
+// ═══ FRUIT/WEEK DATA ═══
+const fruits=[null,{e:'🌱',l:'Poppy seed',d:'A tiny miracle — fertilisation just happened!'},
+{e:'🌱',l:'Sesame seed',d:'Cells dividing rapidly. Heart tube forming!'},
+{e:'🌱',l:'Sesame seed',d:'Neural tube forming. Brain & spine developing!'},
+{e:'🌾',l:'Poppy seed',d:'Heart tube begins beating — wk 6 you\'ll hear it!'},
+{e:'🫐',l:'Blueberry',d:'Heart starts beating! Tiny arm buds appear.'},
+{e:'🫐',l:'Blueberry',d:'Brain growing fast. Eyes & ears forming!'},
+{e:'🍇',l:'Raspberry',d:'Fingers starting to form. Facial features developing!'},
+{e:'🍇',l:'Raspberry',d:'All major organs present! Moving — though you can\'t feel it yet.'},
+{e:'🍈',l:'Cherry',d:'Can yawn! Hiccup! Facial expressions forming.'},
+{e:'🍈',l:'Kumquat',d:'Fingers & toes fully separated. Fingernails growing!'},
+{e:'🍈',l:'Fig',d:'Can suck thumb! Kidneys producing urine.'},
+{e:'🍋',l:'Lime',d:'First trimester nearly done — all organs present! Reflexes developing.'},
+{e:'🍋',l:'Lemon',d:'T1 complete! Nausea likely easing now. You made it! 🎉'},
+{e:'🥑',l:'Avocado',d:'T2 begins — the golden trimester! Energy returns.'},
+{e:'🥑',l:'Avocado',d:'Facial expressions! Baby can grimace, squint, frown.'},
+{e:'🥕',l:'Carrot',d:'Gender visible on scan! Baby growing fast!'},
+{e:'🥒',l:'Cucumber',d:'Baby is very active! Kicks coming soon.'},
+{e:'🫑',l:'Bell pepper',d:'Baby can HEAR you now! Talk, sing, read aloud 🎵'},
+{e:'🥭',l:'Mango',d:'First movements felt (quickening)! Butterflies in tummy.'},
+{e:'🍌',l:'Banana',d:'Halfway there! 20 weeks — anatomy scan this week.'},
+{e:'🍌',l:'Banana',d:'Strong kicks now! Baby responds to sounds & music.'},
+{e:'🌽',l:'Corn',d:'Responds to sound! Lips & eyebrows fully formed.'},
+{e:'🌽',l:'Corn',d:'Eyes opening! Can see light through womb walls.'},
+{e:'🥬',l:'Cauliflower',d:'Viability milestone! Brainwave patterns forming.'},
+{e:'🍑',l:'Cauliflower',d:'Dreaming! Rapid eye movement (REM) sleep begins.'},
+{e:'🥦',l:'Rutabaga',d:'T3 approaching! Baby opening eyes, responding to light.'},
+{e:'🥬',l:'Lettuce head',d:'Baby is 37cm! Gaining weight rapidly — about 200g/week.'},
+{e:'🥥',l:'Coconut',d:'T3 begins! Baby practices breathing movements daily.'},
+{e:'🎃',l:'Butternut squash',d:'Gaining weight fast! Brain developing millions of neurons.'},
+{e:'🎃',l:'Pumpkin',d:'Strong powerful kicks! Baby can dream, cry, smile.'},
+{e:'🍍',l:'Pineapple',d:'All senses complete! Baby is nearly ready.'},
+{e:'🍈',l:'Honeydew melon',d:'Head may be engaging (dropping). Lungs maturing fast!'},
+{e:'🥬',l:'Large romaine',d:'Head engaging into pelvis. Cervix softening!'},
+{e:'🍈',l:'Cantaloupe',d:'Lungs nearly mature! Baby gaining ~230g/week.'},
+{e:'🥬',l:'Large romaine',d:'Almost full term! Baby\'s immune system boosting.'},
+{e:'🥥',l:'Coconut',d:'Full term approaching! Every day strengthens lungs.'},
+{e:'🍈',l:'Honeydew',d:'FULL TERM! Baby ready to meet the world any day! ✅'},
+{e:'🍉',l:'Small watermelon',d:'Past due — baby is completely ready! Just waiting 🌟'},
+{e:'🍉',l:'Small watermelon',d:'Perfectly ripe! You\'ll meet very soon 💕'},
+{e:'👶',l:'Watermelon',d:'Hello baby! Full term & ready to meet Mama & Papa 🎉'}];
+
+function updateWeek(v){v=parseInt(v);S.week=v;save();const f=fruits[v]||fruits[40];document.getElementById('babyWeek').textContent=v;document.getElementById('babyEmoji').textContent=f.e;document.getElementById('babyLabel').textContent=f.l;document.getElementById('babyDesc').textContent=f.d;document.getElementById('weekSlider').value=v;updateSingleAction()}
+(function(){document.getElementById('weekSlider').value=S.week;updateWeek(S.week)})();
+
+// ═══ ULTRASOUND SVG SYSTEM ═══
+const ultraMonths=[
+  {title:'Month 1 — Week 1–4',size:'< 1mm',desc:'Embryo just forming — smaller than a grain of rice',
+   svg:`<svg width="120" height="120" viewBox="0 0 120 120"><defs><radialGradient id="g1" cx="50%" cy="50%"><stop offset="0%" stop-color="#b0d0f0" stop-opacity=".9"/><stop offset="100%" stop-color="#2060a0" stop-opacity=".1"/></radialGradient></defs><ellipse cx="60" cy="60" rx="8" ry="9" fill="url(#g1)" opacity=".8"><animateTransform attributeName="transform" type="scale" values="1;1.08;1" dur="2s" repeatCount="indefinite" additive="sum"/></ellipse><circle cx="60" cy="60" r="14" fill="none" stroke="#4080c0" stroke-width=".5" opacity=".3" stroke-dasharray="4 3"><animateTransform attributeName="transform" type="rotate" values="0 60 60;360 60 60" dur="12s" repeatCount="indefinite"/></circle><circle cx="60" cy="60" r="24" fill="none" stroke="#3070b0" stroke-width=".4" opacity=".15"/></svg>`},
+  {title:'Month 2 — Week 5–8',size:'~1.6 cm',desc:'Heartbeat begins! Tiny limb buds forming',
+   svg:`<svg width="120" height="120" viewBox="0 0 120 120"><defs><radialGradient id="g2" cx="50%" cy="45%"><stop offset="0%" stop-color="#c0d8f8" stop-opacity=".85"/><stop offset="100%" stop-color="#3070b0" stop-opacity=".1"/></radialGradient></defs><ellipse cx="60" cy="58" rx="12" ry="15" fill="url(#g2)" opacity=".8"/><circle cx="60" cy="50" r="7" fill="#90c0f0" opacity=".6"/><line x1="50" y1="68" x2="44" y2="75" stroke="#6090c0" stroke-width="1.5" opacity=".5" stroke-linecap="round"/><line x1="70" y1="68" x2="76" y2="75" stroke="#6090c0" stroke-width="1.5" opacity=".5" stroke-linecap="round"/><circle cx="60" cy="52" r="2" fill="#d0eaff" opacity=".8"><animate attributeName="r" values="2;2.8;2" dur="1.2s" repeatCount="indefinite"/></circle><circle cx="60" cy="52" r="5" fill="none" stroke="#80b8e0" stroke-width=".6" opacity=".4"><animate attributeName="r" values="5;8;5" dur="1.2s" repeatCount="indefinite"/><animate attributeName="opacity" values=".4;0;.4" dur="1.2s" repeatCount="indefinite"/></circle></svg>`},
+  {title:'Month 3 — Week 9–12',size:'~5.4 cm',desc:'Fingers & toes! All organs present',
+   svg:`<svg width="120" height="120" viewBox="0 0 120 120"><defs><radialGradient id="g3" cx="50%" cy="42%"><stop offset="0%" stop-color="#c8e0f8" stop-opacity=".85"/><stop offset="100%" stop-color="#2860a0" stop-opacity=".1"/></radialGradient></defs><ellipse cx="60" cy="65" rx="18" ry="24" fill="url(#g3)" opacity=".75"/><circle cx="60" cy="46" r="11" fill="#a0c8f0" opacity=".6"/><circle cx="57" cy="44" r="1.5" fill="#e0f0ff" opacity=".9"/><circle cx="63" cy="44" r="1.5" fill="#e0f0ff" opacity=".9"/><path d="M57 48 Q60 51 63 48" stroke="#c0deff" stroke-width="1" fill="none" opacity=".7"/><line x1="44" y1="70" x2="37" y2="78" stroke="#5080b0" stroke-width="1.5" opacity=".5" stroke-linecap="round"/><line x1="76" y1="70" x2="83" y2="78" stroke="#5080b0" stroke-width="1.5" opacity=".5" stroke-linecap="round"/><line x1="52" y1="86" x2="50" y2="96" stroke="#5080b0" stroke-width="1.5" opacity=".4" stroke-linecap="round"/><line x1="68" y1="86" x2="70" y2="96" stroke="#5080b0" stroke-width="1.5" opacity=".4" stroke-linecap="round"/></svg>`},
+  {title:'Month 4 — Week 13–17',size:'~12 cm',desc:'Making facial expressions! Gender visible',
+   svg:`<svg width="120" height="120" viewBox="0 0 120 120"><defs><radialGradient id="g4" cx="50%" cy="40%"><stop offset="0%" stop-color="#c8e4f8" stop-opacity=".88"/><stop offset="100%" stop-color="#2858a0" stop-opacity=".08"/></radialGradient></defs><ellipse cx="60" cy="68" rx="20" ry="28" fill="url(#g4)" opacity=".72"/><circle cx="60" cy="44" r="13" fill="#98c4f0" opacity=".6"/><circle cx="55" cy="42" r="2" fill="#d8eeff"/><circle cx="65" cy="42" r="2" fill="#d8eeff"/><path d="M55 47 Q60 51 65 47" stroke="#b8dcff" stroke-width="1.2" fill="none"/><line x1="40" y1="72" x2="30" y2="82" stroke="#4878b0" stroke-width="1.8" opacity=".5" stroke-linecap="round"/><line x1="80" y1="72" x2="90" y2="82" stroke="#4878b0" stroke-width="1.8" opacity=".5" stroke-linecap="round"/><line x1="50" y1="92" x2="46" y2="104" stroke="#4878b0" stroke-width="2" opacity=".45" stroke-linecap="round"/><line x1="70" y1="92" x2="74" y2="104" stroke="#4878b0" stroke-width="2" opacity=".45" stroke-linecap="round"/></svg>`},
+  {title:'Month 5 — Week 18–22',size:'~25 cm',desc:'First kicks felt! Baby hears your voice',
+   svg:`<svg width="120" height="120" viewBox="0 0 120 120"><defs><radialGradient id="g5" cx="50%" cy="38%"><stop offset="0%" stop-color="#c0e0f8" stop-opacity=".9"/><stop offset="100%" stop-color="#2050a0" stop-opacity=".06"/></radialGradient></defs><ellipse cx="58" cy="68" rx="22" ry="30" fill="url(#g5)" opacity=".7"/><circle cx="57" cy="42" r="14" fill="#90c0f0" opacity=".55"/><circle cx="52" cy="40" r="2.2" fill="#d0e8ff"/><circle cx="62" cy="40" r="2.2" fill="#d0e8ff"/><path d="M52 46 Q57 50 62 46" stroke="#b0d4ff" stroke-width="1.3" fill="none"/><path d="M36 68 Q28 75 32 84" stroke="#4070b0" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"><animate attributeName="d" values="M36 68 Q28 75 32 84;M36 68 Q26 78 30 87;M36 68 Q28 75 32 84" dur="2.5s" repeatCount="indefinite"/></path><path d="M80 68 Q88 75 84 84" stroke="#4070b0" stroke-width="2" fill="none" stroke-linecap="round" opacity=".5"/><line x1="50" y1="94" x2="46" y2="108" stroke="#4070b0" stroke-width="2" opacity=".4" stroke-linecap="round"/><line x1="68" y1="95" x2="72" y2="108" stroke="#4070b0" stroke-width="2" opacity=".4" stroke-linecap="round"/></svg>`},
+  {title:'Month 6 — Week 23–27',size:'~33 cm',desc:'Eyes opening! Responding to light & sound',
+   svg:`<svg width="120" height="120" viewBox="0 0 120 120"><defs><radialGradient id="g6" cx="50%" cy="36%"><stop offset="0%" stop-color="#b8daf5" stop-opacity=".9"/><stop offset="100%" stop-color="#1848a0" stop-opacity=".05"/></radialGradient></defs><ellipse cx="57" cy="70" rx="24" ry="32" fill="url(#g6)" opacity=".68"/><circle cx="56" cy="40" r="15" fill="#88bcf0" opacity=".55"/><circle cx="51" cy="38" r="2.5" fill="#c8e4ff"/><circle cx="61" cy="38" r="2.5" fill="#c8e4ff"/><circle cx="51" cy="38" r="1" fill="#80b0e0" opacity=".6"/><circle cx="61" cy="38" r="1" fill="#80b0e0" opacity=".6"/><path d="M51 44 Q56 48 61 44" stroke="#a8ccff" stroke-width="1.4" fill="none"/><path d="M34 68 Q24 78 28 88" stroke="#3868b0" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".48"/><path d="M80 70 Q90 80 86 90" stroke="#3868b0" stroke-width="2.2" fill="none" stroke-linecap="round" opacity=".48"/><line x1="48" y1="98" x2="43" y2="113" stroke="#3868b0" stroke-width="2.2" opacity=".38" stroke-linecap="round"/><line x1="68" y1="99" x2="73" y2="113" stroke="#3868b0" stroke-width="2.2" opacity=".38" stroke-linecap="round"/></svg>`},
+  {title:'Month 7 — Week 28–31',size:'~40 cm · ~1 kg',desc:'Brain developing rapidly! Practicing breathing',
+   svg:`<svg width="120" height="120" viewBox="0 0 120 120"><defs><radialGradient id="g7" cx="48%" cy="34%"><stop offset="0%" stop-color="#b0d4f0" stop-opacity=".92"/><stop offset="100%" stop-color="#1040a0" stop-opacity=".04"/></radialGradient></defs><ellipse cx="56" cy="72" rx="26" ry="34" fill="url(#g7)" opacity=".65"/><circle cx="54" cy="38" r="16" fill="#80b8f0" opacity=".52"/><circle cx="49" cy="36" r="2.8" fill="#c0e0ff"/><circle cx="59" cy="36" r="2.8" fill="#c0e0ff"/><circle cx="49" cy="36" r="1.2" fill="#70a8e0" opacity=".7"/><circle cx="59" cy="36" r="1.2" fill="#70a8e0" opacity=".7"/><path d="M49 43 Q54 47 59 43" stroke="#a0c8ff" stroke-width="1.5" fill="none"/><path d="M31 70 Q20 82 24 94" stroke="#3060a8" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".46"><animate attributeName="d" values="M31 70 Q20 82 24 94;M31 70 Q18 85 22 97;M31 70 Q20 82 24 94" dur="3s" repeatCount="indefinite"/></path><path d="M81 72 Q92 84 88 96" stroke="#3060a8" stroke-width="2.5" fill="none" stroke-linecap="round" opacity=".46"/><line x1="47" y1="102" x2="42" y2="116" stroke="#3060a8" stroke-width="2.5" opacity=".36" stroke-linecap="round"/><line x1="67" y1="103" x2="72" y2="116" stroke="#3060a8" stroke-width="2.5" opacity=".36" stroke-linecap="round"/></svg>`},
+  {title:'Month 8 — Week 32–36',size:'~45 cm · ~2.2 kg',desc:'Nearly ready! Head may engage downward',
+   svg:`<svg width="120" height="120" viewBox="0 0 120 120"><defs><radialGradient id="g8" cx="46%" cy="30%"><stop offset="0%" stop-color="#a8ccf0" stop-opacity=".93"/><stop offset="100%" stop-color="#0838a0" stop-opacity=".03"/></radialGradient></defs><ellipse cx="55" cy="73" rx="28" ry="36" fill="url(#g8)" opacity=".62"/><circle cx="52" cy="36" r="17" fill="#78b0f0" opacity=".5"/><circle cx="47" cy="34" r="3" fill="#b8dcff"/><circle cx="57" cy="34" r="3" fill="#b8dcff"/><circle cx="47" cy="34" r="1.4" fill="#60a0d8" opacity=".75"/><circle cx="57" cy="34" r="1.4" fill="#60a0d8" opacity=".75"/><path d="M47 42 Q52 46 57 42" stroke="#98c4ff" stroke-width="1.6" fill="none"/><path d="M27 72 Q14 86 18 100" stroke="#2858a0" stroke-width="2.8" fill="none" stroke-linecap="round" opacity=".44"/><path d="M83 74 Q96 88 92 102" stroke="#2858a0" stroke-width="2.8" fill="none" stroke-linecap="round" opacity=".44"/><line x1="46" y1="106" x2="40" y2="118" stroke="#2858a0" stroke-width="2.8" opacity=".34" stroke-linecap="round"/><line x1="66" y1="107" x2="72" y2="118" stroke="#2858a0" stroke-width="2.8" opacity=".34" stroke-linecap="round"/></svg>`},
+  {title:'Month 9 — Week 37–40',size:'~50 cm · ~3.4 kg',desc:'Full term! Ready to meet Mama & Papa 🎉',
+   svg:`<svg width="130" height="130" viewBox="0 0 130 130"><defs><radialGradient id="g9" cx="46%" cy="28%"><stop offset="0%" stop-color="#d0e8f8" stop-opacity=".95"/><stop offset="100%" stop-color="#2060b0" stop-opacity=".04"/></radialGradient><radialGradient id="g9g" cx="50%" cy="50%"><stop offset="0%" stop-color="#ffd080" stop-opacity=".4"/><stop offset="100%" stop-color="transparent"/></radialGradient></defs><ellipse cx="62" cy="78" rx="30" ry="38" fill="url(#g9)" opacity=".65"/><circle cx="60" cy="37" r="18" fill="#88c0f8" opacity=".55"/><circle cx="54" cy="34" r="3.2" fill="#c8e8ff"/><circle cx="66" cy="34" r="3.2" fill="#c8e8ff"/><circle cx="54" cy="34" r="1.5" fill="#58a0d8" opacity=".8"/><circle cx="66" cy="34" r="1.5" fill="#58a0d8" opacity=".8"/><path d="M54 42 Q60 47 66 42" stroke="#a0d0ff" stroke-width="1.8" fill="none"/><path d="M30 78 Q16 94 20 108" stroke="#2050a0" stroke-width="3" fill="none" stroke-linecap="round" opacity=".45"/><path d="M94 80 Q108 96 104 110" stroke="#2050a0" stroke-width="3" fill="none" stroke-linecap="round" opacity=".45"/><line x1="49" y1="112" x2="42" y2="126" stroke="#2050a0" stroke-width="3" opacity=".38" stroke-linecap="round"/><line x1="74" y1="113" x2="80" y2="126" stroke="#2050a0" stroke-width="3" opacity=".38" stroke-linecap="round"/><circle cx="62" cy="60" r="26" fill="url(#g9g)" opacity=".5"><animate attributeName="r" values="26;30;26" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values=".5;.2;.5" dur="3s" repeatCount="indefinite"/></circle><text x="62" y="130" text-anchor="middle" fill="#8bb8e0" font-size="8" font-family="sans-serif">Full Term ✨</text></svg>`}
+];
+
+let activeUltra=0;
+function buildUltraStrip(){const strip=document.getElementById('ultraStrip');if(!strip)return;strip.innerHTML=ultraMonths.map((m,i)=>`<div class="ultra-month${i===0?' active':''}" onclick="showUltra(${i})" id="um-${i}"><div class="ultra-svg-wrap">${m.svg}</div><div class="ultra-month-label"><div class="mo">Month ${i+1}</div><div class="size">${m.size}</div></div></div>`).join('');showUltra(0)}
+
+function showUltra(idx){activeUltra=idx;const m=ultraMonths[idx];document.querySelectorAll('.ultra-month').forEach((el,i)=>{el.classList.toggle('active',i===idx)});const vc=document.getElementById('ultraSvgContainer');const vt=document.getElementById('ultraTitle');const vd=document.getElementById('ultraDesc');if(vc)vc.innerHTML=`<svg width="0" height="0" style="position:absolute"></svg>`+m.svg.replace('width="120"','width="180"').replace('height="120"','height="180"').replace('viewBox="0 0 120 120"','viewBox="0 0 120 120"').replace('width="130"','width="180"').replace('height="130"','height="180"');if(vt)vt.textContent=m.title;if(vd)vd.textContent=m.desc;// auto-scroll strip
+const btn=document.getElementById('um-'+idx);if(btn)btn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'})}
+
+// ═══ WATER ═══
+function dk(p){return p+'_'+new Date().toDateString()}
+function addWater(){const k=dk('w');let c=parseInt(localStorage.getItem(k)||0);c=Math.min(c+250,3500);localStorage.setItem(k,c);renderWater(c);if(c>=2500){confetti();showWin('Goal reached! You drank 2500ml today 💧')}}
+function resetWater(){localStorage.removeItem(dk('w'));renderWater(0)}
+function renderWater(ml){const g=2500,p=Math.min(ml/g*100,100);const el=document.getElementById('waterDisplay');const bar=document.getElementById('waterBar');if(el)el.textContent=ml;if(bar)bar.style.width=p+'%'}
+(function(){renderWater(parseInt(localStorage.getItem(dk('w'))||0))})();
+
+// ═══ KICKS ═══
+function addKick(){const k=dk('kk');let c=parseInt(localStorage.getItem(k)||0)+1;localStorage.setItem(k,c);renderKicks(c);if(c===10){confetti();showWin('10 kicks counted! Baby is healthy & active 👣')}}
+function resetKicks(){localStorage.removeItem(dk('kk'));renderKicks(0)}
+function renderKicks(n){const el=document.getElementById('kickDisplay');const msg=document.getElementById('kickMsg');if(el)el.textContent=n;const msgs=['Waiting for baby\'s hello 💕','Baby says hi! 💕','Dancing in there! 🎵','Keep counting mama 🌸','So active today! 🌟','Five kicks! ✨','Baby doing gymnastics! 😄','Seven! Champion 🏆','Eight beautiful kicks 💕','Almost 10! Nearly there 🌸','🎉 10 kicks! Baby is healthy & happy!'];if(msg)msg.textContent=msgs[Math.min(n,msgs.length-1)]}
+(function(){renderKicks(parseInt(localStorage.getItem(dk('kk'))||0))})();
+
+// ═══ VOMIT ═══
+function loadVomit(){const date=localStorage.getItem('bpVDate');const today=new Date().toDateString();if(date!==today){S.vomit=0;localStorage.setItem('bpVDate',today)}else{S.vomit=parseInt(localStorage.getItem('bpV')||0)}document.getElementById('vomitCount').textContent=S.vomit;updateVomitStatus()}
+function addVomit(){S.vomit++;localStorage.setItem('bpV',S.vomit);document.getElementById('vomitCount').textContent=S.vomit;updateVomitStatus()}
+function resetVomit(){S.vomit=0;localStorage.setItem('bpV',0);document.getElementById('vomitCount').textContent=0;updateVomitStatus()}
+function updateVomitStatus(){const el=document.getElementById('vomitStatus');if(!el)return;if(S.vomit<=3){el.className='vstatus vok';el.innerHTML='✅ Normal range — keep sipping water'}else if(S.vomit<=7){el.className='vstatus vwarn';el.innerHTML='⚠️ Monitor closely — try anti-nausea tips'}else{el.className='vstatus vdanger';el.innerHTML='🚨 CALL Dr. Ankita Mandal: <strong>8902135575</strong> — risk of dehydration!'}}
+
+// ═══ SYMPTOMS ═══
+function analyzeSymptoms(){S.symptoms={nausea:document.getElementById('nausea').value,appetite:document.getElementById('appetite').value,mood:document.getElementById('mood').value,energy:document.getElementById('energy').value,water:document.getElementById('waterIn').value,sleep:document.getElementById('sleep').value};save();const al=document.getElementById('symptomAlert');const ib=document.getElementById('insightBox');
+if(S.symptoms.nausea==='Severe'&&parseInt(S.symptoms.water)<6){al.innerHTML='<strong>⚠️ Dehydration Risk:</strong> Severe nausea + low water is concerning. Sip daab water slowly, eat watermelon, rest. Call Dr. Ankita (8902135575) if vomiting >8x today.';al.className='al actnow show'}else if(S.symptoms.nausea==='Moderate'||S.symptoms.nausea==='Severe'){al.innerHTML='<strong>💙 Nausea support:</strong> Ginger tea, cold foods, eat every 2 hours. Crackers by bedside!';al.className='al important show'}else{al.className='al'}
+let ins='';
+if(parseInt(S.symptoms.water)>=8){ins+=`<div class="insight"><h5>Great hydration today!</h5><p>${S.symptoms.water} glasses — reduces nausea, supports baby\'s amniotic fluid, keeps skin glowing.</p></div>`;S.streaks.water++}else{ins+=`<div class="insight"><h5>Hydration check 💧</h5><p>Try daab water, watermelon, lemon water to reach 8+ glasses.</p></div>`}
+if(S.symptoms.mood.includes('Anxious')){ins+=`<div class="insight"><h5>Feeling anxious?</h5><p>Totally normal in pregnancy. Try the breathing exercise in Mind tab, call a loved one, or ask Arnab for a hug. 🤗</p></div>`}
+if(S.symptoms.sleep==='Poor'){ins+=`<div class="insight"><h5>Better sleep tonight 🌙</h5><p>Left side, pillow between knees, warm turmeric milk, no screens 1hr before bed, Arnab's foot massage!</p></div>`}
+if(parseInt(S.symptoms.energy)<=3){ins+=`<div class="insight"><h5>Low energy 💤</h5><p>You\'re growing a human — rest IS productive. Short nap, protein snack (almonds/paneer), delegate to Arnab.</p></div>`}
+ib.innerHTML=ins;updateArnab();updateStreaks();save();
+if(S.symptoms.nausea==='None'&&parseInt(S.symptoms.water)>=8){showWin('Amazing! No nausea + great hydration today 🎉');confetti()}saveSleepLog(S.symptoms.sleep);localStorage.setItem('bpV_'+new Date().toDateString(),S.vomit)}
+
+function updateArnab(){const list=document.getElementById('arnabTasks');let tasks=[];
+if(S.symptoms.nausea==='Severe'||S.symptoms.nausea==='Moderate'){tasks.push('No strong cooking smells — keep windows open');tasks.push('Prepare ONLY light food: khichdi, watermelon, daab water');tasks.push('Keep ginger tea ready at all times')}else if(parseInt(S.symptoms.water)<6){tasks.push('Fill her water bottle — check every hour');tasks.push('Buy fresh daab coconut water today')}else{tasks.push('Prepare her favourite meal tonight')}
+tasks.push('10-minute foot massage before bed');tasks.push('Ask "How are you feeling?" — and truly listen 💙');tasks.push('Read Mahabharata story to baby (she\'s past week 18?)');
+list.innerHTML=tasks.map(t=>`<li>${t}</li>`).join('')}
+
+// ═══ SINGLE ACTION ═══
+function updateSingleAction(){const h=new Date().getHours();const at=document.getElementById('actionText');const ar=document.getElementById('actionReason');
+if(h<7){at.textContent='Crackers before getting up 🍪';ar.textContent='Eat before sitting up — prevents morning nausea'}
+else if(h<10){at.textContent='Drink coconut water 🥥';ar.textContent='Morning hydration is your #1 priority today'}
+else if(h<13){at.textContent='Time for a small snack ☕';ar.textContent='Empty stomach = worse nausea — eat something light'}
+else if(h<15){at.textContent='Eat lunch — small portion 🍛';ar.textContent='Dal bhaat + sabzi + doi — easy on stomach'}
+else if(h<17){at.textContent='30-minute nap on left side 😴';ar.textContent='Left side improves blood flow to baby'}
+else if(h<19){at.textContent='Evening walk with Arnab 🚶';ar.textContent='20 min gentle walk = better sleep tonight'}
+else if(h<21){at.textContent='Light dinner 🌙';ar.textContent='Khichdi with ghee — best for this time of day'}
+else{at.textContent='Warm turmeric milk + rest 🥛';ar.textContent='Wind down — baby needs you well rested'}}
+
+// ═══ MUSIC ═══
+const tracks={healing:['Rabindra Sangeet — "Ekla Chalo Re"','Coke Studio Bangla — "Bulbuli"','Lalon Geeti — "Khacchar Bhitor Ochin Pakhi"','Rabindra Sangeet — "Purano Sei Diner Kotha"'],love:['Rabindra Sangeet — "Ami Tomay Bhalobashi"','Coke Studio Bangla — "Deora"','Bengali Modern — "Tumi Robe Nirobe"','Kishore Kumar — Bengali songs'],calm:['Raga Yaman — Sitar (Instrumental)','Nature Sounds + Bansuri Flute','Om Chanting (Soft, 108 times)','Raga Bhairavi — Classical'],baby:['Mozart — Baby Lullaby Collection','Carnatic Light Ragas','Gayatri Mantra (Soft Female Voice)','Baby Brain Stimulation — Classical']};
+function selMusic(el,cat){document.querySelectorAll('.mcatb').forEach(c=>c.classList.remove('active'));el.classList.add('active');const t=tracks[cat];document.getElementById('trackName').textContent=t[Math.floor(Math.random()*t.length)]}
+function playTrack(){alert('🎵 Now Playing:\n'+document.getElementById('trackName').textContent+'\n\nSearch on YouTube Music or Spotify\nfor the best quality. 💕')}
+
+// ═══ BREATHING ═══
+let bInt=null,bPh=0;
+const bPhases=[{t:'Breathe In 🌬️',c:4,cls:'expand'},{t:'Hold 🌸',c:4,cls:'hold'},{t:'Breathe Out 🍃',c:6,cls:'contract'},{t:'Rest 💕',c:2,cls:''}];
+function startBreath(){if(bInt)return;bPh=0;const sb=document.getElementById('stopBreathBtn');if(sb)sb.style.display='inline-block';runBP()}
+function runBP(){const p=bPhases[bPh%bPhases.length];const c=document.getElementById('breathCircle');const t=document.getElementById('breathText');const ph=document.getElementById('breathPhase');if(!c)return;c.className='breath-ring '+(p.cls||'');if(t)t.textContent=p.t;let cnt=p.c;if(ph)ph.textContent=cnt;bInt=setInterval(()=>{cnt--;if(ph)ph.textContent=cnt>0?cnt:'';if(cnt<=0){clearInterval(bInt);bInt=null;bPh++;if(bPh<20)runBP();else stopBreath()}},1000)}
+function stopBreath(){if(bInt)clearInterval(bInt);bInt=null;const c=document.getElementById('breathCircle');if(c)c.className='breath-ring';const t=document.getElementById('breathText');const ph=document.getElementById('breathPhase');if(t)t.textContent='Tap to Begin';if(ph)ph.textContent='';const sb=document.getElementById('stopBreathBtn');if(sb)sb.style.display='none'}
+
+// ═══ MOOD ═══
+function setMood(btn,emoji,label,msg){document.querySelectorAll('#moodBtns button').forEach(b=>b.style.borderColor='transparent');btn.style.borderColor='var(--r)';const m=document.getElementById('moodMsg');if(m)m.textContent=msg;let log=JSON.parse(localStorage.getItem('bpMoodLog')||'[]');log.unshift({emoji,label,time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})});if(log.length>8)log=log.slice(0,8);localStorage.setItem('bpMoodLog',JSON.stringify(log));renderMoodLog(log)}
+function renderMoodLog(log){const el=document.getElementById('moodLog');if(!el||!log.length)return;el.innerHTML=log.slice(0,5).map(e=>`<span style="background:var(--bg2);border:1px solid var(--bd);border-radius:14px;padding:4px 10px;font-size:.76rem;color:var(--tm)">${e.emoji} ${e.label} <span style="color:var(--ts);font-size:.66rem">${e.time}</span></span>`).join('')}
+function initMood(){const log=JSON.parse(localStorage.getItem('bpMoodLog')||'[]');if(log.length)renderMoodLog(log)}
+
+// ═══ ROUTINE ═══
+function toggleRoutine(el,id){const k=dk('bpR');let d=JSON.parse(localStorage.getItem(k)||'{}');d[id]=!d[id];localStorage.setItem(k,JSON.stringify(d));const ch=document.getElementById(id);if(ch)ch.textContent=d[id]?'✅':'☐';updateRP(d);if(Object.values(d).filter(Boolean).length===9){confetti();showWin('Perfect day! All 9 routines completed 🌟')}}
+function loadRoutine(){const k=dk('bpR');const d=JSON.parse(localStorage.getItem(k)||'{}');for(let i=1;i<=9;i++){const ch=document.getElementById('r'+i);if(ch)ch.textContent=d['r'+i]?'✅':'☐'}updateRP(d)}
+function updateRP(d){const n=Object.values(d).filter(Boolean).length;const el=document.getElementById('routineProgress');if(el)el.textContent=n+'/9'}
+
+// ═══ JOURNAL ═══
+function saveJ(){const t=document.getElementById('jText').value.trim();if(!t)return;S.journal.unshift({date:new Date().toLocaleDateString('en-IN',{weekday:'short',year:'numeric',month:'short',day:'numeric'}),text:t});document.getElementById('jText').value='';S.streaks.journal++;save();renderJ();confetti()}
+function renderJ(){const el=document.getElementById('jList');if(!el)return;if(!S.journal.length){el.innerHTML='<p style="font-size:.82rem;color:var(--ts);text-align:center;padding:10px">No entries yet — start writing 💕</p>';return}el.innerHTML=S.journal.slice(0,5).map(e=>`<div class="jentry"><div class="jdate">${e.date}</div><div class="jtext">${e.text}</div></div>`).join('')}
+function saveL(){const t=document.getElementById('lText').value.trim();if(!t)return;S.letters.unshift({date:new Date().toLocaleDateString('en-IN',{weekday:'short',year:'numeric',month:'short',day:'numeric'}),text:t});document.getElementById('lText').value='';save();renderL();confetti()}
+function renderL(){const el=document.getElementById('lList');if(!el)return;if(!S.letters.length){el.innerHTML='<p style="font-size:.82rem;color:var(--ts);text-align:center;padding:10px">Write your first letter to baby 💛</p>';return}el.innerHTML=S.letters.slice(0,3).map(e=>`<div class="jentry"><div class="jdate">${e.date}</div><div class="jtext">${e.text}</div></div>`).join('')}
+
+// ═══ SHOPPING ═══
+function renderShop(){const el=document.getElementById('shopList');if(!el)return;if(!S.shop.length){el.innerHTML='<p style="font-size:.82rem;color:var(--ts);text-align:center;padding:10px">List is empty 🛍️</p>';return}el.innerHTML=S.shop.map(i=>`<div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:${i.done?'var(--sl)':'var(--bg2)'};border:1px solid var(--bd);border-radius:10px;margin-bottom:7px;transition:.2s"><input type="checkbox" ${i.done?'checked':''} onchange="toggleShop(${i.id})" style="width:18px;height:18px;cursor:pointer;accent-color:var(--r);flex-shrink:0"><span style="font-size:.88rem;color:var(--t);${i.done?'text-decoration:line-through;opacity:.5':''}">${i.item}</span><button onclick="delShop(${i.id})" style="margin-left:auto;background:none;border:none;color:var(--r);cursor:pointer;font-size:1rem;flex-shrink:0">✕</button></div>`).join('')}
+function addShop(){const inp=document.getElementById('shopIn');const v=inp.value.trim();if(!v)return;S.shop.push({item:v,done:false,id:Date.now()});inp.value='';save();renderShop()}
+function toggleShop(id){const i=S.shop.find(x=>x.id===id);if(i){i.done=!i.done;save();renderShop()}}
+function delShop(id){S.shop=S.shop.filter(x=>x.id!==id);save();renderShop()}
+
+// ═══ NAMES ═══
+function addName(g){const inp=document.getElementById('nameIn');const v=inp.value.trim();if(!v)return;S.customNames.push({name:v,gender:g});inp.value='';save();renderNames()}
+function renderNames(){const el=document.getElementById('customNames');if(!el)return;el.innerHTML=S.customNames.map((n,i)=>`<span class="npill ${n.gender}">${n.name} <span onclick="S.customNames.splice(${i},1);save();renderNames()" style="cursor:pointer;opacity:.45;font-size:.68rem;margin-left:2px">✕</span></span>`).join('')}
+
+// ═══ EMERGENCY ═══
+function saveEmg(){localStorage.setItem('bpEmg8',JSON.stringify({b:document.getElementById('emgBlood').value,d:document.getElementById('emgDoc').value,p:document.getElementById('emgDocPh').value,h:document.getElementById('emgHosp').value,f:document.getElementById('emgFamily').value}))}
+function loadEmg(){const s=localStorage.getItem('bpEmg8');if(!s)return;const d=JSON.parse(s);document.getElementById('emgBlood').value=d.b||'';document.getElementById('emgDoc').value=d.d||'Dr. Ankita Mandal';document.getElementById('emgDocPh').value=d.p||'8902135575';document.getElementById('emgHosp').value=d.h||'Bhagirathi Neotia, Newtown';document.getElementById('emgFamily').value=d.f||''}
+
+// ═══ REPORT ═══
+function genReport(){alert('📋 PREGNANCY HEALTH REPORT\n'+new Date().toLocaleDateString('en-IN')+'\nPatient: Bipasha Mondal (Reg 75294, WBMC)\nDoctor: Dr. Ankita Mandal\n\n──────────────────\nSYMPTOMS TODAY:\nNausea: '+(S.symptoms.nausea||'Not recorded')+'\nVomiting episodes: '+S.vomit+'x\nAppetite: '+(S.symptoms.appetite||'Not recorded')+'\nWater intake: '+(S.symptoms.water||'?')+' glasses\nSleep quality: '+(S.symptoms.sleep||'Not recorded')+'\nEnergy: '+(S.symptoms.energy||'?')+'/10\nMood: '+(S.symptoms.mood||'Not recorded')+'\n──────────────────\nPrepared by BabyBloom companion app')}
+
+// ═══ STREAKS ═══
+function updateStreaks(){document.getElementById('waterStreak').textContent=S.streaks.water;document.getElementById('journalStreak').textContent=S.streaks.journal;document.getElementById('yogaStreak').textContent=S.streaks.yoga}
+
+// ═══ WIN ═══
+function showWin(text){const el=document.getElementById('winBanner');const t=document.getElementById('winText');if(el&&t){t.textContent=text;el.style.display='block'}}
+
+// ═══ BAD DAY ═══
+function toggleBadDay(){document.body.classList.toggle('bad-day');const btn=document.getElementById('badDayBtn');btn.textContent=document.body.classList.contains('bad-day')?'😊 Exit Simple Mode':'😞 Feeling Overwhelmed? Simple Mode'}
+
+// ═══ QUICK EAT ═══
+function openQE(){document.getElementById('qeModal').classList.add('show')}
+function closeQE(){document.getElementById('qeModal').classList.remove('show')}
+
+// ═══ CONFETTI ═══
+function confetti(){const e=['💕','✨','🌸','💛','🎉','⭐','🌟'];for(let i=0;i<22;i++){setTimeout(()=>{const el=document.createElement('div');el.className='cfti';el.textContent=e[Math.floor(Math.random()*e.length)];el.style.cssText=`left:${Math.random()*100}vw;font-size:${1+Math.random()*1.4}rem;animation-duration:${2.5+Math.random()*2}s`;document.body.appendChild(el);setTimeout(()=>el.remove(),5000)},i*55)}}
+
+
+// ═══ LOVE MESSAGES ═══
+const loveMessages=[
+`My dearest Bipasha & our precious little one,
+
+Where do I even begin? When I look at you — glowing, strong, beautiful — I feel a love so overwhelming it brings me to my knees. Every single day you are doing something extraordinary: growing a human being. Our baby. Our miracle. And you make it look like poetry.
+
+I was 28 when the universe decided to give me the greatest gift of my life — you telling me we were going to be parents. In that moment, something shifted inside me forever. I became a father in my heart before our baby even knew the world existed outside your warmth.
+
+To our little one reading this someday — your Mama is the most incredible woman I have ever known. She carried you through every morning of nausea, every sleepless night, every ache and stretch and kick — and she did it with the most radiant grace. She talked to you, sang to you, dreamed about your face every single night. You are the most loved child who has ever existed.
+
+I have so many dreams for us. I dream of holding you for the first time, of your tiny hand wrapping around my finger, of the sound of your first laugh. I dream of teaching you to ride a bike, of Saturday mornings reading stories together, of watching you discover this beautiful, wild, wonderful world. I promise to be there for every single moment — the big ones and the tiny ones that only we will remember.
+
+Bipasha — my love, my partner, my everything — thank you. Thank you for your strength. Thank you for your love. Thank you for carrying our greatest adventure inside you. I am so proud of you every moment of every day. I am right here beside you, always, for everything that comes next.
+
+The three of us — that's our universe now. And it is the most beautiful universe I can imagine.
+
+Forever yours,
+Arnab 💕
+
+Written with love as we wait for you, little one 🌟`,
+
+`Bipasha, watching you carry our baby fills me with awe every single day. There is nothing more beautiful in this world than you — glowing, strong, radiant, and so full of love. You are my everything, and I fall for you deeper with every passing morning.`,
+
+`Every kick our baby gives is a little message: "Mama, I can feel your love." You are doing everything right. Every sacrifice, every nauseous morning, every sleepless night — it is all becoming the most extraordinary story of us.`,
+
+`I count down the minutes until I can hold you both. Until then, know that I am with you in every breath, in every heartbeat, in every thought. No distance is too far for love like ours. 💕`,
+
+`You carry our whole universe inside you right now. The weight of it is love — and I am here, always, to carry it with you. Every burden is halved when we face it together. You are never alone.`,
+
+`Late nights, early mornings, every wave of nausea, every moment of doubt — I see your strength, Bipasha. I see how hard you fight for our baby, for our family. You are my hero. You are my greatest love.`,
+
+`Our baby is already the luckiest child in the world — because they have YOU as their mother. Wise, loving, strong, warm, beautiful. The world's absolute best. I am so proud to be building a family with you.`,
+
+`I fall more in love with you every single day of this journey. Thank you for choosing to grow our family. Thank you for saying yes. Thank you for being mine. I will spend the rest of my life making sure you never regret it. 💕`,
+
+`Your smile still stops my heart, every single time. Pregnant, glowing, tired, radiant — in every form you have ever been — you are the most beautiful person I have ever known, and I thank the stars for you every single day.`,
+
+`Three weeks, three months, three years from now — I will still be right here beside you. The same man who is madly, completely, irreversibly in love with you. Always yours, through every chapter of this beautiful story. — Arnab 💕`
+];
+let loveMsgIdx=Math.floor(Math.random()*loveMessages.length);
+function openLove(){loveMsgIdx=Math.floor(Math.random()*loveMessages.length);showLoveMsg();document.getElementById('loveModal').classList.add('show')}
+function closeLove(){document.getElementById('loveModal').classList.remove('show')}
+function refreshLoveMsg(){loveMsgIdx=(loveMsgIdx+1)%loveMessages.length;showLoveMsg()}
+function showLoveMsg(){const el=document.getElementById('loveMsgDisplay');if(!el)return;const msg=loveMessages[loveMsgIdx];el.style.opacity='0';setTimeout(()=>{if(loveMsgIdx===0){el.className='love-msg';el.textContent=msg}else{el.className='love-msg-short';el.textContent='\u201C'+msg+'\u201D'}el.style.opacity='1'},300)}
+
+// ═══ US MESSAGES (Memory: Arnab & Bipasha tab) ═══
+let usMsgIdx=Math.floor(Math.random()*loveMessages.length);
+function initUsMessages(){renderUsMsg()}
+function nextUsMsg(){usMsgIdx=(usMsgIdx+1)%loveMessages.length;renderUsMsg()}
+function renderUsMsg(){const el=document.getElementById('usMsgDisplay');const cnt=document.getElementById('usMsgCount');if(!el)return;el.style.opacity='0';setTimeout(()=>{el.textContent=usMsgIdx===0?loveMessages[0].substring(0,320)+'...\n\n— Arnab 💕\n(Open Full Letter to read all)':loveMessages[usMsgIdx];el.style.opacity='1'},250);if(cnt)cnt.textContent='Message '+(usMsgIdx+1)+' of 10'}
+
+
+// ═══ MEDICINE CHECKLIST + CALENDAR ═══
+const medIds=['med-pan40','med-zofer1','med-zofer2','med-folic','med-zofer3','med-dulphalac','med-vitd3','med-doxinate'];
+const medMeta={
+  'med-pan40':{name:'Pan 40',time:'Morning'},
+  'med-zofer1':{name:'Zofer',time:'Before Breakfast'},
+  'med-zofer2':{name:'Zofer',time:'Before Lunch'},
+  'med-folic':{name:'Folic Acid',time:'After Lunch'},
+  'med-zofer3':{name:'Zofer',time:'Before Dinner'},
+  'med-dulphalac':{name:'Dulphalac',time:'Before Bed'},
+  'med-vitd3':{name:'Vitamin D3',time:'Weekly Sat'},
+  'med-doxinate':{name:'Doxinate',time:'If Needed'}
+};
+
+// calViewMonth tracks which month the calendar is showing
+let calViewYear=new Date().getFullYear();
+let calViewMonth=new Date().getMonth();
+
+function medView(btn,targetId){
+  document.querySelectorAll('.med-view-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.med-list-wrap,.med-cal-wrap').forEach(el=>el.classList.remove('on'));
+  btn.classList.add('on');
+  const t=document.getElementById(targetId);
+  if(t){t.classList.add('on');if(targetId==='med-cal-wrap')renderMedCal()}
+}
+
+function loadMeds(){
+  const k=dk('bpMeds');
+  const d=JSON.parse(localStorage.getItem(k)||'{}');
+  medIds.forEach(id=>{
+    if(d[id]){
+      const el=document.getElementById(id);
+      const chk=document.getElementById('chk-'+id.replace('med-',''));
+      if(el)el.classList.add('done');
+      if(chk)chk.textContent='✅';
+    }
+  });
+  updateMedProgress(d);
+  updateMedStreaks();
+}
+
+function toggleMed(id){
+  const k=dk('bpMeds');
+  let d=JSON.parse(localStorage.getItem(k)||'{}');
+  d[id]=!d[id];
+  localStorage.setItem(k,JSON.stringify(d));
+  const el=document.getElementById(id);
+  const chkId='chk-'+id.replace('med-','');
+  const chk=document.getElementById(chkId);
+  if(el)el.classList.toggle('done',d[id]);
+  if(chk)chk.textContent=d[id]?'✅':'☐';
+  updateMedProgress(d);
+  // save to history log
+  saveMedHistory();
+  updateMedStreaks();
+  if(Object.values(d).filter(Boolean).length>=6){confetti();showWin('Great job taking your medicines! 💊')}
+}
+
+function updateMedProgress(d){
+  const n=Object.values(d).filter(Boolean).length;
+  const el=document.getElementById('medProgress');
+  if(el)el.textContent=n+'/8';
+}
+
+function resetMeds(){
+  const k=dk('bpMeds');
+  localStorage.removeItem(k);
+  medIds.forEach(id=>{
+    const el=document.getElementById(id);
+    const chk=document.getElementById('chk-'+id.replace('med-',''));
+    if(el)el.classList.remove('done');
+    if(chk)chk.textContent='☐';
+  });
+  const el=document.getElementById('medProgress');
+  if(el)el.textContent='0/8';
+}
+
+function medReminder(){alert('💊 Medicine Reminder Tips:\n\n🌅 Pan 40 — Keep at bedside, take before sitting up\n🍳 Zofer — Set 8 AM, 12 PM, 6 PM alarms\n🍋 Folic Acid — After lunch, with water\n😴 Dulphalac — Spoon ready before bed\n📅 Vitamin D3 — Every Saturday only (up to wk 12)\n🌙 Doxinate — Only when nausea is severe at night\n\nArnab can help remind you! 💕')}
+
+// Save today's snapshot to history (called on each toggle)
+function saveMedHistory(){
+  const today=new Date().toISOString().slice(0,10); // YYYY-MM-DD
+  const k=dk('bpMeds');
+  const d=JSON.parse(localStorage.getItem(k)||'{}');
+  const hist=JSON.parse(localStorage.getItem('bpMedHist')||'{}');
+  hist[today]=d;
+  localStorage.setItem('bpMedHist',JSON.stringify(hist));
+}
+
+// Get med data for a specific date (YYYY-MM-DD)
+function getMedDay(dateStr){
+  const hist=JSON.parse(localStorage.getItem('bpMedHist')||'{}');
+  // if today, use live data
+  const today=new Date().toISOString().slice(0,10);
+  if(dateStr===today){
+    const k=dk('bpMeds');
+    return JSON.parse(localStorage.getItem(k)||'{}');
+  }
+  return hist[dateStr]||null;
+}
+
+function getDayScore(dateStr){
+  const d=getMedDay(dateStr);
+  if(!d)return -1; // no data
+  const taken=Object.values(d).filter(Boolean).length;
+  const total=8;
+  return taken/total;
+}
+
+// ── CALENDAR RENDERER ──
+function renderMedCal(){
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const label=document.getElementById('calMonthLabel');
+  if(label)label.textContent=months[calViewMonth]+' '+calViewYear;
+
+  const grid=document.getElementById('calGrid');
+  if(!grid)return;
+
+  // Day of week headers
+  const dows=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  let html=dows.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+
+  const firstDay=new Date(calViewYear,calViewMonth,1).getDay(); // 0=Sun
+  const daysInMonth=new Date(calViewYear,calViewMonth+1,0).getDate();
+  const today=new Date();
+  const todayStr=today.toISOString().slice(0,10);
+
+  // Empty cells before first day
+  for(let i=0;i<firstDay;i++){html+=`<div class="cal-day other-month"><div class="cal-dn"></div></div>`;}
+
+  for(let day=1;day<=daysInMonth;day++){
+    const dateStr=calViewYear+'-'+String(calViewMonth+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+    const isToday=dateStr===todayStr;
+    const isFuture=dateStr>todayStr;
+    const score=isFuture?-2:getDayScore(dateStr);
+
+    let dotHtml='';
+    let barColor='var(--bd)';
+    let barW='0%';
+
+    if(score===-2){
+      // future
+      dotHtml=`<div style="font-size:.55rem;color:var(--ts)">—</div>`;
+    } else if(score===-1){
+      // no data (past day, nothing logged)
+      dotHtml=`<div class="cal-dot" style="background:var(--bd)"></div>`;
+      barColor='var(--bd)';barW='0%';
+    } else if(score===1){
+      dotHtml=`<div class="cal-dot taken"></div>`;
+      barColor='var(--s)';barW='100%';
+    } else if(score>0.5){
+      dotHtml=`<div class="cal-dot partial"></div>`;
+      barColor='var(--g)';barW=Math.round(score*100)+'%';
+    } else if(score>0){
+      dotHtml=`<div class="cal-dot missed"></div>`;
+      barColor='var(--r)';barW=Math.round(score*100)+'%';
+    } else {
+      dotHtml=`<div class="cal-dot" style="background:var(--bd);opacity:.4"></div>`;
+    }
+
+    html+=`<div class="cal-day${isToday?' today':''}" onclick="showCalDay('${dateStr}',${day})">
+      <div class="cal-dn">${day}</div>
+      <div class="cal-dots">${dotHtml}</div>
+      <div class="cal-summary-bar"><div style="height:100%;border-radius:3px;background:${barColor};width:${barW};transition:width .4s"></div></div>
+    </div>`;
+  }
+
+  grid.innerHTML=html;
+  // hide detail on re-render
+  const det=document.getElementById('calDayDetail');
+  if(det)det.classList.remove('show');
+}
+
+function showCalDay(dateStr,day){
+  const det=document.getElementById('calDayDetail');
+  const title=document.getElementById('calDetailTitle');
+  const body=document.getElementById('calDetailBody');
+  if(!det||!title||!body)return;
+
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  title.textContent=months[calViewMonth]+' '+day+', '+calViewYear;
+
+  const d=getMedDay(dateStr);
+  const today=new Date().toISOString().slice(0,10);
+  const isFuture=dateStr>today;
+
+  if(isFuture){
+    body.innerHTML='<p style="font-size:.82rem;color:var(--ts);text-align:center;padding:10px">Future date — no data yet 🌸</p>';
+  } else if(!d){
+    body.innerHTML='<p style="font-size:.82rem;color:var(--ts);text-align:center;padding:10px">No medicine log recorded for this day.</p>';
+  } else {
+    const taken=Object.values(d).filter(Boolean).length;
+    body.innerHTML=`<p style="font-size:.76rem;color:var(--ts);margin-bottom:8px">📊 ${taken}/8 doses taken</p>`+
+      medIds.map(id=>{
+        const meta=medMeta[id];
+        const isTaken=d[id]||false;
+        return `<div class="cal-med-row">
+          <span class="status">${isTaken?'✅':'❌'}</span>
+          <span class="mname">${meta.name}</span>
+          <span class="mtime">${meta.time}</span>
+        </div>`;
+      }).join('');
+  }
+
+  det.classList.add('show');
+  det.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function calNav(dir){
+  calViewMonth+=dir;
+  if(calViewMonth>11){calViewMonth=0;calViewYear++;}
+  if(calViewMonth<0){calViewMonth=11;calViewYear--;}
+  renderMedCal();
+}
+
+// ── STREAK CALCULATOR ──
+function updateMedStreaks(){
+  const hist=JSON.parse(localStorage.getItem('bpMedHist')||'{}');
+  const today=new Date();
+  let streak=0,best=0,cur=0;
+  // check today live
+  const todayStr=today.toISOString().slice(0,10);
+  const k=dk('bpMeds');
+  const todayData=JSON.parse(localStorage.getItem(k)||'{}');
+  if(Object.values(todayData).filter(Boolean).length>=6){hist[todayStr]=todayData;}
+
+  // Count current streak backwards from today
+  let d=new Date(today);
+  while(true){
+    const ds=d.toISOString().slice(0,10);
+    const dayD=hist[ds];
+    if(!dayD)break;
+    const n=Object.values(dayD).filter(Boolean).length;
+    if(n<6)break;
+    streak++;
+    d.setDate(d.getDate()-1);
+  }
+
+  // Best streak
+  const allDates=Object.keys(hist).sort();
+  cur=0;
+  for(const ds of allDates){
+    const n=Object.values(hist[ds]).filter(Boolean).length;
+    if(n>=6){cur++;best=Math.max(best,cur);}
+    else cur=0;
+  }
+
+  // This month %
+  const y=today.getFullYear(),m=today.getMonth();
+  const monthDays=new Date(y,m+1,0).getDate();
+  let goodDays=0,loggedDays=0;
+  for(let day=1;day<=today.getDate();day++){
+    const ds=y+'-'+String(m+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+    const dd=hist[ds]||(ds===todayStr?todayData:null);
+    if(dd){loggedDays++;if(Object.values(dd).filter(Boolean).length>=6)goodDays++;}
+  }
+  const pct=loggedDays>0?Math.round(goodDays/loggedDays*100)+'%':'—';
+
+  const s1=document.getElementById('medStreakCur');
+  const s2=document.getElementById('medBestStreak');
+  const s3=document.getElementById('medMonthPct');
+  if(s1)s1.textContent=streak;
+  if(s2)s2.textContent=best;
+  if(s3)s3.textContent=pct;
+}
+
+
+// ═══ MOTHER HEALTH & LMP CALCULATIONS ═══
+const weekHealthData={
+  1:{status:'Very early pregnancy',summary:'Your body is beginning its incredible transformation. Focus on folic acid, hydration, and rest. Morning sickness may begin soon.'},
+  5:{status:'Heart is beating!',summary:'Baby\'s heartbeat has begun! Nausea often peaks this week. Ginger tea and small frequent meals are your best friends right now.'},
+  8:{status:'Major organ formation',summary:'All major organs are forming this week. Avoid any medicines not prescribed. Stay hydrated and rest whenever possible.'},
+  10:{status:'Fingers & toes forming',summary:'Baby has fingers and toes! You may feel very tired as your blood volume increases. Iron-rich foods and short naps are essential.'},
+  12:{status:'First trimester nearly done!',summary:'You\'re nearly at the magical 12-week mark! Risk of miscarriage drops significantly now. Nausea often begins to ease. Keep up the great work!'},
+  13:{status:'T1 complete — golden trimester ahead!',summary:'First trimester complete! Energy often returns in T2. Baby can now make facial expressions. Your NT scan should happen around now.'},
+  14:{status:'Welcome to Trimester 2!',summary:'The golden trimester begins! Nausea usually eases, energy returns, and your bump starts to show. Enjoy this wonderful phase!'},
+  18:{status:'First kicks coming soon!',summary:'Baby may be active enough to feel soon — those first flutters! Anomaly scan around wk 18–20. Talk and sing to your baby.'},
+  20:{status:'Halfway there! 🎉',summary:'Amazing milestone — you are halfway through your pregnancy! Baby is banana-sized. Anatomy scan this week. You are doing beautifully!'},
+  22:{status:'Baby hears your voice!',summary:'Baby can hear you clearly now. Talk, sing, read aloud. Your voice is already their favourite sound. Keep up hydration and gentle exercise.'},
+  28:{status:'Third trimester begins',summary:'Entering the final stretch! Baby is gaining weight rapidly. Keep counting kicks daily. Pack your hospital bag. You are almost there!'},
+  34:{status:'Almost full term',summary:'Baby is nearly ready! Head may start engaging. Rest more, eat small frequent meals, and keep your hospital bag ready. So close!'},
+  37:{status:'Full term! ✅',summary:'You have reached full term! Baby is completely developed. Stay close to home, watch for labour signs, and trust your amazing body.'},
+  40:{status:'Due date!',summary:'Your due date is here! Baby is fully ready. Rest, trust your body, and know that you are the most incredible mama. We are so ready to meet you!'}
+};
+function getWeekHealth(w){const keys=Object.keys(weekHealthData).map(Number).sort((a,b)=>a-b);let best=keys[0];for(const k of keys){if(w>=k)best=k}return weekHealthData[best]}
+function updateLmpDate(){const inp=document.getElementById('lmpInput');if(!inp)return;S.lmpDate=inp.value;save();calcAndShowWeek()}
+function calcAndShowWeek(){const lmpStr=S.lmpDate||'2026-01-27';const lmp=new Date(lmpStr);const today=new Date();const diffDays=Math.floor((today-lmp)/(1000*60*60*24));const week=Math.max(1,Math.min(40,Math.floor(diffDays/7)));// EDD = LMP + 280 days
+const edd=new Date(lmp.getTime()+280*24*60*60*1000);const eddStr=edd.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});const badge=document.getElementById('currentWeekBadge');const statusTxt=document.getElementById('weekStatusText');const eddTxt=document.getElementById('eddText');if(badge)badge.textContent='📍 Week '+week+' of 40';const trimester=week<=13?'First Trimester 🌱':week<=27?'Second Trimester 🌷':'Third Trimester 🌺';if(statusTxt)statusTxt.textContent='You are in the '+trimester;if(eddTxt)eddTxt.textContent='🎯 Estimated Due Date: '+eddStr;// Update baby week slider too
+updateWeek(week);const lmpInp=document.getElementById('lmpInput');if(lmpInp)lmpInp.value=lmpStr;// Update health summary
+const wh=getWeekHealth(week);const hCard=document.getElementById('weekHealthCard');const hSub=document.getElementById('weekHealthSub');const hSum=document.getElementById('weekHealthSummary');if(hSub)hSub.textContent='Week '+week+' — '+wh.status;if(hSum)hSum.textContent=wh.summary;// update today widgets
+const vtd=document.getElementById('vomitTodayMH');if(vtd)vtd.textContent=S.vomit||0}
+function mhTab(btn,id){document.querySelectorAll('.mh-tab').forEach(t=>t.classList.remove('on'));document.querySelectorAll('.mh-panel').forEach(p=>p.classList.remove('on'));btn.classList.add('on');const p=document.getElementById(id);if(p)p.classList.add('on')}
+function motherTab(btn,id){const wrap=btn.closest('.page');if(wrap){wrap.querySelectorAll('[id^="mt-"].panel').forEach(p=>p.classList.remove('on'));const tgt=document.getElementById(id);if(tgt)tgt.classList.add('on')}const tbsP=btn.parentElement;tbsP.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on')}
+function renderMotherCharts(){// Get last 7 days of data
+const days=[];const sleepVals=[];const vomitVals=[];const waterVals=[];for(let i=6;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);const dk_=d.toDateString().replace(/ /g,'');days.push(d.toLocaleDateString('en-IN',{weekday:'short'}));// sleep: stored from symptoms
+const sleepKey='bpSleepLog_'+d.toDateString();const sleepVal=localStorage.getItem(sleepKey);const sleepNum=sleepVal==='Good'?3:sleepVal==='Fair'?2:sleepVal==='Poor'?1:0;sleepVals.push(sleepNum);// vomit
+const vomitKey='w_'+d.toDateString().replace(/ /g,'');const vomitNum=parseInt(localStorage.getItem('bpV_'+d.toDateString())||localStorage.getItem('bpV')||0)||0;vomitVals.push(Math.min(parseInt(localStorage.getItem('bpV_'+d.toDateString())||0)||0,12));// water
+const waterKey='w_'+d.toDateString();const wVal=parseInt(localStorage.getItem(waterKey)||0)||0;waterVals.push(wVal)}renderBarChart('sleepChart','sleepLabels',sleepVals,days,'sleep-bar',3,'Good','Poor',true);renderBarChart('vomitChart','vomitLabels',vomitVals,days,'vomit-bar',12,'Bad','Better',false);renderBarChart('waterChartMH','waterLabels',waterVals,days,'sleep-bar',2500,'250ml','2500ml',true);// summaries
+const avgSleep=sleepVals.filter(v=>v>0);const sleepSumEl=document.getElementById('sleepSummary');if(sleepSumEl){if(avgSleep.length===0)sleepSumEl.textContent='Log your sleep quality in Today tab daily to build your trend.';else{const avg=avgSleep.reduce((a,b)=>a+b,0)/avgSleep.length;const q=avg>=2.5?'Great sleep pattern! Keep maintaining your bedtime routine 🌙':avg>=1.5?'Sleep is moderate — try turmeric milk and left-side position':'Sleep needs attention — speak to Dr. Ankita if consistently poor';sleepSumEl.textContent=q}}const lastVomit=vomitVals[vomitVals.length-1];const vomitSumEl=document.getElementById('vomitSummary');if(vomitSumEl){const msg=lastVomit===0?'No vomiting today — wonderful! 🎉':lastVomit<=3?'Mild nausea today — within normal range. Keep hydrated 💧':lastVomit<=7?'Moderate nausea today — try Zofer and ginger tea 🍋':'Heavy nausea — ensure Zofer is taken and call Dr. Ankita if >8 episodes 🚨';vomitSumEl.textContent=msg}}
+function renderBarChart(chartId,labelId,vals,days,barClass,maxVal,highLabel,lowLabel,higherBetter){const chart=document.getElementById(chartId);const labels=document.getElementById(labelId);if(!chart||!labels)return;const maxV=Math.max(...vals,1);chart.innerHTML=vals.map((v,i)=>{const h=v>0?Math.max(8,Math.round((v/maxV)*72)):4;const isToday=i===6;const color=barClass==='sleep-bar'?`background:linear-gradient(180deg,${isToday?'var(--sky)':'var(--skl)'},${isToday?'var(--skl)':'var(--bg3)'})`:isToday?'background:linear-gradient(180deg,var(--r),var(--rl))':'background:linear-gradient(180deg,var(--rl),var(--bg3))';return`<div class="chart-col"><div class="chart-val">${v||'—'}</div><div class="chart-bar ${barClass}" style="height:${h}px;${color}"></div></div>`}).join('');labels.innerHTML=days.map(d=>`<div class="chart-label" style="flex:1;text-align:center">${d}</div>`).join('')}
+
+// Save sleep quality for trend
+function saveSleepLog(val){const today=new Date().toDateString();localStorage.setItem('bpSleepLog_'+today,val)}
+
+// ═══ SLEEP LOG HOOK (called from analyzeSymptoms) ═══
+
+// ═══ PAPA LETTERS (daily rotating) ═══
+const papaLetters=["We haven't met yet, but you're already our everything.","I talk to your mama's belly every night — I hope you hear me.","Your mama is the bravest, most beautiful person I know. You're so lucky.","I dream about the first time I'll hold you. I think about it every day.","Every day we're one step closer to meeting you. I can't wait.","Your mama has chosen the most beautiful names for you. So much love.","The world will be a better place because you're in it."];
+function updatePapa(){const d=new Date().getDay();const el=document.getElementById('papaLetter');if(el)el.textContent='"'+papaLetters[d]+'"'}
+
+// ═══ INIT ═══
+document.addEventListener('DOMContentLoaded',()=>{load();loadEmg();updateSingleAction();updatePapa();buildUltraStrip();loadMeds();saveMedHistory();calcAndShowWeek();renderMotherCharts();setTimeout(()=>{initUsMessages();},100)});
+</script>
+</body>
+</html>
