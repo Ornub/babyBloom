@@ -1,4 +1,4 @@
-const CACHE = 'babybloom-v1';
+const CACHE = 'babybloom-v4';
 const FILES = [
   '/babyBloom/',
   '/babyBloom/index.html',
