@@ -698,15 +698,45 @@ body.bad-day .hide-bd{display:none!important}
   <div class="card">
     <div class="card-h"><div class="ico">📊</div><div><h4>How are you feeling?</h4><small>Daily check-in → smart insights</small></div></div>
     <div class="card-b">
-      <div class="sym-grid">
-        <div class="sym-item"><label>Nausea</label><select id="nausea"><option>None</option><option>Mild</option><option>Moderate</option><option>Severe</option></select></div>
-        <div class="sym-item"><label>Appetite</label><select id="appetite"><option>Good</option><option>Reduced</option><option>Very low</option></select></div>
-        <div class="sym-item"><label>Mood</label><select id="mood"><option>Happy 😊</option><option>Calm 😌</option><option>Tired 😴</option><option>Anxious 😰</option></select></div>
-        <div class="sym-item"><label>Energy (1–10)</label><input type="range" id="energy" min="1" max="10" value="5"></div>
-        <div class="sym-item"><label>Water (glasses)</label><input type="range" id="waterIn" min="0" max="15" value="8"></div>
-        <div class="sym-item"><label>Sleep</label><select id="sleep"><option>Good</option><option>Fair</option><option>Poor</option></select></div>
+      <!-- View toggle -->
+      <div class="med-view-toggle" style="margin-bottom:12px">
+        <button class="sym-view-btn med-view-btn on" onclick="switchSymView(this,'symListWrap')">📋 Today</button>
+        <button class="sym-view-btn med-view-btn" onclick="switchSymView(this,'symCalWrap')">📅 Trends</button>
       </div>
-      <button class="btn br" onclick="analyzeSymptoms()" style="width:100%">📈 Analyze & Get Insights</button>
+      <!-- Today form -->
+      <div id="symListWrap" class="med-list-wrap on">
+        <div class="sym-grid">
+          <div class="sym-item"><label>Nausea</label><select id="nausea"><option>None</option><option>Mild</option><option>Moderate</option><option>Severe</option></select></div>
+          <div class="sym-item"><label>Appetite</label><select id="appetite"><option>Good</option><option>Reduced</option><option>Very low</option></select></div>
+          <div class="sym-item"><label>Mood</label><select id="mood"><option>Happy 😊</option><option>Calm 😌</option><option>Tired 😴</option><option>Anxious 😰</option></select></div>
+          <div class="sym-item"><label>Energy (1–10)</label><input type="range" id="energy" min="1" max="10" value="5"></div>
+          <div class="sym-item"><label>Water (glasses)</label><input type="range" id="waterIn" min="0" max="15" value="8"></div>
+          <div class="sym-item"><label>Sleep</label><select id="sleep"><option>Good</option><option>Fair</option><option>Poor</option></select></div>
+        </div>
+        <button class="btn br" onclick="analyzeSymptoms()" style="width:100%">📈 Analyze & Get Insights</button>
+      </div>
+      <!-- Calendar view -->
+      <div id="symCalWrap" class="med-cal-wrap">
+        <div class="cal-legend">
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--s)"></div>Good day</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--g)"></div>Moderate</div>
+          <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--r);opacity:.6"></div>Tough day</div>
+        </div>
+        <div class="cal-nav">
+          <button class="cal-nav-btn" onclick="symCalNav(-1)">‹</button>
+          <h5 id="symCalMonthLabel">April 2026</h5>
+          <button class="cal-nav-btn" onclick="symCalNav(1)">›</button>
+        </div>
+        <div class="cal-grid" id="symCalGrid"></div>
+        <div class="cal-day-detail" id="symDayDetail">
+          <h5 id="symDetailTitle"></h5>
+          <div id="symDetailBody"></div>
+        </div>
+        <div class="insight" style="margin-top:8px">
+          <h5>Reading the trend</h5>
+          <p>😊 Mood emoji shown per day. Bar = overall wellness score. Tap any day for full details. Log daily via "Today" tab for best trends.</p>
+        </div>
+      </div>
     </div>
   </div>
   <div id="insightBox"></div>
@@ -786,7 +816,7 @@ body.bad-day .hide-bd{display:none!important}
       <p class="mh-sub">Auto-calculated from your Last Menstrual Period (LMP)</p>
       <div class="lmp-row">
         <label>LMP Date:</label>
-        <input type="date" id="lmpInput" value="2026-01-27" onchange="updateLmpDate()">
+        <input type="date" id="lmpInput" value="2026-02-04" onchange="updateLmpDate()">
         <button class="lmp-btn" onclick="updateLmpDate()">Update</button>
       </div>
       <div style="text-align:center">
@@ -1216,89 +1246,15 @@ body.bad-day .hide-bd{display:none!important}
 <div class="wrap">
   <div class="sec-head"><h2>Memory <em>Capsule</em> 💌</h2><div class="divider"></div></div>
   <div class="tabs">
-    <button class="tab on" onclick="subTab(this,'mm','mm-jrn')">📝 Journal</button>
-    <button class="tab" onclick="subTab(this,'mm','mm-ltr')">💛 Letter</button>
-    <button class="tab" onclick="subTab(this,'mm','mm-nam')">🪔 Names</button>
-    <button class="tab" onclick="subTab(this,'mm','mm-shp')">🛍️ Shopping</button>
-    <button class="tab" onclick="subTab(this,'mm','mm-moo')">😊 Mood</button>
+    <button class="tab on" onclick="subTab(this,'mm','mm-meds')">💊 Meds</button>
     <button class="tab" onclick="subTab(this,'mm','mm-rtn')">✅ Routine</button>
-    <button class="tab" onclick="subTab(this,'mm','mm-meds')">💊 Meds</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-shp')">🛍️ Shopping</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-ltr')">💛 Letter</button>
+    <button class="tab" onclick="subTab(this,'mm','mm-moo')">😊 Mood</button>
     <button class="tab" onclick="subTab(this,'mm','mm-us')">💑 Arnab & I</button>
   </div>
 
-  <!-- JOURNAL -->
-  <div id="mm-jrn" class="panel on">
-    <div class="card"><div class="card-b">
-      <h4 class="serif">📝 Today's Entry</h4>
-      <p style="font-size:.82rem;color:var(--ts);margin-bottom:9px">How are you feeling? Special moments today?</p>
-      <textarea class="jinput" id="jText" placeholder="Dear journal..."></textarea>
-      <button class="btn br" onclick="saveJ()" style="margin-top:10px">💾 Save Memory</button>
-      <div id="jList" style="margin-top:12px"></div>
-    </div></div>
-  </div>
-
-  <!-- LETTER -->
-  <div id="mm-ltr" class="panel">
-    <div class="card"><div class="card-b">
-      <h4 class="serif">💛 Letter to Baby</h4>
-      <p style="font-size:.82rem;color:var(--ts);margin-bottom:9px">Write a letter your child will read someday.</p>
-      <textarea class="jinput" id="lText" placeholder="Dear little one, today I want to tell you..."></textarea>
-      <button class="btn br" onclick="saveL()" style="margin-top:10px">💌 Save Letter</button>
-      <div id="lList" style="margin-top:12px"></div>
-    </div></div>
-  </div>
-
-  <!-- NAMES -->
-  <div id="mm-nam" class="panel">
-    <div class="card"><div class="card-b">
-      <h4 class="serif" style="margin-bottom:11px">Baby Names — A & B</h4>
-      <p class="lbl" style="margin-bottom:7px">👦 Boy Names</p>
-      <div class="name-wrap" style="margin-bottom:14px">
-        <div class="npill boy">Badrinath</div><div class="npill boy">Abhishek</div><div class="npill boy">Adhyan</div><div class="npill boy">Adriksh</div><div class="npill boy">Aranyak</div><div class="npill boy">Abirc</div><div class="npill boy">Arona</div><div class="npill boy">Aarav</div><div class="npill boy">Advait</div><div class="npill boy">Achyut</div><div class="npill boy">Atharv</div><div class="npill boy">Balgopal</div><div class="npill boy">Bhuvan</div>
-      </div>
-      <p class="lbl" style="margin-bottom:7px">👧 Girl Names</p>
-      <div class="name-wrap" style="margin-bottom:14px">
-        <div class="npill girl">Adria</div><div class="npill girl">Adhrya</div><div class="npill girl">Adriyeni</div><div class="npill girl">Adyatrayi</div><div class="npill girl">Anumegha</div><div class="npill girl">Arisha</div><div class="npill girl">Adya</div><div class="npill girl">Ananya</div><div class="npill girl">Aradhya</div><div class="npill girl">Bhairavi</div><div class="npill girl">Bhoomi</div>
-      </div>
-      <div style="display:flex;gap:7px;flex-wrap:wrap">
-        <input type="text" id="nameIn" placeholder="Add name..." style="flex:1;min-width:140px;padding:8px 13px;border:2px solid var(--bd);border-radius:11px;font-size:.86rem;background:var(--input-bg);color:var(--t);font-family:'Outfit',sans-serif" onkeypress="if(event.key==='Enter')addName('boy')">
-        <button class="btn br" onclick="addName('boy')" style="padding:8px 13px">+ Boy</button>
-        <button class="btn" onclick="addName('girl')" style="padding:8px 13px;background:var(--r);color:#fff;border:none;border-radius:11px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:700">+ Girl</button>
-      </div>
-      <div id="customNames" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px"></div>
-    </div></div>
-  </div>
-
-  <!-- SHOPPING -->
-  <div id="mm-shp" class="panel">
-    <div class="card"><div class="card-b">
-      <h4 class="serif">🛍️ Bipasha's Shopping List</h4>
-      <div style="display:flex;gap:7px;margin:11px 0;flex-wrap:wrap">
-        <input type="text" id="shopIn" placeholder="Add item..." style="flex:1;min-width:160px;padding:8px 13px;border:2px solid var(--bd);border-radius:11px;font-size:.86rem;background:var(--input-bg);color:var(--t);font-family:'Outfit',sans-serif" onkeypress="if(event.key==='Enter')addShop()">
-        <button class="btn br" onclick="addShop()">+ Add</button>
-      </div>
-      <div id="shopList"></div>
-    </div></div>
-  </div>
-
-  <!-- MOOD -->
-  <div id="mm-moo" class="panel">
-    <div class="card" style="text-align:center"><div class="card-b">
-      <h4 class="serif" style="margin-bottom:13px">How are you feeling right now?</h4>
-      <div style="display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:12px" id="moodBtns">
-        <button onclick="setMood(this,'😊','Happy','Wonderful! Your joy flows to baby 💕')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😊</button>
-        <button onclick="setMood(this,'😌','Calm','Beautiful peaceful energy 🌸')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😌</button>
-        <button onclick="setMood(this,'😴','Tired','Rest is productive — you\'re growing a human 💕')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😴</button>
-        <button onclick="setMood(this,'😰','Anxious','Totally normal. Try breathing in Mind tab 🌬️')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😰</button>
-        <button onclick="setMood(this,'🥰','Loved','You ARE loved — so much 💛')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">🥰</button>
-      </div>
-      <p class="cursive" style="font-size:1.15rem;color:var(--rd);min-height:28px" id="moodMsg"></p>
-      <div id="moodLog" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:5px;justify-content:center"></div>
-    </div></div>
-  </div>
-
-  <!-- MEDICINE SCHEDULE -->
-  <div id="mm-meds" class="panel">
+<div id="mm-meds" class="panel on">
     <div class="card"><div class="card-b">
       <div class="med-header">
         <h4 class="serif">💊 Medicine Tracker</h4>
@@ -1319,7 +1275,7 @@ body.bad-day .hide-bd{display:none!important}
       </div>
 
       <!-- LIST VIEW -->
-      <div class="med-list-wrap on">
+      <div id="med-list-wrap" class="med-list-wrap on">
         <p style="font-size:.78rem;color:var(--ts);margin-bottom:12px">Tap to mark as taken. Resets daily at midnight. 🌸</p>
         <div class="med-grid" id="medGridList">
           <div class="med-item" id="med-pan40" onclick="toggleMed('med-pan40')">
@@ -1362,7 +1318,7 @@ body.bad-day .hide-bd{display:none!important}
       </div>
 
       <!-- CALENDAR VIEW -->
-      <div class="med-cal-wrap">
+      <div id="med-cal-wrap" class="med-cal-wrap">
         <div class="cal-legend">
           <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--s)"></div>All taken</div>
           <div class="cal-legend-item"><div class="cal-legend-dot" style="background:var(--g)"></div>Partial</div>
@@ -1392,10 +1348,63 @@ body.bad-day .hide-bd{display:none!important}
     </div></div>
   </div>
 
+<div id="mm-rtn" class="panel">
+    <div class="card"><div class="card-b">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <h4 class="serif">Daily Routine</h4>
+        <span style="font-size:.85rem;color:var(--ts)">Progress: <strong id="routineProgress" style="color:var(--rd)">0/9</strong></span>
+      </div>
+      <div style="display:grid;gap:7px" id="routineItems">
+        <div onclick="toggleRoutine(this,'r1')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r1">☐</span> 🌅 Morning prayer / meditation</div>
+        <div onclick="toggleRoutine(this,'r2')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r2">☐</span> 💊 Prenatal vitamins</div>
+        <div onclick="toggleRoutine(this,'r3')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r3">☐</span> 🥣 Healthy breakfast</div>
+        <div onclick="toggleRoutine(this,'r4')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r4">☐</span> 🚶 Morning walk (15–20 min)</div>
+        <div onclick="toggleRoutine(this,'r5')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r5">☐</span> 💧 8+ glasses water</div>
+        <div onclick="toggleRoutine(this,'r6')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r6">☐</span> 🍎 Fruits & vegetables</div>
+        <div onclick="toggleRoutine(this,'r7')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r7">☐</span> 🧘 Prenatal yoga / stretches</div>
+        <div onclick="toggleRoutine(this,'r8')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r8">☐</span> 📖 Read / sing to baby</div>
+        <div onclick="toggleRoutine(this,'r9')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r9">☐</span> 🌙 Turmeric milk + early bed</div>
+      </div>
+    </div></div>
+  </div>
 
+<div id="mm-shp" class="panel">
+    <div class="card"><div class="card-b">
+      <h4 class="serif">🛍️ Bipasha's Shopping List</h4>
+      <div style="display:flex;gap:7px;margin:11px 0;flex-wrap:wrap">
+        <input type="text" id="shopIn" placeholder="Add item..." style="flex:1;min-width:160px;padding:8px 13px;border:2px solid var(--bd);border-radius:11px;font-size:.86rem;background:var(--input-bg);color:var(--t);font-family:'Outfit',sans-serif" onkeypress="if(event.key==='Enter')addShop()">
+        <button class="btn br" onclick="addShop()">+ Add</button>
+      </div>
+      <div id="shopList"></div>
+    </div></div>
+  </div>
 
-  <!-- ME & MY WIFE (Arnab's Corner) -->
-  <div id="mm-us" class="panel">
+<div id="mm-ltr" class="panel">
+    <div class="card"><div class="card-b">
+      <h4 class="serif">💛 Letter to Baby</h4>
+      <p style="font-size:.82rem;color:var(--ts);margin-bottom:9px">Write a letter your child will read someday.</p>
+      <textarea class="jinput" id="lText" placeholder="Dear little one, today I want to tell you..."></textarea>
+      <button class="btn br" onclick="saveL()" style="margin-top:10px">💌 Save Letter</button>
+      <div id="lList" style="margin-top:12px"></div>
+    </div></div>
+  </div>
+
+<div id="mm-moo" class="panel">
+    <div class="card" style="text-align:center"><div class="card-b">
+      <h4 class="serif" style="margin-bottom:13px">How are you feeling right now?</h4>
+      <div style="display:flex;justify-content:center;gap:9px;flex-wrap:wrap;margin-bottom:12px" id="moodBtns">
+        <button onclick="setMood(this,'😊','Happy','Wonderful! Your joy flows to baby 💕')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😊</button>
+        <button onclick="setMood(this,'😌','Calm','Beautiful peaceful energy 🌸')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😌</button>
+        <button onclick="setMood(this,'😴','Tired','Rest is productive — you\'re growing a human 💕')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😴</button>
+        <button onclick="setMood(this,'😰','Anxious','Totally normal. Try breathing in Mind tab 🌬️')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">😰</button>
+        <button onclick="setMood(this,'🥰','Loved','You ARE loved — so much 💛')" style="font-size:2rem;padding:9px;border-radius:50%;border:2px solid transparent;background:var(--bg2);cursor:pointer;transition:.2s">🥰</button>
+      </div>
+      <p class="cursive" style="font-size:1.15rem;color:var(--rd);min-height:28px" id="moodMsg"></p>
+      <div id="moodLog" style="margin-top:12px;display:flex;flex-wrap:wrap;gap:5px;justify-content:center"></div>
+    </div></div>
+  </div>
+
+<div id="mm-us" class="panel">
     <div class="us-card">
       <div class="us-title">💑 Arnab & Bipasha's Corner</div>
       <div class="us-sub">10 messages of love — refreshes every time you visit ✨</div>
@@ -1416,33 +1425,27 @@ body.bad-day .hide-bd{display:none!important}
         <li>Growing our family, growing our love</li>
       </ul>
     </div></div>
-  </div>
-
-
-  <!-- ROUTINE -->
-  <div id="mm-rtn" class="panel">
     <div class="card"><div class="card-b">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <h4 class="serif">Daily Routine</h4>
-        <span style="font-size:.85rem;color:var(--ts)">Progress: <strong id="routineProgress" style="color:var(--rd)">0/9</strong></span>
+      <h4 class="serif" style="margin-bottom:11px">🪔 Baby Names — A & B</h4>
+      <p class="lbl" style="margin-bottom:7px">👦 Boy Names</p>
+      <div class="name-wrap" style="margin-bottom:14px">
+        <div class="npill boy">Badrinath</div><div class="npill boy">Abhishek</div><div class="npill boy">Adhyan</div><div class="npill boy">Adriksh</div><div class="npill boy">Aranyak</div><div class="npill boy">Abirc</div><div class="npill boy">Arona</div><div class="npill boy">Aarav</div><div class="npill boy">Advait</div><div class="npill boy">Achyut</div><div class="npill boy">Atharv</div><div class="npill boy">Balgopal</div><div class="npill boy">Bhuvan</div>
       </div>
-      <div style="display:grid;gap:7px" id="routineItems">
-        <div onclick="toggleRoutine(this,'r1')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r1">☐</span> 🌅 Morning prayer / meditation</div>
-        <div onclick="toggleRoutine(this,'r2')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r2">☐</span> 💊 Prenatal vitamins</div>
-        <div onclick="toggleRoutine(this,'r3')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r3">☐</span> 🥣 Healthy breakfast</div>
-        <div onclick="toggleRoutine(this,'r4')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r4">☐</span> 🚶 Morning walk (15–20 min)</div>
-        <div onclick="toggleRoutine(this,'r5')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r5">☐</span> 💧 8+ glasses water</div>
-        <div onclick="toggleRoutine(this,'r6')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r6">☐</span> 🍎 Fruits & vegetables</div>
-        <div onclick="toggleRoutine(this,'r7')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r7">☐</span> 🧘 Prenatal yoga / stretches</div>
-        <div onclick="toggleRoutine(this,'r8')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r8">☐</span> 📖 Read / sing to baby</div>
-        <div onclick="toggleRoutine(this,'r9')" style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg2);border-radius:10px;cursor:pointer"><span id="r9">☐</span> 🌙 Turmeric milk + early bed</div>
+      <p class="lbl" style="margin-bottom:7px">👧 Girl Names</p>
+      <div class="name-wrap" style="margin-bottom:14px">
+        <div class="npill girl">Adria</div><div class="npill girl">Adhrya</div><div class="npill girl">Adriyeni</div><div class="npill girl">Adyatrayi</div><div class="npill girl">Anumegha</div><div class="npill girl">Arisha</div><div class="npill girl">Adya</div><div class="npill girl">Ananya</div><div class="npill girl">Aradhya</div><div class="npill girl">Bhairavi</div><div class="npill girl">Bhoomi</div>
       </div>
+      <div style="display:flex;gap:7px;flex-wrap:wrap">
+        <input type="text" id="nameIn" placeholder="Add name..." style="flex:1;min-width:140px;padding:8px 13px;border:2px solid var(--bd);border-radius:11px;font-size:.86rem;background:var(--input-bg);color:var(--t);font-family:'Outfit',sans-serif" onkeypress="if(event.key==='Enter')addName('boy')">
+        <button class="btn br" onclick="addName('boy')" style="padding:8px 13px">+ Boy</button>
+        <button class="btn" onclick="addName('girl')" style="padding:8px 13px;background:var(--r);color:#fff;border:none;border-radius:11px;cursor:pointer;font-family:'Outfit',sans-serif;font-weight:700">+ Girl</button>
+      </div>
+      <div id="customNames" style="margin-top:10px;display:flex;flex-wrap:wrap;gap:6px"></div>
     </div></div>
   </div>
 
 </div>
 </div>
-
 <!-- ═══ FOOTER ═══ -->
 <div class="footer">
   <p><strong>Bipasha Mondal · Reg 75294 (WBMC) · Dr. Ankita Mandal MBBS(Gold) MD(Gold) · Bhagirathi Neotia, Newtown</strong></p>
@@ -1582,7 +1585,135 @@ if(S.symptoms.mood.includes('Anxious')){ins+=`<div class="insight"><h5>Feeling a
 if(S.symptoms.sleep==='Poor'){ins+=`<div class="insight"><h5>Better sleep tonight 🌙</h5><p>Left side, pillow between knees, warm turmeric milk, no screens 1hr before bed, Arnab's foot massage!</p></div>`}
 if(parseInt(S.symptoms.energy)<=3){ins+=`<div class="insight"><h5>Low energy 💤</h5><p>You\'re growing a human — rest IS productive. Short nap, protein snack (almonds/paneer), delegate to Arnab.</p></div>`}
 ib.innerHTML=ins;updateArnab();updateStreaks();save();
-if(S.symptoms.nausea==='None'&&parseInt(S.symptoms.water)>=8){showWin('Amazing! No nausea + great hydration today 🎉');confetti()}saveSleepLog(S.symptoms.sleep);localStorage.setItem('bpV_'+new Date().toDateString(),S.vomit)}
+if(S.symptoms.nausea==='None'&&parseInt(S.symptoms.water)>=8){showWin('Amazing! No nausea + great hydration today 🎉');confetti()}saveSleepLog(S.symptoms.sleep);localStorage.setItem('bpV_'+new Date().toDateString(),S.vomit);
+// Save full daily symptom snapshot
+saveSymptomHistory();}
+
+
+// ═══ SYMPTOM HISTORY + CALENDAR ═══
+function saveSymptomHistory(){
+  const today=new Date().toISOString().slice(0,10);
+  const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
+  hist[today]={
+    nausea:S.symptoms.nausea||'None',
+    appetite:S.symptoms.appetite||'Good',
+    mood:(S.symptoms.mood||'Happy 😊').split(' ')[0],
+    energy:parseInt(S.symptoms.energy||5),
+    water:parseInt(S.symptoms.water||8),
+    sleep:S.symptoms.sleep||'Good',
+    vomit:S.vomit||0,
+    ts:new Date().toISOString()
+  };
+  localStorage.setItem('bpSymHist',JSON.stringify(hist));
+  // re-render if calendar is visible
+  if(document.getElementById('symCalWrap') && document.getElementById('symCalWrap').classList.contains('on')){
+    renderSymCal();
+  }
+}
+
+function getSymDay(dateStr){
+  const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
+  const today=new Date().toISOString().slice(0,10);
+  if(dateStr===today && S.symptoms && Object.keys(S.symptoms).length){
+    return {
+      nausea:S.symptoms.nausea||'None',
+      appetite:S.symptoms.appetite||'Good',
+      mood:(S.symptoms.mood||'Happy 😊').split(' ')[0],
+      energy:parseInt(S.symptoms.energy||5),
+      water:parseInt(S.symptoms.water||8),
+      sleep:S.symptoms.sleep||'Good',
+      vomit:S.vomit||0
+    };
+  }
+  return hist[dateStr]||null;
+}
+
+let symCalYear=new Date().getFullYear();
+let symCalMonth=new Date().getMonth();
+
+function symCalNav(dir){
+  symCalMonth+=dir;
+  if(symCalMonth>11){symCalMonth=0;symCalYear++;}
+  if(symCalMonth<0){symCalMonth=11;symCalYear--;}
+  renderSymCal();
+}
+
+function renderSymCal(){
+  const months=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const lbl=document.getElementById('symCalMonthLabel');
+  if(lbl)lbl.textContent=months[symCalMonth]+' '+symCalYear;
+  const grid=document.getElementById('symCalGrid');
+  if(!grid)return;
+  const dows=['Su','Mo','Tu','We','Th','Fr','Sa'];
+  let html=dows.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+  const firstDay=new Date(symCalYear,symCalMonth,1).getDay();
+  const daysInMonth=new Date(symCalYear,symCalMonth+1,0).getDate();
+  const todayStr=new Date().toISOString().slice(0,10);
+  for(let i=0;i<firstDay;i++){html+=`<div class="cal-day other-month"></div>`;}
+  for(let day=1;day<=daysInMonth;day++){
+    const ds=symCalYear+'-'+String(symCalMonth+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+    const isToday=ds===todayStr;
+    const isFuture=ds>todayStr;
+    const d=isFuture?null:getSymDay(ds);
+    let dot='<div style="font-size:.55rem;color:var(--ts)">·</div>';
+    let bar='';
+    if(!isFuture && d){
+      const nauseaScore={'None':1,'Mild':0.7,'Moderate':0.4,'Severe':0.1}[d.nausea]||0.5;
+      const energyScore=d.energy/10;
+      const waterScore=Math.min(d.water/8,1);
+      const overallScore=(nauseaScore+energyScore+waterScore)/3;
+      const col=overallScore>0.7?'var(--s)':overallScore>0.4?'var(--g)':'var(--r)';
+      const moodEmoji={'Happy':'😊','Calm':'😌','Tired':'😴','Anxious':'😰','Loved':'🥰'}[d.mood]||'😊';
+      dot=`<div style="font-size:.75rem">${moodEmoji}</div>`;
+      bar=`<div class="cal-summary-bar"><div style="height:100%;border-radius:3px;background:${col};width:${Math.round(overallScore*100)}%;transition:width .4s"></div></div>`;
+    }
+    html+=`<div class="cal-day${isToday?' today':''}" onclick="showSymDay('${ds}',${day})">
+      <div class="cal-dn">${day}</div>
+      <div class="cal-dots">${dot}</div>
+      ${bar}
+    </div>`;
+  }
+  grid.innerHTML=html;
+  const det=document.getElementById('symDayDetail');
+  if(det)det.classList.remove('show');
+}
+
+function showSymDay(ds,day){
+  const det=document.getElementById('symDayDetail');
+  const title=document.getElementById('symDetailTitle');
+  const body=document.getElementById('symDetailBody');
+  if(!det||!title||!body)return;
+  const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  title.textContent=months[symCalMonth]+' '+day+', '+symCalYear;
+  const todayStr=new Date().toISOString().slice(0,10);
+  const isFuture=ds>todayStr;
+  const d=getSymDay(ds);
+  if(isFuture){body.innerHTML='<p style="font-size:.82rem;color:var(--ts);text-align:center;padding:8px">Future date 🌸</p>';}
+  else if(!d){body.innerHTML='<p style="font-size:.82rem;color:var(--ts);text-align:center;padding:8px">No check-in recorded for this day.</p>';}
+  else{
+    const nauseaColor={'None':'var(--s)','Mild':'var(--g)','Moderate':'#e8a020','Severe':'var(--r)'}[d.nausea]||'var(--ts)';
+    body.innerHTML=`
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;font-size:.82rem">
+        <div style="background:var(--bg2);border-radius:9px;padding:9px"><div style="font-size:.64rem;color:var(--ts);font-weight:700;margin-bottom:3px">NAUSEA</div><div style="color:${nauseaColor};font-weight:700">${d.nausea||'—'}</div></div>
+        <div style="background:var(--bg2);border-radius:9px;padding:9px"><div style="font-size:.64rem;color:var(--ts);font-weight:700;margin-bottom:3px">MOOD</div><div style="font-weight:700">${d.mood||'—'}</div></div>
+        <div style="background:var(--bg2);border-radius:9px;padding:9px"><div style="font-size:.64rem;color:var(--ts);font-weight:700;margin-bottom:3px">ENERGY</div><div style="color:var(--rd);font-weight:700">${d.energy||'—'}/10</div></div>
+        <div style="background:var(--bg2);border-radius:9px;padding:9px"><div style="font-size:.64rem;color:var(--ts);font-weight:700;margin-bottom:3px">WATER</div><div style="color:var(--sky);font-weight:700">${d.water||'—'} glasses</div></div>
+        <div style="background:var(--bg2);border-radius:9px;padding:9px"><div style="font-size:.64rem;color:var(--ts);font-weight:700;margin-bottom:3px">SLEEP</div><div style="font-weight:700">${d.sleep||'—'}</div></div>
+        <div style="background:var(--bg2);border-radius:9px;padding:9px"><div style="font-size:.64rem;color:var(--ts);font-weight:700;margin-bottom:3px">VOMITING</div><div style="color:var(--r);font-weight:700">${d.vomit||0}x</div></div>
+      </div>`;
+  }
+  det.classList.add('show');
+  det.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function switchSymView(btn,id){
+  document.querySelectorAll('.sym-view-btn').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('#symListWrap,#symCalWrap').forEach(el=>el.classList.remove('on'));
+  btn.classList.add('on');
+  const t=document.getElementById(id);
+  if(t){t.classList.add('on');if(id==='symCalWrap')renderSymCal();}
+}
+
 
 function updateArnab(){const list=document.getElementById('arnabTasks');let tasks=[];
 if(S.symptoms.nausea==='Severe'||S.symptoms.nausea==='Moderate'){tasks.push('No strong cooking smells — keep windows open');tasks.push('Prepare ONLY light food: khichdi, watermelon, daab water');tasks.push('Keep ginger tea ready at all times')}else if(parseInt(S.symptoms.water)<6){tasks.push('Fill her water bottle — check every hour');tasks.push('Buy fresh daab coconut water today')}else{tasks.push('Prepare her favourite meal tonight')}
@@ -1732,11 +1863,22 @@ let calViewYear=new Date().getFullYear();
 let calViewMonth=new Date().getMonth();
 
 function medView(btn,targetId){
-  document.querySelectorAll('.med-view-btn').forEach(b=>b.classList.remove('on'));
-  document.querySelectorAll('.med-list-wrap,.med-cal-wrap').forEach(el=>el.classList.remove('on'));
+  // Scope to parent card-b
+  const card=btn.closest('.card-b');
+  if(card){
+    card.querySelectorAll('.med-view-btn').forEach(b=>b.classList.remove('on'));
+    card.querySelectorAll('.med-list-wrap,.med-cal-wrap').forEach(el=>el.classList.remove('on'));
+  }
   btn.classList.add('on');
-  const t=document.getElementById(targetId);
-  if(t){t.classList.add('on');if(targetId==='med-cal-wrap')renderMedCal()}
+  // Try by ID first, fallback to class within card
+  let t=document.getElementById(targetId);
+  if(!t && card) t=card.querySelector('.'+targetId);
+  if(t){
+    t.classList.add('on');
+    if(targetId==='med-cal-wrap'){
+      setTimeout(()=>renderMedCal(),50);
+    }
+  }
 }
 
 function loadMeds(){
@@ -1902,7 +2044,14 @@ function showCalDay(dateStr,day){
   if(isFuture){
     body.innerHTML='<p style="font-size:.82rem;color:var(--ts);text-align:center;padding:10px">Future date — no data yet 🌸</p>';
   } else if(!d){
-    body.innerHTML='<p style="font-size:.82rem;color:var(--ts);text-align:center;padding:10px">No medicine log recorded for this day.</p>';
+    // Show schedule even if not logged
+    body.innerHTML='<p style="font-size:.78rem;color:var(--ts);margin-bottom:8px">No log recorded — scheduled doses for this day:</p>'+
+      medIds.map(id=>{
+        const meta=medMeta[id];
+        const isSat=new Date(ds).getDay()===6;
+        if(id==='med-vitd3' && !isSat) return '';
+        return `<div class="cal-med-row"><span class="status">⬜</span><span class="mname">${meta.name}</span><span class="mtime">${meta.time}</span></div>`;
+      }).join('');
   } else {
     const taken=Object.values(d).filter(Boolean).length;
     body.innerHTML=`<p style="font-size:.76rem;color:var(--ts);margin-bottom:8px">📊 ${taken}/8 doses taken</p>`+
@@ -1999,7 +2148,7 @@ const weekHealthData={
 };
 function getWeekHealth(w){const keys=Object.keys(weekHealthData).map(Number).sort((a,b)=>a-b);let best=keys[0];for(const k of keys){if(w>=k)best=k}return weekHealthData[best]}
 function updateLmpDate(){const inp=document.getElementById('lmpInput');if(!inp)return;S.lmpDate=inp.value;save();calcAndShowWeek()}
-function calcAndShowWeek(){const lmpStr=S.lmpDate||'2026-01-27';const lmp=new Date(lmpStr);const today=new Date();const diffDays=Math.floor((today-lmp)/(1000*60*60*24));const week=Math.max(1,Math.min(40,Math.floor(diffDays/7)));// EDD = LMP + 280 days
+function calcAndShowWeek(){const lmpStr=S.lmpDate||'2026-02-04';const lmp=new Date(lmpStr);const today=new Date();const diffDays=Math.floor((today-lmp)/(1000*60*60*24));const week=Math.max(1,Math.min(40,Math.floor(diffDays/7)));// EDD = LMP + 280 days
 const edd=new Date(lmp.getTime()+280*24*60*60*1000);const eddStr=edd.toLocaleDateString('en-IN',{weekday:'long',year:'numeric',month:'long',day:'numeric'});const badge=document.getElementById('currentWeekBadge');const statusTxt=document.getElementById('weekStatusText');const eddTxt=document.getElementById('eddText');if(badge)badge.textContent='📍 Week '+week+' of 40';const trimester=week<=13?'First Trimester 🌱':week<=27?'Second Trimester 🌷':'Third Trimester 🌺';if(statusTxt)statusTxt.textContent='You are in the '+trimester;if(eddTxt)eddTxt.textContent='🎯 Estimated Due Date: '+eddStr;// Update baby week slider too
 updateWeek(week);const lmpInp=document.getElementById('lmpInput');if(lmpInp)lmpInp.value=lmpStr;// Update health summary
 const wh=getWeekHealth(week);const hCard=document.getElementById('weekHealthCard');const hSub=document.getElementById('weekHealthSub');const hSum=document.getElementById('weekHealthSummary');if(hSub)hSub.textContent='Week '+week+' — '+wh.status;if(hSum)hSum.textContent=wh.summary;// update today widgets
@@ -2026,16 +2175,14 @@ function updatePapa(){const d=new Date().getDay();const el=document.getElementBy
 // ═══ INIT ═══
 document.addEventListener('DOMContentLoaded',()=>{load();loadEmg();updateSingleAction();updatePapa();buildUltraStrip();loadMeds();saveMedHistory();calcAndShowWeek();renderMotherCharts();setTimeout(()=>{initUsMessages();},100)});
 </script>
-
 <script>
 if('serviceWorker' in navigator){
   window.addEventListener('load',()=>{
     navigator.serviceWorker.register('sw.js')
-      .then(()=>console.log('BabyBloom SW registered'))
+      .then(()=>console.log('BabyBloom SW ready'))
       .catch(e=>console.log('SW error',e));
   });
 }
 </script>
-
 </body>
 </html>
