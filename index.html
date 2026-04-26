@@ -9,6 +9,11 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="BabyBloom">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#d4826a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="BabyBloom">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Outfit:wght@300;400;500;600;700;800&family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 <style>
 /* ══════════════════════════════════════════════════════
@@ -597,20 +602,46 @@ body.bad-day .hide-bd{display:none!important}
 .med-streak-card .num{font-family:'DM Serif Display',serif;font-size:1.4rem;color:var(--rd)}
 .med-streak-card .lbl{font-size:.62rem;color:var(--ts);text-transform:uppercase;letter-spacing:.05em;margin-top:1px}
 
+
+/* ══════════════════════════════════════════
+   SWIPE TO UNLOCK SPLASH
+══════════════════════════════════════════ */
+#splashScreen{position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--hero-from),var(--hero-mid) 40%,var(--hero-to));padding:30px 24px;text-align:center;transition:transform .5s cubic-bezier(.4,0,.2,1),opacity .5s ease}
+#splashScreen.swiped{transform:translateY(-100%);opacity:0;pointer-events:none}
+.spl-chip{display:inline-flex;align-items:center;gap:6px;background:linear-gradient(135deg,var(--r),var(--rd));color:#fff;font-size:.65rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;padding:6px 18px;border-radius:20px;margin-bottom:18px;box-shadow:0 4px 14px var(--rg)}
+.spl-h1{font-family:'DM Serif Display',serif;font-size:clamp(2rem,6vw,3rem);line-height:1.18;margin-bottom:8px}
+.spl-h1 em{color:var(--r);font-style:italic}
+.spl-sub{font-family:'Caveat',cursive;font-size:1.2rem;color:var(--ts);margin-bottom:6px}
+.spl-meta{font-size:.84rem;color:var(--ts);margin-bottom:40px}
+.spl-meta strong{color:var(--r)}
+.swipe-hint{display:flex;flex-direction:column;align-items:center;gap:8px;animation:swipePulse 1.8s ease-in-out infinite}
+.swipe-arrow{font-size:1.8rem;line-height:1}
+.swipe-label{font-family:'Caveat',cursive;font-size:1.1rem;color:var(--ts);letter-spacing:.05em}
+.spl-motiv{font-family:'Caveat',cursive;font-size:.95rem;color:var(--r);margin-top:28px;min-height:22px;transition:opacity .3s}
+@keyframes swipePulse{0%,100%{transform:translateY(0);opacity:.6}50%{transform:translateY(-10px);opacity:1}}
+
 </style>
 </head>
 <body>
 
+<!-- ═══ SWIPE TO UNLOCK ═══ -->
+<div id="splashScreen">
+  <div class="spl-chip">💕 BabyBloom — Pregnancy Companion</div>
+  <h1 class="spl-h1">Bipasha's <em>Journey</em></h1>
+  <p class="spl-sub">Your daily companion, crafted with love</p>
+  <p class="spl-meta">👩 <strong>Bipasha Mondal</strong> · 👨 <strong>Arnab Mondal</strong> · Bengaluru → Kolkata</p>
+  <div class="swipe-hint">
+    <div class="swipe-arrow">☝️</div>
+    <div class="swipe-label">Swipe up to enter</div>
+  </div>
+  <div class="spl-motiv" id="splMotiv">You are doing something extraordinary ✨</div>
+</div>
+
+
 <!-- ═══ THEME TOGGLE ═══ -->
 <button class="theme-toggle" id="themeBtn" onclick="toggleTheme()" title="Toggle dark/light mode">🌙</button>
 
-<!-- ═══ HERO ═══ -->
-<div class="hero">
-  <div class="hero-chip">💕 BabyBloom — Pregnancy Companion</div>
-  <h1>Bipasha's <em>Journey</em></h1>
-  <p class="hero-sub">Your daily companion, crafted with love</p>
-  <p class="hero-meta">👩 <strong>Bipasha Mondal</strong> · 👨 <strong>Arnab Mondal</strong> · Bengaluru → Kolkata</p>
-</div>
+<!-- hero on splash screen -->
 <div class="motiv-bar"><span id="motivText">Every day your baby grows stronger and more beautiful 💕</span></div>
 
 
@@ -738,7 +769,7 @@ body.bad-day .hide-bd{display:none!important}
     <div class="ico">💧</div>
     <div class="inf">
       <div class="val" id="waterDisplay">0</div>
-      <div class="sub">ml · Goal: 2500ml</div>
+      <div class="sub">ml · Goal: 2000ml (8 glasses × 250ml)</div>
       <div class="pbar"><div class="pbar-f" id="waterBar" style="width:0%"></div></div>
     </div>
     <div class="act">
@@ -913,7 +944,7 @@ body.bad-day .hide-bd{display:none!important}
 
       <!-- Sleep Chart -->
       <div id="mh-sleep" class="mh-panel on">
-        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Sleep quality trend — from your daily check-in (Good=3, Fair=2, Poor=1)</p>
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Sleep hours trend — from your daily check-in (hours per night)</p>
         <div class="chart-row" id="sleepChart"></div>
         <div id="sleepLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
         <div class="mh-summary" id="sleepSummary">Log your sleep quality in the Today section daily for trend data.</div>
@@ -929,7 +960,7 @@ body.bad-day .hide-bd{display:none!important}
 
       <!-- Water Chart -->
       <div id="mh-water" class="mh-panel">
-        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Daily water glasses logged in check-in — goal: 8+ glasses</p>
+        <p style="font-size:.78rem;color:var(--ts);margin-bottom:10px">Daily water intake — from check-in slider (1 glass = 250ml · goal: 8+ glasses = 2000ml+)</p>
         <div class="chart-row" id="waterChartMH"></div>
         <div id="waterLabels" style="display:flex;gap:5px;margin-bottom:12px"></div>
         <div class="mh-summary" id="waterSummary">Keep logging your water intake to see hydration trends.</div>
@@ -1124,7 +1155,7 @@ body.bad-day .hide-bd{display:none!important}
   <div id="c-ex" class="panel">
     <div style="background:var(--sl);border-radius:12px;padding:12px 16px;margin-bottom:14px;font-size:.84rem;color:var(--sd)">⚠️ <strong>Consult your doctor before starting exercise.</strong> Stop if pain, dizziness, or bleeding.</div>
     <div class="ec"><h4>🧘 Prenatal Yoga</h4><span class="pill ps">All Trimesters</span><ul class="ec-ul" style="margin-top:9px"><li>Cat-Cow stretches<span class="ec-time">10 min</span></li><li>Butterfly pose<span class="ec-time">5 min</span></li><li>Modified Child's pose<span class="ec-time">5 min</span></li><li>Legs-up-the-wall<span class="ec-time">10 min</span></li></ul></div>
-    <div class="ec"><h4>🚶 Walking</h4><span class="pill ps">All Trimesters</span><ul class="ec-ul" style="margin-top:9px"><li>Morning walk (flat surface)<span class="ec-time">20–30 min</span></li><li>Evening stroll with Arnab<span class="ec-time">15 min</span></li></ul></div>
+    <div class="ec"><h4>🚶 Walking</h4><span class="pill ps">All Trimesters</span><ul class="ec-ul" style="margin-top:9px"><li>Morning walk (flat surface)<span class="ec-time">20–30 min</span></li><li>Evening stroll — video call Arnab 📞<span class="ec-time">15 min</span></li></ul></div>
     <div class="ec"><h4>🌬️ Breathing & Pelvic Floor</h4><span class="pill ps">All Trimesters</span><ul class="ec-ul" style="margin-top:9px"><li>Kegel exercises<span class="ec-time">3×10</span></li><li>Deep belly breathing<span class="ec-time">10 min</span></li><li>Pelvic tilts<span class="ec-time">2×15</span></li></ul></div>
     <div class="ec"><h4>💧 Swimming</h4><span class="pill psk">T2 & T3</span><ul class="ec-ul" style="margin-top:9px"><li>Gentle freestyle<span class="ec-time">20 min</span></li><li>Water aerobics<span class="ec-time">30 min</span></li></ul></div>
     <div style="background:var(--gl);border-radius:12px;padding:12px 16px;margin-top:10px;font-size:.83rem;color:#7a5a20;border-left:3px solid var(--g)">🚫 <strong>Avoid:</strong> High-impact, contact sports, hot yoga, heavy lifting, flat on back after wk 20</div>
@@ -1192,7 +1223,7 @@ body.bad-day .hide-bd{display:none!important}
     <div style="margin-top:6px">
       <div class="card"><div class="card-h"><div class="ico">🩺</div><div><h4>Scan Timeline</h4></div></div><div class="card-b"><ul class="clist"><li><strong>Wk 6–8:</strong> Dating scan (heartbeat confirmation)</li><li><strong>Wk 11–13:</strong> NT scan (nuchal translucency)</li><li><strong>Wk 18–20:</strong> Anomaly scan (detailed anatomy)</li><li><strong>Wk 28–32:</strong> Growth scan</li><li><strong>Wk 36+:</strong> Position & readiness scan</li></ul></div></div>
       <div class="card"><div class="card-h"><div class="ico">💊</div><div><h4>Essential Supplements</h4></div></div><div class="card-b"><ul class="clist"><li>Folic Acid 400mcg — neural tube</li><li>Iron — increased blood volume</li><li>Calcium — baby's bones</li><li>Omega-3 DHA — brain development</li><li>Vitamin D — bones & immunity</li></ul></div></div>
-      <div class="card"><div class="card-h"><div class="ico">😴</div><div><h4>Sleep Guide</h4></div></div><div class="card-b"><ul class="clist"><li>Left side sleeping after wk 20</li><li>Pillow between knees</li><li>Avoid screens 1hr before bed</li><li>Warm turmeric milk / herbal tea</li><li>Arnab's foot massage routine!</li></ul></div></div>
+      <div class="card"><div class="card-h"><div class="ico">😴</div><div><h4>Sleep Guide</h4></div></div><div class="card-b"><ul class="clist"><li>Left side sleeping after wk 20</li><li>Pillow between knees</li><li>Avoid screens 1hr before bed</li><li>Warm turmeric milk / herbal tea</li><li>Ask Arnab for foot massage on weekends (Bangalore weekdays 💕)</li></ul></div></div>
     </div>
   </div>
 
@@ -1205,7 +1236,7 @@ body.bad-day .hide-bd{display:none!important}
     <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">What foods to completely avoid?</div><div class="faq-a">Raw/undercooked meat or eggs · Unpasteurized dairy · Raw sprouts · Alcohol · High-mercury fish (shark, swordfish). Limit caffeine to under 200mg/day.</div></div>
     <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">Is exercise safe during pregnancy?</div><div class="faq-a">Yes! Walking, prenatal yoga, swimming are ideal. Avoid contact sports, hot yoga, heavy lifting. Stop immediately if dizzy, in pain, or bleeding.</div></div>
     <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">Why am I so tired all the time?</div><div class="faq-a">Your body is building a placenta + increasing blood volume by 50% + surging with progesterone. Rest is productive. Eat iron-rich foods and nap when possible.</div></div>
-    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">How to reduce foot swelling?</div><div class="faq-a">Elevate feet when sitting · Sleep on left side · Reduce salt · Drink MORE water · Comfortable shoes · Ask Arnab for foot massage nightly! Call doctor if sudden severe swelling with headache (preeclampsia warning).</div></div>
+    <div class="faq" onclick="this.classList.toggle('open')"><div class="faq-q">How to reduce foot swelling?</div><div class="faq-a">Elevate feet when sitting · Sleep on left side · Reduce salt · Drink MORE water · Comfortable shoes · Ask Arnab for foot massage on visits (Bangalore — video calls daily 💕) Call doctor if sudden severe swelling with headache (preeclampsia warning).</div></div>
     <div class="emg-strip-faq" style="margin-top:20px">
       <div class="emg-title">🚨 Emergency Contacts — Save Now</div>
       <div class="emg-note">Bhagirathi Neotia Women & Child Care, Newtown · Available 24/7</div>
@@ -1509,7 +1540,7 @@ body.bad-day .hide-bd{display:none!important}
 </div>
 </div>
 <!-- ═══ FOOTER ═══ -->
-<div class="footer">
+<div class="footer" id="mainFooter" style="display:none">
   <p><strong>Bipasha Mondal · Reg 75294 (WBMC) · Dr. Ankita Mandal MBBS(Gold) MD(Gold) · Bhagirathi Neotia, Newtown</strong></p>
   <p>For patient education only. All clinical decisions must be made by the treating physician. BabyBloom v3 · 25 April 2026</p>
 </div>
@@ -1536,7 +1567,7 @@ function save(){try{localStorage.setItem('bp8',JSON.stringify(S))}catch(e){}}
 function renderAll(){renderShop();renderJ();renderL();renderNames();updateStreaks();loadVomit();loadRoutine();initMood()}
 
 // ═══ NAV ═══
-function gotoPage(el,id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.bnav-btn').forEach(n=>n.classList.remove('active'));const pg=document.getElementById('pg-'+id);if(pg)pg.classList.add('active');el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='baby')renderMotherCharts();}
+function gotoPage(el,id){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.querySelectorAll('.bnav-btn').forEach(n=>n.classList.remove('active'));const pg=document.getElementById('pg-'+id);if(pg)pg.classList.add('active');el.classList.add('active');window.scrollTo({top:0,behavior:'smooth'});if(id==='baby')renderMotherCharts();const ft=document.getElementById('mainFooter');if(ft)ft.style.display=id==='care'?'block':'none';}
 
 // ═══ SUB TABS ═══
 function subTab(btn,prefix,id){const wrap=btn.closest('.wrap');if(wrap)wrap.querySelectorAll('[id^="'+prefix+'-"].panel').forEach(p=>p.classList.remove('on'));else document.querySelectorAll('[id^="'+prefix+'-"].panel').forEach(p=>p.classList.remove('on'));const target=document.getElementById(id);if(target)target.classList.add('on');const tbsParent=btn.parentElement;tbsParent.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on')}
@@ -1621,9 +1652,9 @@ const btn=document.getElementById('um-'+idx);if(btn)btn.scrollIntoView({behavior
 
 // ═══ WATER ═══
 function dk(p){return p+'_'+new Date().toDateString()}
-function addWater(){const k=dk('w');let c=parseInt(localStorage.getItem(k)||0);c=Math.min(c+250,3500);localStorage.setItem(k,c);renderWater(c);if(c>=2500){confetti();showWin('Goal reached! You drank 2500ml today 💧')}}
+function addWater(){const k=dk('w');let c=parseInt(localStorage.getItem(k)||0);c=Math.min(c+250,3500);localStorage.setItem(k,c);renderWater(c);if(c>=2000){confetti();showWin('Goal reached! 8 glasses (2000ml) today 💧')}}
 function resetWater(){localStorage.removeItem(dk('w'));renderWater(0)}
-function renderWater(ml){const g=2500,p=Math.min(ml/g*100,100);const el=document.getElementById('waterDisplay');const bar=document.getElementById('waterBar');if(el)el.textContent=ml;if(bar)bar.style.width=p+'%'}
+function renderWater(ml){const g=2000,p=Math.min(ml/g*100,100);const el=document.getElementById('waterDisplay');const bar=document.getElementById('waterBar');if(el)el.textContent=ml;if(bar)bar.style.width=p+'%'}
 (function(){renderWater(parseInt(localStorage.getItem(dk('w'))||0))})();
 
 // ═══ KICKS ═══
@@ -1851,7 +1882,7 @@ else if(h<10){at.textContent='Drink coconut water 🥥';ar.textContent='Morning 
 else if(h<13){at.textContent='Time for a small snack ☕';ar.textContent='Empty stomach = worse nausea — eat something light'}
 else if(h<15){at.textContent='Eat lunch — small portion 🍛';ar.textContent='Dal bhaat + sabzi + doi — easy on stomach'}
 else if(h<17){at.textContent='30-minute nap on left side 😴';ar.textContent='Left side improves blood flow to baby'}
-else if(h<19){at.textContent='Evening walk with Arnab 🚶';ar.textContent='20 min gentle walk = better sleep tonight'}
+else if(h<19){at.textContent='Evening walk — call Arnab 📞🚶';ar.textContent='20 min gentle walk + video call with Arnab = better sleep tonight'}
 else if(h<21){at.textContent='Light dinner 🌙';ar.textContent='Khichdi with ghee — best for this time of day'}
 else{at.textContent='Warm turmeric milk + rest 🥛';ar.textContent='Wind down — baby needs you well rested'}}
 
@@ -2506,7 +2537,63 @@ const papaLetters=["We haven't met yet, but you're already our everything.","I t
 function updatePapa(){const d=new Date().getDay();const el=document.getElementById('papaLetter');if(el)el.textContent='"'+papaLetters[d]+'"'}
 
 // ═══ INIT ═══
+// ═══ SWIPE TO UNLOCK ═══
+(function(){
+  const splash = document.getElementById('splashScreen');
+  if(!splash) return;
+  const motivs = ['You are doing something extraordinary ✨','Every day our baby grows stronger 💕','Arnab is so proud of you 🌟','You are already the best mama 🌸','Baby feels your love ❤️'];
+  let mi = 0;
+  const motEl = document.getElementById('splMotiv');
+  const motivInterval = setInterval(()=>{
+    mi=(mi+1)%motivs.length;
+    if(motEl){motEl.style.opacity='0';setTimeout(()=>{motEl.textContent=motivs[mi];motEl.style.opacity='1'},300);}
+  },3000);
+
+  // Check if already unlocked today
+  const last = parseInt(localStorage.getItem('bpSplashSeen')||0);
+  if(Date.now()-last < 24*60*60*1000){
+    splash.style.display='none';
+    clearInterval(motivInterval);
+    return;
+  }
+
+  function unlock(){
+    splash.classList.add('swiped');
+    localStorage.setItem('bpSplashSeen', Date.now());
+    clearInterval(motivInterval);
+    setTimeout(()=>splash.style.display='none', 550);
+  }
+
+  // Touch swipe up
+  let touchStartY = 0;
+  splash.addEventListener('touchstart', e=>{ touchStartY = e.touches[0].clientY; }, {passive:true});
+  splash.addEventListener('touchend', e=>{
+    const dy = touchStartY - e.changedTouches[0].clientY;
+    if(dy > 50) unlock();
+  }, {passive:true});
+
+  // Mouse drag up (desktop)
+  let mouseStartY = 0, mouseDown = false;
+  splash.addEventListener('mousedown', e=>{ mouseDown=true; mouseStartY=e.clientY; });
+  splash.addEventListener('mouseup', e=>{
+    if(mouseDown && mouseStartY - e.clientY > 50) unlock();
+    mouseDown=false;
+  });
+
+  // Tap also unlocks (for quick access)
+  splash.addEventListener('click', unlock);
+})();
+
 document.addEventListener('DOMContentLoaded',()=>{load();loadEmg();updateSingleAction();updatePapa();buildUltraStrip();loadMeds();saveMedHistory();calcAndShowWeek();renderMotherCharts();setTimeout(()=>{initUsMessages();},100)});
+</script>
+<script>
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>{
+    navigator.serviceWorker.register('sw.js')
+      .then(()=>console.log('BabyBloom SW ready'))
+      .catch(e=>console.log('SW error',e));
+  });
+}
 </script>
 <script>
 if('serviceWorker' in navigator){
