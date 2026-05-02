@@ -1570,22 +1570,33 @@ let S={week:12,symptoms:{},streaks:{water:0,journal:0,yoga:0},journal:[],letters
 function load(){try{const s=localStorage.getItem('bp8');if(s)S={...S,...JSON.parse(s)}}catch(e){}renderAll()}
 function save(){try{localStorage.setItem('bp8',JSON.stringify(S))}catch(e){}}
 
-// ═══ CLOUD SYNC (jsonblob.com) ═══
-const BLOB_URL='https://jsonblob.com/api/jsonBlob/019de7be-e760-7010-ac89-07ef48cf448e';
+// ═══ CLOUD SYNC (GitHub Gist) ═══
+const GIST_ID='d7253a39a95fa9aa54f65e3a402bed59';
+const GIST_RAW='https://gist.githubusercontent.com/Ornub/'+GIST_ID+'/raw/babybloom.json';
+const GIST_API='https://api.github.com/gists/'+GIST_ID;
+const GH={
+  get token(){return localStorage.getItem('bpGhToken')||''},
+  set token(v){localStorage.setItem('bpGhToken',v)}
+};
 
 async function gsSync(date,snap){
+  if(!GH.token)return;
   try{
-    const r=await fetch(BLOB_URL);
+    const r=await fetch(GIST_RAW+'?t='+Date.now());
     const j=await r.json();
     const days=j.days||{};
     days[date]={...snap};
-    await fetch(BLOB_URL,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({days})});
+    await fetch(GIST_API,{
+      method:'PATCH',
+      headers:{'Authorization':'token '+GH.token,'Content-Type':'application/json'},
+      body:JSON.stringify({files:{'babybloom.json':{content:JSON.stringify({days})}}})
+    });
   }catch(e){console.warn('BabyBloom sync failed:',e);}
 }
 
 async function gsLoad(){
   try{
-    const r=await fetch(BLOB_URL+'?t='+Date.now());
+    const r=await fetch(GIST_RAW+'?t='+Date.now());
     const j=await r.json();
     if(!j.days)return;
     const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
@@ -1603,12 +1614,12 @@ async function gsLoad(){
   }catch(e){console.warn('BabyBloom load failed:',e);}
 }
 
-function gsSetUrl(){} // no-op — URL is pre-configured
+function gsSetUrl(){} // no-op
 function gsUpdateBtn(){
   const btn=document.getElementById('gsBtnLabel');
   if(!btn)return;
-  btn.textContent='✅ Cloud sync active';
-  btn.style.borderColor='var(--s)';
+  btn.textContent=GH.token?'✅ Cloud sync active':'Connect Cloud Sync';
+  btn.style.borderColor=GH.token?'var(--s)':'var(--bd)';
 }
 // ═══ END GOOGLE SHEETS SYNC ═══
 function renderAll(){renderShop();renderJ();renderL();renderNames();updateStreaks();loadVomit();loadRoutine();initMood()}
