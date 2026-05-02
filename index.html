@@ -1570,60 +1570,45 @@ let S={week:12,symptoms:{},streaks:{water:0,journal:0,yoga:0},journal:[],letters
 function load(){try{const s=localStorage.getItem('bp8');if(s)S={...S,...JSON.parse(s)}}catch(e){}renderAll()}
 function save(){try{localStorage.setItem('bp8',JSON.stringify(S))}catch(e){}}
 
-// ═══ GOOGLE SHEETS SYNC ═══
-const GS={
-  get url(){return localStorage.getItem('bpSheetsUrl')||''},
-  set url(v){localStorage.setItem('bpSheetsUrl',v)}
-};
+// ═══ CLOUD SYNC (jsonblob.com) ═══
+const BLOB_URL='https://jsonblob.com/api/jsonBlob/019de7be-e760-7010-ac89-07ef48cf448e';
 
-function gsSync(date,snap){
-  if(!GS.url)return;
-  fetch(GS.url,{method:'POST',body:JSON.stringify({date,...snap}),headers:{'Content-Type':'text/plain'}})
-    .then(r=>r.json()).then(j=>{if(!j.ok)console.warn('BabyBloom Sheets sync failed:',j.error)})
-    .catch(e=>console.warn('BabyBloom Sheets offline:',e));
+async function gsSync(date,snap){
+  try{
+    const r=await fetch(BLOB_URL);
+    const j=await r.json();
+    const days=j.days||{};
+    days[date]={...snap};
+    await fetch(BLOB_URL,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({days})});
+  }catch(e){console.warn('BabyBloom sync failed:',e);}
 }
 
 async function gsLoad(){
-  if(!GS.url)return;
   try{
-    const r=await fetch(GS.url+'?t='+Date.now());
+    const r=await fetch(BLOB_URL+'?t='+Date.now());
     const j=await r.json();
-    if(!j.ok||!j.data||!j.data.length)return;
+    if(!j.days)return;
     const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
     const todayIso=new Date().toISOString().slice(0,10);
-    j.data.forEach(row=>{
-      if(row.date===todayIso)return; // never overwrite today with stale Sheets data
-      if(!hist[row.date]){
-        hist[row.date]={
-          nausea:row.nausea||'None',
-          appetite:row.appetite||'Good',
-          mood:row.mood||'Happy',
-          energy:parseInt(row.energy)||0,
-          water:parseInt(row.water)||0,
-          sleep:String(row.sleep||'8'),
-          sleepNum:parseInt(row.sleepNum)||8,
-          vomit:parseInt(row.vomit)||0,
-          ts:row.ts||''
-        };
-      }
+    Object.entries(j.days).forEach(([date,row])=>{
+      if(date===todayIso)return;
+      if(!hist[date]) hist[date]={
+        nausea:row.nausea||'None',appetite:row.appetite||'Good',mood:row.mood||'Happy',
+        energy:parseInt(row.energy)||0,water:parseInt(row.water)||0,
+        sleep:String(row.sleep||'8'),sleepNum:parseInt(row.sleepNum)||8,
+        vomit:parseInt(row.vomit)||0,ts:row.ts||''
+      };
     });
     localStorage.setItem('bpSymHist',JSON.stringify(hist));
-  }catch(e){console.warn('BabyBloom Sheets load failed:',e);}
+  }catch(e){console.warn('BabyBloom load failed:',e);}
 }
 
-function gsSetUrl(){
-  const url=(prompt('Paste your Google Apps Script Web App URL:')||'').trim();
-  if(!url)return;
-  if(!url.includes('script.google.com')){alert('Invalid URL — must be a script.google.com URL');return;}
-  GS.url=url;
-  gsUpdateBtn();
-  gsLoad().then(()=>{_renderMotherCharts();alert('Connected! Historical data loaded into charts ✓');});
-}
+function gsSetUrl(){} // no-op — URL is pre-configured
 function gsUpdateBtn(){
   const btn=document.getElementById('gsBtnLabel');
   if(!btn)return;
-  btn.textContent=GS.url?'✅ Sheets connected (tap to change)':'Connect Google Sheets';
-  btn.style.borderColor=GS.url?'var(--s)':'var(--bd)';
+  btn.textContent='✅ Cloud sync active';
+  btn.style.borderColor='var(--s)';
 }
 // ═══ END GOOGLE SHEETS SYNC ═══
 function renderAll(){renderShop();renderJ();renderL();renderNames();updateStreaks();loadVomit();loadRoutine();initMood()}
