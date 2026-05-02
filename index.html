@@ -1616,7 +1616,13 @@ async function gsLoad(){
   }catch(e){console.warn('BabyBloom load failed:',e);}
 }
 
-function gsSetUrl(){} // no-op
+function gsSetUrl(){
+  const t=prompt(GH.token?'GitHub token (leave blank to disconnect):':'Paste GitHub token to enable cloud sync:','');
+  if(t===null)return;
+  GH.token=t.trim();
+  gsUpdateBtn();
+  if(GH.token)gsLoad();
+}
 function gsUpdateBtn(){
   const btn=document.getElementById('gsBtnLabel');
   if(!btn)return;
