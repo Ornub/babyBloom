@@ -1582,9 +1582,9 @@ const GH={
 async function gsSync(date,snap){
   if(!GH.token)return;
   try{
-    const r=await fetch(GIST_RAW+'?t='+Date.now());
-    const j=await r.json();
-    const days=j.days||{};
+    const r=await fetch(GIST_API,{headers:{'Authorization':'token '+GH.token}});
+    const g=await r.json();
+    const days=JSON.parse(g.files?.['babybloom.json']?.content||'{"days":{}}').days||{};
     days[date]={...snap};
     await fetch(GIST_API,{
       method:'PATCH',
@@ -1596,8 +1596,10 @@ async function gsSync(date,snap){
 
 async function gsLoad(){
   try{
-    const r=await fetch(GIST_RAW+'?t='+Date.now());
-    const j=await r.json();
+    const headers=GH.token?{'Authorization':'token '+GH.token}:{};
+    const r=await fetch(GIST_API,{headers});
+    const g=await r.json();
+    const j=JSON.parse(g.files?.['babybloom.json']?.content||'{}');
     if(!j.days)return;
     const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
     const todayIso=new Date().toISOString().slice(0,10);
