@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
@@ -1197,6 +1197,10 @@ body.bad-day .hide-bd{display:none!important}
   <div id="c-doc" class="panel">
     <div class="emg">
       <h4>🚨 Emergency Quick Card</h4>
+      <div class="emg-row" style="align-items:center">
+        <span class="lbl">📊 Sheets Sync</span>
+        <button onclick="gsSetUrl()" style="flex:1;padding:7px 12px;border-radius:10px;border:1.5px solid var(--bd);background:var(--bg2);color:var(--t);font-size:.8rem;cursor:pointer;text-align:left" id="gsBtnLabel">Connect Google Sheets</button>
+      </div>
       <div class="emg-row"><span class="lbl">Blood Group</span><input id="emgBlood" placeholder="Enter" onchange="saveEmg()"></div>
       <div class="emg-row"><span class="lbl">Doctor</span><input id="emgDoc" placeholder="Dr. Ankita Mandal" value="Dr. Ankita Mandal" onchange="saveEmg()"></div>
       <div class="emg-row"><span class="lbl">Doctor Phone</span><input id="emgDocPh" type="tel" placeholder="8902135575" value="8902135575" onchange="saveEmg()"></div>
@@ -1565,6 +1569,63 @@ function toggleTheme(){const h=document.documentElement;const dark=h.getAttribut
 let S={week:12,symptoms:{},streaks:{water:0,journal:0,yoga:0},journal:[],letters:[],shop:[{item:'Maternity Dress',done:false,id:1},{item:'Comfortable Nighty',done:false,id:2},{item:'Chocolates 🍫',done:false,id:3}],vomit:0,customNames:[]};
 function load(){try{const s=localStorage.getItem('bp8');if(s)S={...S,...JSON.parse(s)}}catch(e){}renderAll()}
 function save(){try{localStorage.setItem('bp8',JSON.stringify(S))}catch(e){}}
+
+// ═══ GOOGLE SHEETS SYNC ═══
+const GS={
+  get url(){return localStorage.getItem('bpSheetsUrl')||''},
+  set url(v){localStorage.setItem('bpSheetsUrl',v)}
+};
+
+function gsSync(date,snap){
+  if(!GS.url)return;
+  fetch(GS.url,{method:'POST',body:JSON.stringify({date,...snap}),headers:{'Content-Type':'text/plain'}})
+    .then(r=>r.json()).then(j=>{if(!j.ok)console.warn('BabyBloom Sheets sync failed:',j.error)})
+    .catch(e=>console.warn('BabyBloom Sheets offline:',e));
+}
+
+async function gsLoad(){
+  if(!GS.url)return;
+  try{
+    const r=await fetch(GS.url+'?t='+Date.now());
+    const j=await r.json();
+    if(!j.ok||!j.data||!j.data.length)return;
+    const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
+    const todayIso=new Date().toISOString().slice(0,10);
+    j.data.forEach(row=>{
+      if(row.date===todayIso)return; // never overwrite today with stale Sheets data
+      if(!hist[row.date]){
+        hist[row.date]={
+          nausea:row.nausea||'None',
+          appetite:row.appetite||'Good',
+          mood:row.mood||'Happy',
+          energy:parseInt(row.energy)||0,
+          water:parseInt(row.water)||0,
+          sleep:String(row.sleep||'8'),
+          sleepNum:parseInt(row.sleepNum)||8,
+          vomit:parseInt(row.vomit)||0,
+          ts:row.ts||''
+        };
+      }
+    });
+    localStorage.setItem('bpSymHist',JSON.stringify(hist));
+  }catch(e){console.warn('BabyBloom Sheets load failed:',e);}
+}
+
+function gsSetUrl(){
+  const url=(prompt('Paste your Google Apps Script Web App URL:')||'').trim();
+  if(!url)return;
+  if(!url.includes('script.google.com')){alert('Invalid URL — must be a script.google.com URL');return;}
+  GS.url=url;
+  gsUpdateBtn();
+  gsLoad().then(()=>{_renderMotherCharts();alert('Connected! Historical data loaded into charts ✓');});
+}
+function gsUpdateBtn(){
+  const btn=document.getElementById('gsBtnLabel');
+  if(!btn)return;
+  btn.textContent=GS.url?'✅ Sheets connected (tap to change)':'Connect Google Sheets';
+  btn.style.borderColor=GS.url?'var(--s)':'var(--bd)';
+}
+// ═══ END GOOGLE SHEETS SYNC ═══
 function renderAll(){renderShop();renderJ();renderL();renderNames();updateStreaks();loadVomit();loadRoutine();initMood()}
 
 // ═══ NAV ═══
@@ -1765,6 +1826,7 @@ function saveSymptomHistory(){
     ts:new Date().toISOString()
   };
   localStorage.setItem('bpSymHist',JSON.stringify(hist));
+  gsSync(today,hist[today]); // ← Sheets sync
   if(document.getElementById('symCalWrap')&&document.getElementById('symCalWrap').classList.contains('on')){renderSymCal();}
   renderMotherCharts();
 }
@@ -2422,6 +2484,10 @@ function mhTab(btn,id){document.querySelectorAll('.mh-tab').forEach(t=>t.classLi
 function motherTab(btn,id){const wrap=btn.closest('.page');if(wrap){wrap.querySelectorAll('[id^="mt-"].panel').forEach(p=>p.classList.remove('on'));const tgt=document.getElementById(id);if(tgt)tgt.classList.add('on')}const tbsP=btn.parentElement;tbsP.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));btn.classList.add('on');// refresh Mother Health Report when switching to Mother panel
 if(id==='mt-mother')renderMotherCharts();}
 function renderMotherCharts(){
+  // Load Sheets data first (fills missing past days), then render
+  gsLoad().then(()=>{_renderMotherCharts();});
+}
+function _renderMotherCharts(){
   // Primary source: bpSymHist (saved by analyzeSymptoms → saveSymptomHistory)
   const hist=JSON.parse(localStorage.getItem('bpSymHist')||'{}');
   const days=[];
@@ -2585,7 +2651,7 @@ function updatePapa(){const d=new Date().getDay();const el=document.getElementBy
   splash.addEventListener('click', unlock);
 })();
 
-document.addEventListener('DOMContentLoaded',()=>{load();loadEmg();updateSingleAction();updatePapa();buildUltraStrip();loadMeds();saveMedHistory();calcAndShowWeek();renderMotherCharts();setTimeout(()=>{initUsMessages();},100)});
+document.addEventListener('DOMContentLoaded',()=>{load();loadEmg();updateSingleAction();updatePapa();buildUltraStrip();loadMeds();saveMedHistory();calcAndShowWeek();renderMotherCharts();gsUpdateBtn();setTimeout(()=>{initUsMessages();},100)});
 </script>
 <script>
 if('serviceWorker' in navigator){
@@ -2607,3 +2673,4 @@ if('serviceWorker' in navigator){
 </script>
 </body>
 </html>
+
